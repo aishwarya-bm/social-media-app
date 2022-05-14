@@ -7,19 +7,11 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  FormControlLabel,
-  IconButton,
-  Input,
-  InputLabel,
-  Modal,
   TextField,
   Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import "./editProfileForm.css";
-import { Label } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+
 export function EditProfileForm({ open, handleCloseModal }) {
   const handleSubmit = event => {
     event.preventDefault();
