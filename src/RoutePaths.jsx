@@ -7,6 +7,7 @@ export function RoutePaths(){
         <Routes>
           {/* <Route path="/" element={<Home />}></Route> */}
           <Route path="/" element={<Explore />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
           <Route path="/profile/:userId" element={<Profile />}></Route>
           <Route path="/post/:postId" element={<Post />}></Route>
           <Route path="/bookmarks" element={<Bookmarks />}></Route>
