@@ -1,3 +1,5 @@
 export { Header } from "./header/Header";
 export { Leftnav } from "./leftnav/Leftnav";
-export { Rightnav } from "./rightnav/Rightnav";
+export { Suggestions } from "./suggestions/Suggestions";
+export { NewsFeed } from "./newsfeed/NewsFeed";
+export { RequiresAuth } from "./requiresAuth/RequiresAuth";
