@@ -1,16 +1,16 @@
 .explore-body{
     padding: 1rem;
-    margin-top:5rem;
+    margin-top:3rem;
     margin-bottom:4rem
 }
 .floating-addpost{
     bottom: 1rem;
-    left:4.5rem;
+    left:3.5rem;
 }
 .explore-body .MuiGrid-root .explore-newsfeed{
     width: 50vw;
-    margin: .5rem auto 1rem 14rem;
-    padding: 1rem;
+    margin: 0rem auto 1rem 14rem;
+    padding: 0 1rem 1rem 1rem;
 }
 @media screen and (min-width:901px) and (max-width:1200px) {
     .explore-body .MuiGrid-root .explore-newsfeed{
@@ -21,12 +21,12 @@
 @media screen and (min-width:601px) and (max-width:900px) {
     .explore-body .MuiGrid-root .explore-newsfeed{
         width: 70vw;
-        margin-left: 9rem;
+        margin-left: 7rem;
     }
 }
 @media screen and (max-width:600px) {
      .explore-body .MuiGrid-root .explore-newsfeed{
         width: 100vw;
-        margin: 1rem;
+        margin: 0;
     }
 }

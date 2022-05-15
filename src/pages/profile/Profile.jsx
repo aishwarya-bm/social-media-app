@@ -1,4 +1,4 @@
-import { Avatar, Box, Grid, Tab, Tabs } from "@mui/material";
+import { Avatar, Box, Container, Grid, Tab, Tabs } from "@mui/material";
 import { UserDetails } from "components/userDetails/UserDetails";
 import {useState} from "react";
 import "./profile.css"
@@ -11,9 +11,9 @@ export function Profile() {
   };
   return (
     <>
-      <Box className="profile-container">
-        <Box sx={{ gap: 1, display: "grid" }} spacing={1}>
-          <Grid item xs={12} sm={8} md={8} className="profile-header">
+      <div className="profile-container">
+        <Box sx={{ rowGap: 1, display: "flex", flexDirection:"column" }}>
+          <Grid item  className="profile-header">
             <img
               className="profile-cover"
               src="https://picsum.photos/200/300"
@@ -40,7 +40,7 @@ export function Profile() {
             <Tab value="archives" label="Archives"></Tab>
           </Tabs>
         </Box>
-      </Box>
+      </div>
     </>
   );
 }

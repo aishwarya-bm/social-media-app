@@ -1,6 +1,6 @@
 import "./leftnav.css";
 import { ThemeProvider } from "@mui/material/styles";
-import { Button, Box, Grid, TextField, Typography } from "@mui/material";
+import { Button, Box, Grid, Typography } from "@mui/material";
 import { theme } from "App";
 import { NavLink } from "react-router-dom";
 import {
@@ -30,7 +30,7 @@ export function Leftnav() {
     <ThemeProvider theme={theme}>
       <Grid
         position="fixed"
-        left="2rem"
+        left="3rem"
         item
         sx={{
           flexDirection: "column",
@@ -46,7 +46,7 @@ export function Leftnav() {
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: { xs: "none", sm: "none", md: "inherit" } }}
+                sx={{ display: { sm: "none", md: "inherit" } }}
               >
                 Home
               </Typography>
@@ -59,7 +59,7 @@ export function Leftnav() {
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: { xs: "none", sm: "none", md: "inherit" } }}
+                sx={{ display: {sm: "none", md: "inherit" } }}
               >
                 Notifications
               </Typography>
@@ -72,7 +72,7 @@ export function Leftnav() {
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: { xs: "none", sm: "none", md: "inherit" } }}
+                sx={{ display: {  sm: "none", md: "inherit" } }}
               >
                 Messages
               </Typography>
@@ -85,7 +85,7 @@ export function Leftnav() {
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: { xs: "none", sm: "none", md: "inherit" } }}
+                sx={{ display: {  sm: "none", md: "inherit" } }}
               >
                 Bookmarks
               </Typography>
@@ -98,7 +98,7 @@ export function Leftnav() {
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: { xs: "none", sm: "none", md: "inherit" } }}
+                sx={{ display: {  sm: "none", md: "inherit" } }}
               >
                 Profile
               </Typography>
@@ -116,7 +116,7 @@ export function Leftnav() {
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: { xs: "none", sm: "none", md: "inherit" } }}
+                sx={{ display: { sm: "none", md: "inherit" } }}
               >
                 Post
               </Typography>
