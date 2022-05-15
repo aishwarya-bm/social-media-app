@@ -5,11 +5,28 @@
 }
 .floating-addpost{
     bottom: 1rem;
-    right:1rem;
+    left:4.5rem;
 }
-@media screen and (min-width:600px) and (max-width:900px) {
-    
+.explore-body .MuiGrid-root .explore-newsfeed{
+    width: 50vw;
+    margin: .5rem auto 1rem 14rem;
+    padding: 1rem;
+}
+@media screen and (min-width:901px) and (max-width:1200px) {
+    .explore-body .MuiGrid-root .explore-newsfeed{
+        width: 60vw;
+        margin-left:  15rem;       
+    }
+}
+@media screen and (min-width:601px) and (max-width:900px) {
+    .explore-body .MuiGrid-root .explore-newsfeed{
+        width: 70vw;
+        margin-left: 9rem;
+    }
 }
 @media screen and (max-width:600px) {
-     
+     .explore-body .MuiGrid-root .explore-newsfeed{
+        width: 100vw;
+        margin: 1rem;
+    }
 }

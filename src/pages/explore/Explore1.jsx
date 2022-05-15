@@ -1,12 +1,24 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
-import { BottomNavigation, BottomNavigationAction, Box, Button, Fab, Grid, Paper } from "@mui/material";
-import "./explore.css"
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  Button,
+  Fab,
+  Grid,
+  Paper,
+} from "@mui/material";
+import "./explore.css";
 import { Leftnav, NewsFeed, Rightnav, Suggestions } from "components";
 import AddIcon from "@mui/icons-material/Add";
-import { ArchiveOutlined, FavoriteOutlined, Restore } from "@mui/icons-material";
+import {
+  ArchiveOutlined,
+  FavoriteOutlined,
+  Restore,
+} from "@mui/icons-material";
 import { useState } from "react";
-
+import { display } from "@mui/system";
 
 export function Explore() {
   const [value, setValue] = useState(0);
@@ -14,16 +26,16 @@ export function Explore() {
     <>
       <ThemeProvider theme={theme}>
         <Box sx={{ flexGrow: 1 }} className="explore-body">
-          <Grid container spacing={3}>
+          <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
             <Leftnav />
-            <Grid item className="explore-newsfeed">
+            <Grid item xs={12} sm={5} md={7}>
               <NewsFeed />
             </Grid>
             <Grid
               item
-              position="fixed"
-              right="2rem"
-              sx={{ display: { xs: "none", sm: "none", md: "none",lg:"grid" } }}
+              sm={3}
+              md={3}
+              sx={{ display: { xs: "none", sm: "grid" } }}
             >
               <Suggestions />
             </Grid>
@@ -35,7 +47,7 @@ export function Explore() {
             className="floating-addpost"
             sx={{
               position: "fixed",
-              display: {xs:"none", sm: "inherit", md: "none" },
+              display: { sm: "inline-flex", md: "none" },
             }}
           >
             <AddIcon />
@@ -46,7 +58,7 @@ export function Explore() {
               bottom: 0,
               left: 0,
               right: 0,
-              display: { xs: "inherit", sm: "none",md:"none" },
+              display: { xs: "inherit", sm: "none" },
             }}
             elevation={3}
           >
@@ -66,8 +78,6 @@ export function Explore() {
                 label="Archive"
                 icon={<ArchiveOutlined />}
               />
-              <BottomNavigationAction label="Recents" icon={<Restore />} />
-              <BottomNavigationAction label="Recents" icon={<Restore />} />
             </BottomNavigation>
           </Paper>
         </Box>

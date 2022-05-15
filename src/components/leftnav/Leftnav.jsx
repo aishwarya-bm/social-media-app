@@ -29,22 +29,17 @@ export function Leftnav() {
   return (
     <ThemeProvider theme={theme}>
       <Grid
-        sm={6}
-        md={1.5}
+        position="fixed"
+        left="2rem"
         item
         sx={{
           flexDirection: "column",
-          marginRight: "2rem",
+          margin: "0 1rem",
           gap: "1rem",
-          // display: { xs: "none", sm: "none", md: "flex" },
+          display: { xs: "none", sm: "flex", md: "flex" },
         }}
       >
-        {/* <Button variant="contained">+ Post</Button>
-        <Button variant="outlined" color="secondary"> */}
-        {/* Saved
-        </Button> */}
-
-        <Box component={"div"} sx={{ display: { xs: "none", sm:"inline" } }}>
+        <Box component={"div"} sx={{ display: { xs: "none", sm: "inline" } }}>
           <NavLink to="/" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Home size={25} /> &nbsp;
@@ -73,7 +68,7 @@ export function Leftnav() {
 
           <NavLink to="/notifications" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Message size={25} /> &nbsp;{" "}
+              <Message size={25} /> &nbsp;
               <Typography
                 variant="string"
                 component="span"
@@ -86,7 +81,7 @@ export function Leftnav() {
 
           <NavLink to="/bookmarks" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Bookmark size={25} /> &nbsp;{" "}
+              <Bookmark size={25} /> &nbsp;
               <Typography
                 variant="string"
                 component="span"
@@ -99,7 +94,7 @@ export function Leftnav() {
 
           <NavLink to="/profile" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <AccountCircle size={25} /> &nbsp;{" "}
+              <AccountCircle size={25} /> &nbsp;
               <Typography
                 variant="string"
                 component="span"
@@ -111,11 +106,18 @@ export function Leftnav() {
           </NavLink>
           <Button
             variant="contained"
-            sx={{ mt: 2, display: { xs: "none", sm: "none", md: "inherit" } }}
+            sx={{
+              mt: 2,
+              display: { xs: "none", sm: "none", md: "inherit" },
+            }}
           >
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Add />
-              <Typography variant="string" component="span">
+              <Typography
+                variant="string"
+                component="span"
+                sx={{ display: { xs: "none", sm: "none", md: "inherit" } }}
+              >
                 Post
               </Typography>
             </Box>

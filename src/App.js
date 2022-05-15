@@ -13,6 +13,15 @@ export const theme = createTheme({
     secondary: {
       main: "#6068e2",
     },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 450,
+        md: 640,
+        lg: 900,
+        xl: 1200,
+      },
+    },
   },
 });
 
