@@ -7,7 +7,7 @@ export function Suggestions() {
         item
         position="fixed"
         right="2rem"
-        mt="1.5rem"
+        mt="2rem"
         sx={{
           display: { xs: "none", sm: "none", md: "none", lg: "grid" },
         }}

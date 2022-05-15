@@ -16,14 +16,16 @@ export function Leftnav() {
   const getActiveStyle = ({ isActive }) =>
     isActive
       ? {
-          color: theme.palette.secondary.main,
+          color: theme.palette.primary.main,
           fontWeight: "600",
           padding: ".5rem",
+          fontSize: "1.25rem",
         }
       : {
-          color: "black",
+          color: theme.palette.iconColor,
           fontWeight: "400",
           padding: "0 .5rem",
+          // fontSize: "1.25rem",
         };
 
   return (
@@ -31,6 +33,7 @@ export function Leftnav() {
       <Grid
         position="fixed"
         left="3rem"
+        paddingTop="1rem"
         item
         sx={{
           flexDirection: "column",
@@ -42,7 +45,7 @@ export function Leftnav() {
         <Box component={"div"} sx={{ display: { xs: "none", sm: "inline" } }}>
           <NavLink to="/" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Home size={25} /> &nbsp;
+              <Home fontSize="medium" /> &nbsp;
               <Typography
                 variant="string"
                 component="span"
@@ -55,11 +58,11 @@ export function Leftnav() {
 
           <NavLink to="/notifications" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Notifications size={25} /> &nbsp;
+              <Notifications fontSize="medium" /> &nbsp;
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: {sm: "none", md: "inherit" } }}
+                sx={{ display: { sm: "none", md: "inherit" } }}
               >
                 Notifications
               </Typography>
@@ -68,11 +71,11 @@ export function Leftnav() {
 
           <NavLink to="/notifications" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Message size={25} /> &nbsp;
+              <Message fontSize="medium" /> &nbsp;
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: {  sm: "none", md: "inherit" } }}
+                sx={{ display: { sm: "none", md: "inherit" } }}
               >
                 Messages
               </Typography>
@@ -81,11 +84,11 @@ export function Leftnav() {
 
           <NavLink to="/bookmarks" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Bookmark size={25} /> &nbsp;
+              <Bookmark fontSize="medium" /> &nbsp;
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: {  sm: "none", md: "inherit" } }}
+                sx={{ display: { sm: "none", md: "inherit" } }}
               >
                 Bookmarks
               </Typography>
@@ -94,11 +97,11 @@ export function Leftnav() {
 
           <NavLink to="/profile" style={getActiveStyle}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <AccountCircle size={25} /> &nbsp;
+              <AccountCircle fontSize="medium" /> &nbsp;
               <Typography
                 variant="string"
                 component="span"
-                sx={{ display: {  sm: "none", md: "inherit" } }}
+                sx={{ display: { sm: "none", md: "inherit" } }}
               >
                 Profile
               </Typography>

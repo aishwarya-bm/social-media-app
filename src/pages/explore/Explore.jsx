@@ -12,10 +12,10 @@ export function Explore() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ flexGrow: 1 }} className="explore-body">
+        <Box sx={{ flexGrow: 1 }} className="explore-container">
           <Grid container>
             <Leftnav />
-            <Grid item className="explore-newsfeed">
+            <Grid item className="explore-body">
               {/* <NewsFeed /> */}
               <Profile />
             </Grid>          
@@ -28,7 +28,7 @@ export function Explore() {
             className="floating-addpost"
             sx={{
               position: "fixed",
-              display: { xs: "none", sm: "inherit", md: "none" },
+              display: { xs: "none", sm: "inline-flex", md: "none" },
             }}
           >
             <AddIcon />

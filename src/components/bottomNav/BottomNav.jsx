@@ -1,7 +1,13 @@
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import {
+    AccountBoxOutlined,
+  AccountCircle,
+  Add,
   ArchiveOutlined,
+  Bookmark,
   FavoriteOutlined,
+  Home,
+  Message,
   Restore,
 } from "@mui/icons-material";
 import { useState } from "react";
@@ -26,14 +32,14 @@ const [value, setValue] = useState(0);
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction label="Recents" icon={<Restore />} />
+          <BottomNavigationAction label="Home" icon={<Home />} />
           <BottomNavigationAction
-            label="Favorites"
-            icon={<FavoriteOutlined />}
+            label="Post"
+            icon={<Add />}
           />
           <BottomNavigationAction label="Archive" icon={<ArchiveOutlined />} />
-          <BottomNavigationAction label="Recents" icon={<Restore />} />
-          <BottomNavigationAction label="Recents" icon={<Restore />} />
+          <BottomNavigationAction label="Saved" icon={<Bookmark />} />
+          <BottomNavigationAction label="Profile" icon={<AccountCircle />} />
         </BottomNavigation>
       </Paper>
     </>

@@ -22,6 +22,7 @@ export const theme = createTheme({
         xl: 1200,
       },
     },
+    iconColor: "#666666",
   },
 });
 
