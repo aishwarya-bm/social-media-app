@@ -13,6 +13,8 @@ export function RoutePaths(){
           <Route path="/bookmarks" element={<Bookmarks />}></Route>
           <Route path="/" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/messages" element={<Signup />}></Route>
+          <Route path="/notifications" element={<Signup />}></Route>
           <Route path="*" element={<Error />}></Route>
         </Routes>
       </>
