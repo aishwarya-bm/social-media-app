@@ -1,0 +1,22 @@
+.profile-container{
+    margin: 0 10rem;
+}
+.profile-header{
+    position: relative;
+}
+.profile-cover{
+    width: 100%;
+    height: 40vh;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+.profile-image{
+    top: 90%;
+    left: 45%;
+}
+
+@media screen and (max-width:900px) {
+     .profile-container{
+         margin: 0 ;
+     }
+}
