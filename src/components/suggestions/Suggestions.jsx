@@ -1,12 +1,11 @@
-import { Avatar, Box, Button, Card, Container, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, Grid, Typography } from "@mui/material";
 
 export function Suggestions() {
   return (
-    <>
       <Grid 
         item
         position="fixed"
-        right="2rem"
+        right="3rem"
         mt="2rem"
         sx={{
           display: { xs: "none", sm: "none", md: "none", lg: "grid" },
@@ -53,6 +52,5 @@ export function Suggestions() {
             </Box>
           </Card>
       </Grid>
-    </>
   );
 }

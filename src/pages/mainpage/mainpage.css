@@ -1,0 +1,32 @@
+.main-container{
+    margin-top:3rem;
+    margin-bottom:4rem
+}
+.floating-addpost{
+    bottom: 1rem;
+    left:3.5rem;
+}
+.main-container .MuiGrid-root .main-body{
+    width: 50vw;
+    margin: 0rem auto 1rem 14rem;
+    padding: 0 1rem 1rem 1rem;
+}
+@media screen and (min-width:901px) and (max-width:1200px) {
+    .main-container .MuiGrid-root .main-body{
+        width: 60vw;
+        margin-left:  15rem;       
+    }
+}
+@media screen and (min-width:601px) and (max-width:900px) {
+    .main-container .MuiGrid-root .main-body{
+        width: 90vw;
+        margin-left: 7rem;
+    }
+}
+@media screen and (max-width:600px) {
+     .main-container .MuiGrid-root .main-body{
+        width: 100vw;
+        margin: 0;
+        padding: 0
+    }
+}

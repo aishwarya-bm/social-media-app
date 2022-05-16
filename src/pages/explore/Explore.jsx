@@ -1,41 +1,85 @@
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "App";
-import {Box, Button, Fab, Grid } from "@mui/material";
-import "./explore.css"
-import { BottomNav, Leftnav, NewsFeed, Rightnav, Suggestions } from "components";
-import AddIcon from "@mui/icons-material/Add";
-import { Profile } from "pages";
-
-
+import { Grid } from "@mui/material";
+import "./explore.css";
 export function Explore() {
-  
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Box sx={{ flexGrow: 1 }} className="explore-container">
-          <Grid container>
-            <Leftnav />
-            <Grid item className="explore-body">
-              {/* <NewsFeed /> */}
-              <Profile />
-            </Grid>          
-              <Suggestions />
-          </Grid>
-          <Fab
-            color="primary"
-            size="small"
-            aria-label="add"
-            className="floating-addpost"
-            sx={{
-              position: "fixed",
-              display: { xs: "none", sm: "inline-flex", md: "none" },
-            }}
-          >
-            <AddIcon />
-          </Fab>
-          <BottomNav/>
-        </Box>
-      </ThemeProvider>
+      <Grid container spacing={2} padding="2rem">
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+        <Grid item zeroMinWidth>
+          Truncation should be conditionally applicable on this long line of
+          text as this is a much longer line than what the container can
+          support.
+        </Grid>
+      </Grid>
     </>
   );
 }

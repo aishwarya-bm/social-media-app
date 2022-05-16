@@ -1,7 +1,6 @@
 import { RoutePaths } from "RoutePaths";
 import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Header } from "components";
 
 export const theme = createTheme({
   palette: {
@@ -29,7 +28,6 @@ export const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
       <RoutePaths />
     </ThemeProvider>
   );
