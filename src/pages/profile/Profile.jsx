@@ -17,7 +17,7 @@ export function Profile() {
             <img
               className="profile-cover"
               src="https://picsum.photos/200/300"
-            ></img>
+            />
             <Avatar
               className="profile-image"
               alt="Remy Sharp"

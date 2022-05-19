@@ -2,6 +2,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
 import {
   BottomNav,
+  CreatePostModal,
   Header,
   Leftnav,
   Suggestions,
@@ -9,8 +10,24 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Fab, Grid } from "@mui/material";
 import "./mainpage.css"
+import { useState } from "react";
 
 export function MainPage(props){
+  const [open, setOpen] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [showEmoji, setShowEmoji] = useState(false);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
     return (
       <>
         <ThemeProvider theme={theme}>
@@ -28,6 +45,7 @@ export function MainPage(props){
               size="small"
               aria-label="add"
               className="floating-addpost"
+              onClick={handleClickOpen}
               sx={{
                 position: "fixed",
                 display: { xs: "none", sm: "inline-flex", md: "none" },
@@ -35,6 +53,13 @@ export function MainPage(props){
             >
               <AddIcon />
             </Fab>
+            <CreatePostModal
+              showEmoji={showEmoji}
+              open={open}
+              handleClose={handleClose}
+              setShowEmoji={setShowEmoji}
+              onEmojiClick={onEmojiClick}
+            />
             <BottomNav />
           </Box>
         </ThemeProvider>

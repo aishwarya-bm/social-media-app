@@ -1,6 +1,6 @@
 import "./leftnav.css";
 import { ThemeProvider } from "@mui/material/styles";
-import { Button, Box, Grid, Typography } from "@mui/material";
+import { Button, Box, Grid, Typography} from "@mui/material";
 import { theme } from "App";
 import { NavLink } from "react-router-dom";
 import {
@@ -11,22 +11,40 @@ import {
   Message,
   Notifications,
 } from "@mui/icons-material";
+import React, { useState } from "react";
+import { CreatePostModal } from "components";
+import { sidenavItems } from "constants/sidenav";
 
 export function Leftnav() {
-  const getActiveStyle = ({ isActive }) =>
-    isActive
-      ? {
-          color: theme.palette.primary.main,
-          fontWeight: "600",
-          padding: ".5rem",
-          fontSize: "1.25rem",
-        }
-      : {
-          color: theme.palette.iconColor,
-          fontWeight: "400",
-          padding: "0 .5rem",
-          // fontSize: "1.25rem",
-        };
+    const [open, setOpen] = useState(false);
+    const [chosenEmoji, setChosenEmoji] = useState(null);
+    const [showEmoji, setShowEmoji] = useState(false);
+
+    const onEmojiClick = (event, emojiObject) => {
+      setChosenEmoji(emojiObject);
+    };
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const getActiveStyle = ({ isActive }) =>
+      isActive
+        ? {
+            color: theme.palette.primary.main,
+            fontWeight: "600",
+            padding: ".5rem",
+            fontSize: "1.2rem",
+          }
+        : {
+            color: theme.palette.iconColor,
+            fontWeight: "400",
+            padding: "0 .5rem",
+          };
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,72 +61,32 @@ export function Leftnav() {
         }}
       >
         <Box component={"div"} sx={{ display: { xs: "none", sm: "inline" } }}>
-          <NavLink to="/" style={getActiveStyle}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Home fontSize="medium" /> &nbsp;
-              <Typography
-                variant="string"
-                component="span"
-                sx={{ display: { sm: "none", md: "inherit" } }}
-              >
-                Home
-              </Typography>
-            </Box>
-          </NavLink>
+          {sidenavItems.map(({ id, nav_icon, title, nextUrl }) => {
+            return (
+              <>
+                <NavLink
+                  to={nextUrl}
+                  style={getActiveStyle}
+                  key={"sidenav" + id}
+                >
+                  <Box sx={{ display: "flex", alignItems: "center",gap:1 }}>
+                    {nav_icon}
+                    <Typography
+                      variant="string"
+                      component="span"
+                      sx={{ display: { sm: "none", md: "inherit" } }}
+                    >
+                      {title}
+                    </Typography>
+                  </Box>
+                </NavLink>
+              </>
+            );
+          })}
 
-          <NavLink to="/notifications" style={getActiveStyle}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Notifications fontSize="medium" /> &nbsp;
-              <Typography
-                variant="string"
-                component="span"
-                sx={{ display: { sm: "none", md: "inherit" } }}
-              >
-                Notifications
-              </Typography>
-            </Box>
-          </NavLink>
-
-          <NavLink to="/notifications" style={getActiveStyle}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Message fontSize="medium" /> &nbsp;
-              <Typography
-                variant="string"
-                component="span"
-                sx={{ display: { sm: "none", md: "inherit" } }}
-              >
-                Messages
-              </Typography>
-            </Box>
-          </NavLink>
-
-          <NavLink to="/bookmarks" style={getActiveStyle}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Bookmark fontSize="medium" /> &nbsp;
-              <Typography
-                variant="string"
-                component="span"
-                sx={{ display: { sm: "none", md: "inherit" } }}
-              >
-                Bookmarks
-              </Typography>
-            </Box>
-          </NavLink>
-
-          <NavLink to="/profile" style={getActiveStyle}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <AccountCircle fontSize="medium" /> &nbsp;
-              <Typography
-                variant="string"
-                component="span"
-                sx={{ display: { sm: "none", md: "inherit" } }}
-              >
-                Profile
-              </Typography>
-            </Box>
-          </NavLink>
           <Button
             variant="contained"
+            onClick={handleClickOpen}
             sx={{
               mt: 2,
               display: { xs: "none", sm: "none", md: "inherit" },
@@ -125,6 +103,14 @@ export function Leftnav() {
               </Typography>
             </Box>
           </Button>
+
+          <CreatePostModal
+            showEmoji={showEmoji}
+            open={open}
+            handleClose={handleClose}
+            setShowEmoji={setShowEmoji}
+            onEmojiClick={onEmojiClick}
+          />
         </Box>
       </Grid>
     </ThemeProvider>

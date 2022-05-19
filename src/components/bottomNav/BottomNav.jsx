@@ -33,10 +33,6 @@ const [value, setValue] = useState(0);
           }}
         >
           <BottomNavigationAction label="Home" icon={<Home />} />
-          <BottomNavigationAction
-            label="Post"
-            icon={<Add />}
-          />
           <BottomNavigationAction label="Archive" icon={<ArchiveOutlined />} />
           <BottomNavigationAction label="Saved" icon={<Bookmark />} />
           <BottomNavigationAction label="Profile" icon={<AccountCircle />} />

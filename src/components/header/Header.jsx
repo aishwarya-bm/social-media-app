@@ -17,6 +17,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
+import { Add } from "@mui/icons-material";
+import { CreatePostModal } from "components";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,9 +63,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [open, setOpen] = React.useState(false);
+  const [chosenEmoji, setChosenEmoji] = React.useState(null);
+  const [showEmoji, setShowEmoji] = React.useState(false);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -217,9 +233,17 @@ export function Header() {
                 <AccountCircle />
               </IconButton>
             </Box>
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+
+            <Box sx={{ display: { xs: "flex", sm: "none" } }}>
               <IconButton
-                size="large"
+                size="medium"
+                color="inherit"
+                onClick={handleClickOpen}
+              >
+                <Add />
+              </IconButton>
+              <IconButton
+                size="medium"
                 aria-label="show more"
                 aria-controls={mobileMenuId}
                 aria-haspopup="true"
@@ -234,6 +258,13 @@ export function Header() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
+      <CreatePostModal
+        showEmoji={showEmoji}
+        open={open}
+        handleClose={handleClose}
+        setShowEmoji={setShowEmoji}
+        onEmojiClick={onEmojiClick}
+      />
     </ThemeProvider>
   );
 }

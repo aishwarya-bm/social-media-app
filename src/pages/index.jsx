@@ -4,7 +4,5 @@ export { Explore } from "./explore/Explore";
 export { Home } from "./home/Home";
 export { Login } from "./login/Login";
 export { MainPage } from "./mainpage/MainPage";
-export { Post } from "./post/Post";
-export { Postlist } from "./postlist/PostList";
 export { Profile } from "./profile/Profile";
 export { Signup } from "./login/Signup";

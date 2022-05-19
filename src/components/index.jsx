@@ -1,6 +1,11 @@
+export { AddComment } from "./addcomment/AddComment";
 export { BottomNav } from "./bottomNav/BottomNav";
+export { CommentCard } from "./commentcard/CommentCard";
+export { CommentList } from "components/commentlist/CommentList";
+export { CreatePostModal } from "./createPostModal/CreatePostModal";
 export { EditProfileForm } from "./editProfileForm/EditProfileForm";
 export { Header } from "./header/Header";
 export { Leftnav } from "./leftnav/Leftnav";
+export { Postlist } from "./postlist/PostList";
 export { RequiresAuth } from "./requiresAuth/RequiresAuth";
 export { Suggestions } from "./suggestions/Suggestions";
