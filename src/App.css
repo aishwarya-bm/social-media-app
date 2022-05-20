@@ -1,3 +1,16 @@
+:root{
+    --grey-bg: #F0F2F5;
+    --primary-color:#FD6297;
+}
+
 a{
     text-decoration: none;
+}
+
+input[type="text"]{
+    padding: 0.5rem;
+}
+
+.modal-create-post .MuiPaper-root{
+     width: 50vw;
 }

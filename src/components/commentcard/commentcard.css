@@ -1,0 +1,15 @@
+.comment-input fieldset{
+    border:0;
+}
+
+.comments-section::-webkit-scrollbar {
+    width: 0.3rem;
+}
+
+.comments-section::-webkit-scrollbar-track {
+    background: var(--grey-bg);
+}
+
+.comments-section::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+}
