@@ -13,7 +13,7 @@ export function UserDetails() {
     <>
       <Box
         variant={"section"}
-        className="profile-details"
+        className="profile-details" marginTop="12px"
         sx={{ display: "flex", flexDirection: "column", gap: 1 }}
       >
         <Box

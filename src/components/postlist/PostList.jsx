@@ -57,7 +57,7 @@ export function Postlist() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ display: "grid", gap: 1 }} paddingTop="2rem" rowGap="1rem">
+        <Box sx={{ display: "grid", gap: 3 }} paddingTop="2rem" rowGap="1rem">
           {
               posts.map(p=><Postcard post={p} />)
           }
