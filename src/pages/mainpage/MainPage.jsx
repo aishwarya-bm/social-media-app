@@ -11,8 +11,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { Box, Fab, Grid } from "@mui/material";
 import "./mainpage.css"
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
-export function MainPage(props){
+export function MainPage(){
   const [open, setOpen] = useState(false);
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [showEmoji, setShowEmoji] = useState(false);
@@ -36,7 +37,7 @@ export function MainPage(props){
             <Grid container>
               <Leftnav />
               <Grid item className="main-body">
-                {props.children}
+                <Outlet/>
               </Grid>
               <Suggestions />
             </Grid>

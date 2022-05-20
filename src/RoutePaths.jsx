@@ -6,46 +6,12 @@ export function RoutePaths(){
     return (
       <>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <MainPage>
-                <Explore />
-              </MainPage>
-            }
-          ></Route>
-          <Route
-            path="/explore"
-            element={
-              <MainPage>
-                <Explore />
-              </MainPage>
-            }
-          ></Route>
-          <Route
-            path="/profile"
-            element={
-              <MainPage>
-                <Profile />
-              </MainPage>
-            }
-          ></Route>
-          <Route
-            path="/profile/:userId"
-            element={
-              <MainPage>
-                <Profile />
-              </MainPage>
-            }
-          ></Route>
-          <Route
-            path="/bookmarks"
-            element={
-              <MainPage>
-                <Bookmarks />
-              </MainPage>
-            }
-          ></Route>
+          <Route element={<MainPage />}>
+            <Route path="/" element={<Explore />} />
+            <Route path="/bookmarks" element={<Bookmarks />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/messages" element={<Signup />}></Route>
           <Route path="/notifications" element={<Signup />}></Route>
