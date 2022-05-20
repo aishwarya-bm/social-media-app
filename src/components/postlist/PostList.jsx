@@ -3,6 +3,7 @@ import { theme } from "App";
 import { Box } from "@mui/system";
 import { Postcard } from "components/postcard/Postcard";
 import { Typography } from "@mui/material";
+import { FilterChips } from "components";
 
 export function Postlist() {
     const posts = [
@@ -17,7 +18,8 @@ export function Postlist() {
           {
             comment_author: "Aishwarya Biradar",
             comment_date: "September 20, 2020",
-            comment_content: "Good recipe",
+            comment_content:
+              "Good recipe",
             comment_author_avatar: "https://picsum.photos/200/300",
             comment_id: 1,
           },
@@ -58,14 +60,6 @@ export function Postlist() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Typography
-          variant="h6"
-          gutterBottom
-          component="div"
-          sx={{ marginTop: 3 }}
-        >
-          Home
-        </Typography>
         <Box sx={{ display: "grid", gap: 3 }} rowGap="1rem">
           {posts.map(p => (
             <Postcard post={p} />

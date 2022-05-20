@@ -17,7 +17,7 @@ export function CommentCard({comment}) {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              // justifyContent: "space-between",
               gap: "1rem",
               marginTop: ".5rem",
               marginRight: ".5rem",
@@ -35,7 +35,7 @@ export function CommentCard({comment}) {
                 src={comment_author_avatar}
                 sx={{ width: 32, height: 32 }}
               />
-              <Typography variant="body2">{comment_author}</Typography>
+              <Typography variant="subtitle2">{comment_author}</Typography>
             </Box>
             <Typography variant="caption">{comment_date}</Typography>
           </Box>
@@ -44,9 +44,10 @@ export function CommentCard({comment}) {
             sx={{
               backgroundColor: "var(--grey-bg)",
               padding: "8px",
-              borderRadius: 5,
+              borderRadius: 4,
               marginLeft: "2.5rem",
               marginRight: "8px",
+              width:"fit-content"
             }}
           >
             {comment_content}

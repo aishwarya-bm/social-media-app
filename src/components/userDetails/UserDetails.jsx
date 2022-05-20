@@ -1,19 +1,27 @@
-import { Button} from "@mui/material";
+import { Button,Link} from "@mui/material";
 import { Box } from "@mui/system";
-import { EditProfileForm } from "components";
+import { EditProfileForm, Followers, Following } from "components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import "./userdetails.css"
 
 export function UserDetails() {
   const [open, setOpen] = useState(false);
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
+
+  const [openFollowers, setOpenFollowers] = useState(false);
+  const handleOpenFollowersModal = () => setOpenFollowers(true);
+  const handleCloseFollowersModal = () => setOpenFollowers(false);
+
+  const [openFollowing, setOpenFollowing] = useState(false);
+  const handleOpenFollowingModal = () => setOpenFollowing(true);
+  const handleCloseFollowingModal = () => setOpenFollowing(false);
   return (
     <>
       <Box
         variant={"section"}
-        className="profile-details" marginTop="12px"
+        className="profile-details"
+        marginTop="12px"
         sx={{ display: "flex", flexDirection: "column", gap: 1 }}
       >
         <Box
@@ -53,16 +61,34 @@ export function UserDetails() {
             <Box sx={{ typography: "subtitle2" }}> 2</Box>
             <Box sx={{ typography: "body2" }}>posts</Box>
           </Box>
-          <Box sx={{ display: "flex", gap: 1 }}>
-            <Box sx={{ typography: "subtitle2" }}> 20</Box>
-            <Box sx={{ typography: "body2" }}>followers</Box>
-          </Box>
-          <Box sx={{ display: "flex", gap: 1 }}>
-            <Box sx={{ typography: "subtitle2" }}> 25</Box>
-            <Box sx={{ typography: "body2" }}>following</Box>
-          </Box>
+          <Link underline="none" color="inherit">
+            <Box
+              sx={{ display: "flex", gap: 1, cursor: "pointer" }}
+              onClick={handleOpenFollowersModal}
+            >
+              <Box sx={{ typography: "subtitle2" }}> 20</Box>
+              <Box sx={{ typography: "body2" }}>followers</Box>
+            </Box>
+          </Link>
+          <Followers
+            open={openFollowers}
+            handleClose={handleCloseFollowersModal}
+          />
+          <Link underline="none" color="inherit">
+            <Box
+              sx={{ display: "flex", gap: 1, cursor: "pointer" }}
+              onClick={handleOpenFollowingModal}
+            >
+              <Box sx={{ typography: "subtitle2" }}> 25</Box>
+              <Box sx={{ typography: "body2" }}>following</Box>
+            </Box>
+            <Following
+              open={openFollowing}
+              handleClose={handleCloseFollowingModal}
+            />
+          </Link>
         </Box>
-        <Link to="">mywebsitelink</Link>
+        <Link href="#" target="_blank" underline="none" >mywebsitelink</Link>
         <Box component={"div"} sx={{ typography: "body1" }}>
           This is my bio
         </Box>

@@ -1,56 +1,41 @@
 import { Avatar, Box, Button, Card, Grid, Typography } from "@mui/material";
+import { UserNameCard } from "components";
 
 export function Suggestions() {
+  const suggestedUsers = [
+    {
+      username: "Aishwarya Biradar",
+      avatar: "",
+    },
+    {
+      username: "Aishwarya Biradar",
+      avatar: "",
+    },
+    {
+      username: "Aishwarya Biradar",
+      avatar: "",
+    },
+  ];
   return (
-      <Grid 
-        item
-        position="fixed"
-        right="3rem"
-        mt="2rem"
-        sx={{
-          display: { xs: "none", sm: "none", md: "none", lg: "grid" },
-        }}
+    <Grid
+      item
+      position="fixed"
+      right="3rem"
+      mt="2rem"
+      sx={{
+        display: { xs: "none", sm: "none", md: "none", lg: "grid" },
+      }}
+    >
+      <Typography
+        gutterBottom
+        component="div"
+        sx={{ marginTop: 3 }}
       >
-          Suggestions
-          <Card sx={{ display: "flex", mt: 1, pr: "1rem" }}>
-            <Avatar
-              alt="Remy Sharp"
-              src="/static/images/avatar/1.jpg"
-              sx={{ m: 1 }}
-            />
-            <Box sx={{ display: "flex", alignItems: "center", ml: 1, gap: 1 }}>
-              <Typography component="div">Aishwarya Biradar</Typography>
-              <Button variant="outlined" color="error">
-                Follow
-              </Button>
-            </Box>
-          </Card>
-          <Card sx={{ display: "flex", mt: 1 }}>
-            <Avatar
-              alt="Remy Sharp"
-              src="/static/images/avatar/1.jpg"
-              sx={{ m: 1 }}
-            />
-            <Box sx={{ display: "flex", alignItems: "center", ml: 1, gap: 1 }}>
-              <Typography component="div">Aishwarya Biradar</Typography>
-              <Button variant="outlined" color="error">
-                Follow
-              </Button>
-            </Box>
-          </Card>
-          <Card sx={{ display: "flex", mt: 1 }}>
-            <Avatar
-              alt="Remy Sharp"
-              src="/static/images/avatar/1.jpg"
-              sx={{ m: 1 }}
-            />
-            <Box sx={{ display: "flex", alignItems: "center", ml: 1, gap: 1 }}>
-              <Typography component="div">Aishwarya Biradar</Typography>
-              <Button variant="outlined" color="error">
-                Follow
-              </Button>
-            </Box>
-          </Card>
-      </Grid>
+        Suggestions for you >
+      </Typography>
+      {suggestedUsers.map(follower => {
+        return <UserNameCard fellowUser={follower} isSuggestionCard={true} />;
+      })}
+    </Grid>
   );
 }
