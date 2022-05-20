@@ -2,6 +2,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
 import { Box } from "@mui/system";
 import { Postcard } from "components/postcard/Postcard";
+import { Typography } from "@mui/material";
 
 export function Postlist() {
     const posts = [
@@ -57,10 +58,18 @@ export function Postlist() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ display: "grid", gap: 3 }} paddingTop="2rem" rowGap="1rem">
-          {
-              posts.map(p=><Postcard post={p} />)
-          }
+        <Typography
+          variant="h6"
+          gutterBottom
+          component="div"
+          sx={{ marginTop: 3 }}
+        >
+          Home
+        </Typography>
+        <Box sx={{ display: "grid", gap: 3 }} rowGap="1rem">
+          {posts.map(p => (
+            <Postcard post={p} />
+          ))}
         </Box>
       </ThemeProvider>
     </>

@@ -2,6 +2,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
 import { Box } from "@mui/system";
 import { Postcard } from "components/postcard/Postcard";
+import { Typography } from "@mui/material";
 export function Bookmarks() {
     const posts = [
       {
@@ -56,7 +57,10 @@ export function Bookmarks() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ display: "grid", gap: 1 }} rowGap="1rem">
+        <Typography variant="h6" gutterBottom component="div" sx={{marginTop:3}} >
+          Bookmarks
+        </Typography>
+        <Box sx={{ display: "grid", gap: 3 }} rowGap="1rem">
           {posts.map(p => (
             <Postcard post={p} />
           ))}
