@@ -32,36 +32,22 @@ export function Followers({ open, handleClose }) {
           open={open}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
+          aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h6" gutterBottom component="div">
-                Followers
-              </Typography>
-              <IconButton
-                aria-label="filter"
-                color="secondary"
-                onClick={handleClose}
-              >
-                <Close />
-              </IconButton>
-            </Box>
+              <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <Typography variant="h6" gutterBottom component="div">
+                  Followers
+                </Typography>
+                <IconButton aria-label="filter" color="secondary" onClick={handleClose}>
+                  <Close />
+                </IconButton>
+              </Stack>
           </DialogTitle>
-
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-
-              { followers.map(follower=>{
-                  return <UserNameCard fellowUser={follower} isFollowerCard={true} />
-              }) }
-              
+              {followers.map(follower => {
+                return <UserNameCard fellowUser={follower} isFollowerCard={true} />;
+              })}
             </DialogContentText>
           </DialogContent>
         </Dialog>

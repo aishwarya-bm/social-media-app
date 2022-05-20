@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { Close } from "@mui/icons-material";
-import { Avatar, Box, Button, Card, IconButton, Modal, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, IconButton, Modal, Stack, Typography } from "@mui/material";
 import { theme } from "App";
 import {
   Dialog,
@@ -31,35 +31,22 @@ export function Following({open,handleClose}) {
           open={open}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
+          aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography variant="h6" gutterBottom component="div">
-                Followers
+                Following
               </Typography>
-              <IconButton
-                aria-label="filter"
-                color="secondary"
-                onClick={handleClose}
-              >
+              <IconButton aria-label="filter" color="secondary" onClick={handleClose}>
                 <Close />
               </IconButton>
-            </Box>
+            </Stack>
           </DialogTitle>
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               {following.map(follower => {
-                return (
-                  <UserNameCard fellowUser={follower} isFollowingCard={true} />
-                );
+                return <UserNameCard fellowUser={follower} isFollowingCard={true} />;
               })}
             </DialogContentText>
           </DialogContent>

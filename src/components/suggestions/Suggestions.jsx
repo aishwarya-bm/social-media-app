@@ -24,14 +24,9 @@ export function Suggestions() {
       mt="2rem"
       sx={{
         display: { xs: "none", sm: "none", md: "none", lg: "grid" },
-      }}
-    >
-      <Typography
-        gutterBottom
-        component="div"
-        sx={{ marginTop: 3 }}
-      >
-        Suggestions for you >
+      }}>
+      <Typography gutterBottom component="div" sx={{ marginTop: 3 }}>
+        Suggestions for you:
       </Typography>
       {suggestedUsers.map(follower => {
         return <UserNameCard fellowUser={follower} isSuggestionCard={true} />;
