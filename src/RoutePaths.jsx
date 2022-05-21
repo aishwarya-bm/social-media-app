@@ -1,5 +1,4 @@
-import { MainPage } from "pages";
-import { Bookmarks, Error, Explore, Home, Login, Profile, Signup } from "pages";
+import { Bookmarks, Error, Explore, MainPage, Profile, Signup } from "pages";
 import { Route, Routes } from "react-router-dom";
 
 export function RoutePaths(){

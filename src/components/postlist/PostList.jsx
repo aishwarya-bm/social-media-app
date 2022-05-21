@@ -2,6 +2,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
 import { Box } from "@mui/system";
 import { Postcard } from "components/postcard/Postcard";
+import { Stack, Typography } from "@mui/material";
+import { FilterChips } from "components";
 
 export function Postlist() {
     const posts = [
@@ -16,7 +18,8 @@ export function Postlist() {
           {
             comment_author: "Aishwarya Biradar",
             comment_date: "September 20, 2020",
-            comment_content: "Good recipe",
+            comment_content:
+              "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas with the mussels, if you like.",
             comment_author_avatar: "https://picsum.photos/200/300",
             comment_id: 1,
           },
@@ -57,11 +60,11 @@ export function Postlist() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ display: "grid", gap: 1 }} paddingTop="2rem" rowGap="1rem">
-          {
-              posts.map(p=><Postcard post={p} />)
-          }
-        </Box>
+          <Stack direction="column" gap={3}>
+            {posts.map(p => (
+              <Postcard post={p} />
+            ))}
+          </Stack>
       </ThemeProvider>
     </>
   );

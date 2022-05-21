@@ -1,4 +1,5 @@
 .profile-details{
-    margin-left:1rem;
-    margin-right: 1rem;
+    background: var(--grey-bg);
+    padding: 1rem;
+    border-radius: 10px;
 }
