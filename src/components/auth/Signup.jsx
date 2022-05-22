@@ -23,24 +23,18 @@ export function Signup({ setIsSignupForm }) {
       firstname: data.get("firstname"),
       lastname: data.get("lastname"),
     };
-     if( !isValidEmail(userData.email) )
-     {
-      setFormErrors({...formErrors,email:"invalid email id"});
+    if (!isValidEmail(userData.email)) {
+      setFormErrors({ ...formErrors, email: "invalid email id" });
       return;
-     }
-     else{
-       setFormErrors({...formErrors,email:""})
-     }
-      if (!isValidPassword(userData.password)) {
-        setFormErrors({
-          email:"",
-          password: "Password must be atleast 6 characters, with 1 special character & a number",
-        });
-        return;
-      } else {
-        setFormErrors({ email:"", password: "" });
-      }
-
+    }
+    if (!isValidPassword(userData.password)) {
+      setFormErrors({
+        email: "",
+        password: "Password must be atleast 6 characters, with 1 special character & a number",
+      });
+      return;
+    }
+    setFormErrors({ email: "", password: "" });
     createUser(userData, dispatch, login, navigate);
   };
 
