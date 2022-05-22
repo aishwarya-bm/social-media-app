@@ -38,7 +38,7 @@ export function Signup({ setIsSignupForm }) {
         });
         return;
       } else {
-        setFormErrors({ ...formErrors, password: "" });
+        setFormErrors({ email:"", password: "" });
       }
 
     createUser(userData, dispatch, login, navigate);
