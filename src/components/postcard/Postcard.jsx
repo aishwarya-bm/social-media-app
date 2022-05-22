@@ -11,7 +11,7 @@ export function Postcard(props){
       <>
         <ThemeProvider theme={theme}>
           <Card
-            sx={{ minWidth: "10rem", paddingBottom: ".5rem", boxShadow:4 }}
+            sx={{ minWidth: "10rem"}}
             className="post-card"
           >
             <CardHeader
