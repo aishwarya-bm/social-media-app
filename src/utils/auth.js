@@ -84,7 +84,6 @@ const loginUser = (user, dispatch, login, navigate) => {
     })
     .catch(error => {
       const errorCode = error.code;
-      console.log(errorCode);
       switch(errorCode){
         case "auth/wrong-password" : return Toast({
            message: "Invalid credentails.",
@@ -126,7 +125,6 @@ const getLoggedInUserData = async (uid,dispatch, setUserProfile) => {
   const docRef = doc(db, "user_profile", uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
     dispatch(setUserProfile(docSnap.data()))
   } else {
     console.log("No such document!");
