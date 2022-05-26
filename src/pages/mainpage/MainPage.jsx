@@ -11,7 +11,7 @@ import { getLoggedInUserData } from "utils/auth";
 import { setUserProfile } from "features/auth/authSlice";
 
 export function MainPage() {
-  const { id, isLoggedIn } = useSelector(store => store.auth);
+  const userId=localStorage.getItem("userId");
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -31,9 +31,8 @@ export function MainPage() {
   };
 
   useEffect(() => {
-    console.log("loaded user data");
-    getLoggedInUserData(id, dispatch, setUserProfile);
-  }, [isLoggedIn]);
+    getLoggedInUserData(userId, dispatch, setUserProfile);
+  }, []);
   return (
     <>
       <ThemeProvider theme={theme}>

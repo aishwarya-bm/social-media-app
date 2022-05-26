@@ -39,6 +39,7 @@ const createUser = (newUser, dispatch, login, navigate) => {
       const user = userCredential.user;
       const { accessToken, uid } = user;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userId", uid);
       dispatch(login(uid));
       createUserProfile(newUser, uid);
       navigate("/home");
@@ -87,6 +88,7 @@ const loginUser = (user, dispatch, login, navigate) => {
       const user = userCredential.user;
       const { accessToken, uid } = user;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userId",uid)
       dispatch(login(uid));
       navigate("/home");
       Toast({ message: "Login successful.", type: "success" });
@@ -118,6 +120,7 @@ const logoutUser = (dispatch, logout, navigate) => {
     .then(() => {
       dispatch(logout());
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("userId");
       navigate("/auth");
       Toast({
         message: "Logout successful.",
