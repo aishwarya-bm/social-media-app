@@ -21,8 +21,8 @@ export function UserDetails() {
   const handleCloseFollowingModal = () => setOpenFollowing(false);
 
   const { id, user } = useSelector(store => store.auth);
-  const {firstname, lastname,bio,website,followers,following} = user;
-  const dispatch = useDispatch();
+  const { firstname, lastname, bio, website, followers, following } = user;
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -41,7 +41,7 @@ export function UserDetails() {
           </Stack>
 
           {/* TODO: redirect needs to be done */}
-          <Link href={website} target="_blank" underline="none">
+          <Link href={website} component="a" target="_blank" underline="none">
             {website}
           </Link>
           <Box component={"div"} sx={{ typography: "body1" }}>
@@ -55,14 +55,14 @@ export function UserDetails() {
             </Stack>
             <Button component={Link} variant="string" onClick={handleOpenFollowersModal}>
               <Stack direction={"row"} gap={1}>
-                <Box sx={{ typography: "subtitle2" }}> {followers.length}</Box>
+                <Box sx={{ typography: "subtitle2" }}> {followers?.length}</Box>
                 <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>followers</Box>
               </Stack>
             </Button>
             <Followers open={openFollowers} handleClose={handleCloseFollowersModal} />
             <Button component={Link} variant="string" onClick={handleOpenFollowingModal}>
               <Stack direction={"row"} gap={1}>
-                <Box sx={{ typography: "subtitle2" }}> {following.length}</Box>
+                <Box sx={{ typography: "subtitle2" }}> {following?.length}</Box>
                 <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>following</Box>
               </Stack>
             </Button>
