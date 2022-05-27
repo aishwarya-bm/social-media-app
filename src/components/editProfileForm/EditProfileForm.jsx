@@ -13,10 +13,22 @@ import {
 } from "@mui/material";
 import "./editProfileForm.css";
 import { theme } from "App";
+import { updateUserProfile } from "utils/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserProfile } from "features/auth/authSlice";
 export function EditProfileForm({ open, handleCloseModal }) {
+  const { user,id } = useSelector(store => store.auth);
+  const { firstname, lastname, bio, website } = user;
+
+  const dispatch = useDispatch();
   const handleSubmit = event => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    handleCloseModal()
+    const data = new FormData(event.target.form);
+    const userData = {
+      ...user, firstname:data.get("firstname"), lastname:data.get("lastname"), bio:data.get("bio"), website:data.get("website")
+    };
+    updateUserProfile(id, userData, dispatch, setUserProfile);
   };
   return (
     <>
@@ -40,13 +52,14 @@ export function EditProfileForm({ open, handleCloseModal }) {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <Box component="form" sx={{ mt: 1 }} id="profile-edit" >
                 <TextField
                   margin="normal"
                   fullWidth
                   id="name"
-                  label="Name"
-                  name="name"
+                  label="First name"
+                  name="firstname"
+                  defaultValue={firstname}
                   autoComplete="name"
                   autoFocus
                   color="secondary"
@@ -55,10 +68,11 @@ export function EditProfileForm({ open, handleCloseModal }) {
                   margin="normal"
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="lastname"
+                  label="Last Name"
+                  name="lastname"
+                  defaultValue={lastname}
+                  autoComplete="lastname"
                   autoFocus
                   color="secondary"
                 />
@@ -69,6 +83,7 @@ export function EditProfileForm({ open, handleCloseModal }) {
                   label="Website"
                   name="website"
                   autoComplete="website"
+                  defaultValue={website}
                   autoFocus
                   color="secondary"
                 />
@@ -79,6 +94,7 @@ export function EditProfileForm({ open, handleCloseModal }) {
                   label="Bio"
                   type="bio"
                   id="bio"
+                  defaultValue={bio}
                   autoComplete="current-bio"
                   color="secondary"
                 />
@@ -86,7 +102,7 @@ export function EditProfileForm({ open, handleCloseModal }) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseModal} autoFocus variant="contained">
+            <Button form="profile-edit" type="submit" autoFocus variant="contained" onClick={e => handleSubmit(e)}>
               Update
             </Button>
             <Button onClick={handleCloseModal} variant="outlined" color="secondary">
