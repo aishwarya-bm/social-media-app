@@ -136,17 +136,6 @@ const logoutUser = (dispatch, logout, navigate) => {
     });
 };
 
-// const getUserData = async (uid, dispatch, setUserProfile) => {
-//   const db = getFirestore(app);
-//   const docRef = doc(db, "user_profile", uid);
-//   const docSnap = await getDoc(docRef);
-//   if (docSnap.exists()) {
-//     dispatch(setUserProfile(docSnap.data()));
-//   } else {
-//     console.log("No such document!");
-//   }
-// };
-
 const getUserData = createAsyncThunk("auth/getUserData", async uid => {
   const db = getFirestore(app);
   const docRef = doc(db, "user_profile", uid);

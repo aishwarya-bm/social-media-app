@@ -29,7 +29,6 @@ const authSlice = createSlice({
     },
     [getUserData.fulfilled]: (state,action) => {
       state.user = action.payload;
-      console.log("thunk",action.payload)
       state.isLoading = false;
     },
     [getUserData.rejected]: state => {

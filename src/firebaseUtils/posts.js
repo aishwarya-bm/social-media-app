@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "components/toast/Toast";
 import { addDoc, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { db } from "firebaseConfig";
@@ -5,7 +6,7 @@ import { db } from "firebaseConfig";
 const createPost = async (post, setPostForm, handleClose) => {
   try {
     await addDoc(collection(db, "posts"), post);
-    setPostForm({ content: "", author: {}, comments: [], image:"" });
+    setPostForm({ content: "", author: {}, comments: [], media: "", createdAt:"" });
     handleClose();
     Toast({ message: "Created post successfully.", type: "success" });
   } catch (err) {
@@ -13,15 +14,24 @@ const createPost = async (post, setPostForm, handleClose) => {
   }
 };
 
-const getUserFeedPosts = async () => {
-  // const q = query(collection(db, "posts"), where("userId", "==", "/user_profile/bbP6gbDOM9Ors3AM0Or4P4fx7XI2"));
+const getUserFeedPosts = createAsyncThunk("feedPosts/getUserFeedPosts", async () => {
+  let posts = [];
   const q = query(collection(db, "posts"));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach(doc => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-    // const uq = query(collection(db,"user_profile"), where("uid", "==", "bbP6gbDOM9Ors3AM0Or4P4fx7XI2"));
+    const currDoc = doc.data();
+    let createdAtTimestamp = new Date(currDoc.createdAt.seconds * 1000);
+    let hh = createdAtTimestamp.getHours(),
+      min = createdAtTimestamp.getMinutes(),
+      yyyy = createdAtTimestamp.getFullYear(),
+      dd = createdAtTimestamp.getDate(),
+      mm = createdAtTimestamp.getMonth();
+    let formatedCreatedAt = `${hh < 9 ? "0" + hh : hh}:${min < 9 ? "0" + min : min}${
+      hh > Number(12) ? " PM, " : " AM, "
+    }${dd}-${mm < 9 ? "0" + mm : mm}-${yyyy}`;
+    posts = [...posts, { ...currDoc, postId: doc.id, createdAt: formatedCreatedAt }];
   });
-};
+  return posts;
+});
 
 export { createPost, getUserFeedPosts };

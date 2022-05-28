@@ -15,11 +15,8 @@ export function Profile() {
     <>
       <div className="profile-container">
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Grid item className="profile-header"  >
-            <img
-              className="profile-cover"
-              src="https://picsum.photos/200/300"
-            />
+          <Grid item className="profile-header">
+            <img className="profile-cover" src="https://picsum.photos/200/300" />
             <Avatar
               className="profile-image"
               alt="Remy Sharp"
@@ -35,13 +32,12 @@ export function Profile() {
             textColor="secondary"
             indicatorColor="secondary"
             aria-label="secondary tabs example"
-            variant="fullWidth"
-          >
+            variant="fullWidth">
             <Tab value="posts" label="Posts"></Tab>
             <Tab value="bookmarks" label="Bookmarks"></Tab>
             {/* <Tab value="archives" label="Archives"></Tab> */}
           </Tabs>
-          {value === "posts" && <Postlist />}
+          {value === "posts" && <Postlist isProfilePage={true} />}
           {value === "bookmarks" && <Bookmarks />}
         </Box>
       </div>

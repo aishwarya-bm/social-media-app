@@ -28,15 +28,15 @@ export function CreatePostModal({ open, handleClose }) {
     const post_content = postForm.content + emojiObject.emoji;
     setPostForm({ ...postForm, content: post_content });
   };
-console.log(user)
   const [postForm, setPostForm] = useState({
     content: "",
     comments: [],
-    image: "",
+    media: "",
     author: {},
+    createdAt: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setPostForm({ ...postForm, content: e.target.value });
   };
 
@@ -89,11 +89,12 @@ console.log(user)
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={() => 
-          {
-            createPost({...postForm, author:{firstname, lastname,avatar,id}}, setPostForm, handleClose)
-          }
-            }>
+          <Button
+            variant="contained"
+            onClick={() => {
+              const post_author = { firstname, lastname, avatar, id: id };
+              createPost({ ...postForm, author: post_author, createdAt: new Date() }, setPostForm, handleClose);
+            }}>
             Post
           </Button>
           <Button variant="outlined" onClick={handleClose} autoFocus>

@@ -3,10 +3,17 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { theme } from "App";
 import { FilterChips, Postlist } from "components";
-import { useState } from "react";
+import { getUserFeedPosts } from "firebaseUtils/posts";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export function Home() {
   const [showFilter, setShowFilter] = useState(false);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getUserFeedPosts());
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -21,7 +28,7 @@ export function Home() {
         </Stack>
       </Box>
       {showFilter && <FilterChips setShowFilter={setShowFilter} />}
-      <Postlist />
+      <Postlist isProfilePage={false} />
     </ThemeProvider>
   );
 }

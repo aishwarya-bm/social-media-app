@@ -6,7 +6,8 @@ import { CommentList } from "components";
 import { useState } from "react";
 export function Postcard(props){
     const [viewComments, setViewComments] = useState(false);
-    const { id,author, postDate, content, media, comments } = props.post
+    const { postId, author, createdAt, content, media, comments } = props.post;
+
     return (
       <>
         <ThemeProvider theme={theme}>
@@ -16,9 +17,9 @@ export function Postcard(props){
           >
             <CardHeader
               sx={{ color: "black" }}
-              avatar={<Avatar aria-label="author">R</Avatar>}
-              title={author}
-              subheader={postDate}
+              avatar={<Avatar aria-label="author">{author.avatar}</Avatar>}
+              title={author?.firstname + " "+author?.lastname}
+              subheader={createdAt}
             />
             <CardContent sx={{ paddingTop: "0" }}>
               <Typography variant="subtitle1">

@@ -22,7 +22,7 @@ export function Explore() {
         </Stack>
       </Box>
       {showFilter && <FilterChips setShowFilter={setShowFilter} />}
-      <Postlist />
+      <Postlist isProfilePage={false} />
     </ThemeProvider>
   );
 }
