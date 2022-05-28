@@ -25,12 +25,12 @@ export function Postcard(props){
                 {content}
               </Typography>
             </CardContent>
-            <CardMedia
+           {media && <CardMedia
               component="img"
               alt="card-media"
               height="140"
               image={media}
-            />
+            />}
             <Divider />
             <CardActions
               sx={{ display: "flex", justifyContent: "space-evenly" }}

@@ -3,10 +3,8 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { theme } from "App";
 import { FilterChips, Postlist } from "components";
-import { setUserProfile } from "features/auth/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoggedInUserData } from "utils/auth";
 
 export function Explore() {
   const [showFilter, setShowFilter] = useState(false);

@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getUserData } from "firebaseUtils/auth";
 
 const initialState = {
     user :{},
     isLoggedIn : false,
-    id:null
+    id:null,
+    isLoading:false
 }
 
 const authSlice = createSlice({
@@ -17,8 +19,21 @@ const authSlice = createSlice({
     logout: state => {
       return initialState;
     },
-    setUserProfile: (state,action) => {
+    setUserProfile: (state, action) => {
       state.user = action.payload;
+    },
+  },
+  extraReducers: {
+    [getUserData.pending]: state => {
+      state.isLoading = true;
+    },
+    [getUserData.fulfilled]: (state,action) => {
+      state.user = action.payload;
+      console.log("thunk",action.payload)
+      state.isLoading = false;
+    },
+    [getUserData.rejected]: state => {
+      state.isLoading = false;
     },
   },
 });

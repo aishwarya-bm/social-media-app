@@ -6,7 +6,7 @@ import { login } from "features/auth/authSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createUser, isValidEmail, isValidPassword } from "utils/auth";
+import { createUser, isValidEmail, isValidPassword } from "firebaseUtils/auth";
 import "./login.css";
 
 export function Signup({ setIsSignupForm }) {
