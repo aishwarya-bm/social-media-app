@@ -143,8 +143,7 @@ const getUserData = createAsyncThunk("auth/getUserData", async uid => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       return docSnap.data();
-    }
-    else{
+    } else {
       Toast({
         message: "Some error occured.",
         type: "error",

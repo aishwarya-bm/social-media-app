@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { AccountCircle, Delete, Edit, More, MoreVert } from "@mui/icons-material";
+import { MoreVert } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import { Box } from "@mui/system";
 import { theme } from "App";

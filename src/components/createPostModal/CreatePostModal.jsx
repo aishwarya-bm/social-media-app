@@ -29,13 +29,17 @@ export function CreatePostModal({ open, handleClose, editPost }) {
     const post_content = postForm.content + emojiObject.emoji;
     setPostForm({ ...postForm, content: post_content });
   };
-  const [postForm, setPostForm] = useState( editPost ? editPost : {
-    content: "",
-    comments: [],
-    media: "",
-    author: {},
-    createdAt: "",
-  });
+  const [postForm, setPostForm] = useState(
+    editPost
+      ? editPost
+      : {
+          content: "",
+          comments: [],
+          media: "",
+          author: {},
+          createdAt: "",
+        }
+  );
 
   const handleChange = e => {
     setPostForm({ ...postForm, content: e.target.value });
@@ -49,9 +53,9 @@ export function CreatePostModal({ open, handleClose, editPost }) {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title" align="center" >
+        <DialogTitle id="alert-dialog-title" align="center">
           <Typography component="span" variant="h5" color="primary">
-            { editPost ? "Edit post" : "Create post" }
+            {editPost ? "Edit post" : "Create post"}
           </Typography>
         </DialogTitle>
         <DialogContent>
@@ -72,12 +76,7 @@ export function CreatePostModal({ open, handleClose, editPost }) {
               <EmojiEmotions />
             </IconButton>
             <label htmlFor="post-image">
-              <input
-                id="post-image"
-                type="file"
-                name="post-image"
-                accept="image/*"
-              />
+              <input id="post-image" type="file" name="post-image" accept="image/*" />
             </label>
             {showEmoji && (
               <div style={{ position: "inherit" }}>
@@ -87,21 +86,31 @@ export function CreatePostModal({ open, handleClose, editPost }) {
           </Box>
         </DialogContent>
         <DialogActions>
-         { editPost ? <Button
-            variant="contained"
-            onClick={() => {
-              const post_author = { firstname, lastname, avatar, id: id };
-              updatePost({ ...postForm, author: post_author}, setPostForm, handleClose, dispatch, getUserFeedPosts);
-            }}>
-            Update
-          </Button> :  <Button
-            variant="contained"
-            onClick={() => {
-              const post_author = { firstname, lastname, avatar, id: id };
-              createPost({ ...postForm, author: post_author, createdAt: new Date() }, setPostForm, handleClose, dispatch, getUserFeedPosts);
-            }}>
-            Post
-          </Button>}
+          {editPost ? (
+            <Button
+              variant="contained"
+              onClick={() => {
+                const post_author = { firstname, lastname, avatar, id: id };
+                updatePost({ ...postForm, author: post_author }, setPostForm, handleClose, dispatch, getUserFeedPosts);
+              }}>
+              Update
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              onClick={() => {
+                const post_author = { firstname, lastname, avatar, id: id };
+                createPost(
+                  { ...postForm, author: post_author, createdAt: new Date() },
+                  setPostForm,
+                  handleClose,
+                  dispatch,
+                  getUserFeedPosts
+                );
+              }}>
+              Post
+            </Button>
+          )}
           <Button variant="outlined" onClick={handleClose} autoFocus>
             Cancel
           </Button>

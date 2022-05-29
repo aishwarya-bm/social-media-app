@@ -6,7 +6,7 @@ import { db } from "firebaseConfig";
 const createPost = async (post, setPostForm, handleClose, dispatch, getUserFeedPosts) => {
   try {
     await addDoc(collection(db, "posts"), post);
-    setPostForm({ content: "", author: {}, comments: [], media: "", createdAt:"" });
+    setPostForm({ content: "", author: {}, comments: [], media: "", createdAt: "" });
     handleClose();
     dispatch(getUserFeedPosts());
     Toast({ message: "Created post successfully.", type: "success" });
@@ -39,13 +39,13 @@ const deletePost = async (postId, dispatch, getUserFeedPosts) => {
 
 const getUserFeedPosts = createAsyncThunk("feedPosts/getUserFeedPosts", async () => {
   let posts = [];
-  const q = query(collection(db, "posts"), orderBy("createdAt","desc"));
+  const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach(doc => {
     const currDoc = doc.data();
-    posts = [...posts, { ...currDoc, postId: doc.id}];
+    posts = [...posts, { ...currDoc, postId: doc.id }];
   });
   return posts;
 });
 
-export { createPost,deletePost, getUserFeedPosts, updatePost };
+export { createPost, deletePost, getUserFeedPosts, updatePost };

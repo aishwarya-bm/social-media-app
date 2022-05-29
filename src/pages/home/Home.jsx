@@ -3,9 +3,7 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { theme } from "App";
 import { FilterChips, Postlist } from "components";
-import { getUserFeedPosts } from "firebaseUtils/posts";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export function Home() {
   const [showFilter, setShowFilter] = useState(false);

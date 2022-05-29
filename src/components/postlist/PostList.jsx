@@ -13,12 +13,12 @@ export function Postlist({ isProfilePage }) {
   const { id } = auth;
   const dispatch = useDispatch();
 
-  const filteredPosts = useMemo(()=> filterMyPosts(posts, id, isProfilePage),[posts]);
+  const filteredPosts = useMemo(() => filterMyPosts(posts, id, isProfilePage), [posts]);
 
   useEffect(() => {
     dispatch(getUserFeedPosts());
   }, []);
-  
+
   return (
     <>
       <ThemeProvider theme={theme}>
