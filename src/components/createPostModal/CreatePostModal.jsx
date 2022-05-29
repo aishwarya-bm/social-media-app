@@ -45,6 +45,21 @@ export function CreatePostModal({ open, handleClose, editPost }) {
     setPostForm({ ...postForm, content: e.target.value });
   };
 
+  const handlePostSubmit = () => {
+    const post_author = { firstname, lastname, avatar, id: id };
+    if (editPost) {
+      updatePost({ ...postForm, author: post_author }, setPostForm, handleClose, dispatch, getUserFeedPosts);
+    } else {
+      createPost(
+        { ...postForm, author: post_author, createdAt: new Date() },
+        setPostForm,
+        handleClose,
+        dispatch,
+        getUserFeedPosts
+      );
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Dialog
@@ -90,8 +105,7 @@ export function CreatePostModal({ open, handleClose, editPost }) {
             <Button
               variant="contained"
               onClick={() => {
-                const post_author = { firstname, lastname, avatar, id: id };
-                updatePost({ ...postForm, author: post_author }, setPostForm, handleClose, dispatch, getUserFeedPosts);
+                handlePostSubmit();
               }}>
               Update
             </Button>
@@ -99,14 +113,7 @@ export function CreatePostModal({ open, handleClose, editPost }) {
             <Button
               variant="contained"
               onClick={() => {
-                const post_author = { firstname, lastname, avatar, id: id };
-                createPost(
-                  { ...postForm, author: post_author, createdAt: new Date() },
-                  setPostForm,
-                  handleClose,
-                  dispatch,
-                  getUserFeedPosts
-                );
+                handlePostSubmit();
               }}>
               Post
             </Button>
