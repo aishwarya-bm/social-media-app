@@ -14,21 +14,22 @@ import { CameraAlt, EmojiEmotions } from "@mui/icons-material";
 import EmojiPicker from "emoji-picker-react";
 import { theme } from "App";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { createPost } from "firebaseUtils/posts";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost, getUserFeedPosts, updatePost } from "firebaseUtils/posts";
 
-export function CreatePostModal({ open, handleClose }) {
+export function CreatePostModal({ open, handleClose, editPost }) {
   const { id, user } = useSelector(store => store.auth);
   const { firstname, lastname, avatar } = user;
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [showEmoji, setShowEmoji] = useState(false);
+  const dispatch = useDispatch();
 
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject);
     const post_content = postForm.content + emojiObject.emoji;
     setPostForm({ ...postForm, content: post_content });
   };
-  const [postForm, setPostForm] = useState({
+  const [postForm, setPostForm] = useState( editPost ? editPost : {
     content: "",
     comments: [],
     media: "",
@@ -48,17 +49,15 @@ export function CreatePostModal({ open, handleClose }) {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">
-          {"what'"}
+        <DialogTitle id="alert-dialog-title" align="center" >
           <Typography component="span" variant="h5" color="primary">
-            <i>ssup</i>
+            { editPost ? "Edit post" : "Create post" }
           </Typography>
-          {" with you..."}
         </DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
-            placeholder="Type something..."
+            placeholder="what'SSUP with you..."
             multiline
             autoFocus
             rows={3}
@@ -74,7 +73,6 @@ export function CreatePostModal({ open, handleClose }) {
             </IconButton>
             <label htmlFor="post-image">
               <input
-                // style={{ display: "none" }}
                 id="post-image"
                 type="file"
                 name="post-image"
@@ -89,14 +87,21 @@ export function CreatePostModal({ open, handleClose }) {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button
+         { editPost ? <Button
             variant="contained"
             onClick={() => {
               const post_author = { firstname, lastname, avatar, id: id };
-              createPost({ ...postForm, author: post_author, createdAt: new Date() }, setPostForm, handleClose);
+              updatePost({ ...postForm, author: post_author}, setPostForm, handleClose, dispatch, getUserFeedPosts);
+            }}>
+            Update
+          </Button> :  <Button
+            variant="contained"
+            onClick={() => {
+              const post_author = { firstname, lastname, avatar, id: id };
+              createPost({ ...postForm, author: post_author, createdAt: new Date() }, setPostForm, handleClose, dispatch, getUserFeedPosts);
             }}>
             Post
-          </Button>
+          </Button>}
           <Button variant="outlined" onClick={handleClose} autoFocus>
             Cancel
           </Button>

@@ -9,11 +9,6 @@ import { useDispatch } from "react-redux";
 
 export function Home() {
   const [showFilter, setShowFilter] = useState(false);
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(getUserFeedPosts());
-  }, []);
 
   return (
     <ThemeProvider theme={theme}>

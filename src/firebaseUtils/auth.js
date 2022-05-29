@@ -139,11 +139,22 @@ const logoutUser = (dispatch, logout, navigate) => {
 const getUserData = createAsyncThunk("auth/getUserData", async uid => {
   const db = getFirestore(app);
   const docRef = doc(db, "user_profile", uid);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    return docSnap.data();
-  } else {
-    console.log("No such document!");
+  try {
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
+    else{
+      Toast({
+        message: "Some error occured.",
+        type: "error",
+      });
+    }
+  } catch (err) {
+    Toast({
+      message: "Some error occured.",
+      type: "error",
+    });
   }
 });
 
