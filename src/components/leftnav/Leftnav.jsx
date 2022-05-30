@@ -3,26 +3,13 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Button, Box, Grid, Typography} from "@mui/material";
 import { theme } from "App";
 import { NavLink } from "react-router-dom";
-import {
-  AccountCircle,
-  Add,
-  Bookmark,
-  Home,
-  Message,
-  Notifications,
-} from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import React, { useState } from "react";
 import { CreatePostModal } from "components";
 import { sidenavItems } from "constants/sidenav";
 
 export function Leftnav() {
     const [open, setOpen] = useState(false);
-    const [chosenEmoji, setChosenEmoji] = useState(null);
-    const [showEmoji, setShowEmoji] = useState(false);
-
-    const onEmojiClick = (event, emojiObject) => {
-      setChosenEmoji(emojiObject);
-    };
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -105,11 +92,8 @@ export function Leftnav() {
           </Button>
 
           <CreatePostModal
-            showEmoji={showEmoji}
             open={open}
             handleClose={handleClose}
-            setShowEmoji={setShowEmoji}
-            onEmojiClick={onEmojiClick}
           />
         </Box>
       </Grid>

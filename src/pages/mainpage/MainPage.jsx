@@ -7,20 +7,13 @@ import "./mainpage.css";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoggedInUserData } from "utils/auth";
-import { setUserProfile } from "features/auth/authSlice";
+import { getUserData } from "firebaseUtils/auth";
+
 
 export function MainPage() {
   const userId=localStorage.getItem("userId");
   const dispatch = useDispatch();
-
   const [open, setOpen] = useState(false);
-  const [chosenEmoji, setChosenEmoji] = useState(null);
-  const [showEmoji, setShowEmoji] = useState(false);
-
-  const onEmojiClick = (event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,7 +24,7 @@ export function MainPage() {
   };
 
   useEffect(() => {
-    getLoggedInUserData(userId, dispatch, setUserProfile);
+    dispatch(getUserData(userId))
   }, []);
   return (
     <>
@@ -58,11 +51,8 @@ export function MainPage() {
             <AddIcon />
           </Fab>
           <CreatePostModal
-            showEmoji={showEmoji}
             open={open}
             handleClose={handleClose}
-            setShowEmoji={setShowEmoji}
-            onEmojiClick={onEmojiClick}
           />
           <BottomNav />
         </Box>

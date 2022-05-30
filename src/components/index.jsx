@@ -10,6 +10,7 @@ export { FilterChips } from "./filters/FilterChips";
 export { Header } from "./header/Header";
 export { Leftnav } from "./leftnav/Leftnav";
 export { Postlist } from "./postlist/PostList";
+export { PostMenu } from "./postMenu/PostMenu";
 export { RequiresAuth } from "./requiresAuth/RequiresAuth";
 export { Suggestions } from "./suggestions/Suggestions";
 export { UserNameCard } from "./userNameCard/UserNameCard";

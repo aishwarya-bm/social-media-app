@@ -1,4 +1,5 @@
 import { SwitchLeftSharp } from "@mui/icons-material";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "components/toast/Toast";
 import {
   getAuth,
@@ -88,7 +89,7 @@ const loginUser = (user, dispatch, login, navigate) => {
       const user = userCredential.user;
       const { accessToken, uid } = user;
       localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("userId",uid)
+      localStorage.setItem("userId", uid);
       dispatch(login(uid));
       navigate("/home");
       Toast({ message: "Login successful.", type: "success" });
@@ -135,16 +136,26 @@ const logoutUser = (dispatch, logout, navigate) => {
     });
 };
 
-const getLoggedInUserData = async (uid, dispatch, setUserProfile) => {
+const getUserData = createAsyncThunk("auth/getUserData", async uid => {
   const db = getFirestore(app);
   const docRef = doc(db, "user_profile", uid);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    dispatch(setUserProfile(docSnap.data()));
-  } else {
-    console.log("No such document!");
+  try {
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      Toast({
+        message: "Some error occured.",
+        type: "error",
+      });
+    }
+  } catch (err) {
+    Toast({
+      message: "Some error occured.",
+      type: "error",
+    });
   }
-};
+});
 
 const updateUserProfile = async (uid, userData, dispatch, setUserProfile) => {
   try {
@@ -162,4 +173,4 @@ const updateUserProfile = async (uid, userData, dispatch, setUserProfile) => {
   }
 };
 
-export { createUser, loginUser, logoutUser, getLoggedInUserData, isValidEmail, isValidPassword, updateUserProfile };
+export { createUser, loginUser, logoutUser, getUserData, isValidEmail, isValidPassword, updateUserProfile };

@@ -3,18 +3,11 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { theme } from "App";
 import { FilterChips, Postlist } from "components";
-import { setUserProfile } from "features/auth/authSlice";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getLoggedInUserData } from "utils/auth";
+import { useState } from "react";
 
 export function Home() {
   const [showFilter, setShowFilter] = useState(false);
-  const { id, isLoggedIn } = useSelector(store => store.auth);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    getLoggedInUserData(id, dispatch, setUserProfile);
-  }, [isLoggedIn]);
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ marginTop: 4 }}>
@@ -28,7 +21,7 @@ export function Home() {
         </Stack>
       </Box>
       {showFilter && <FilterChips setShowFilter={setShowFilter} />}
-      <Postlist />
+      <Postlist isProfilePage={false} />
     </ThemeProvider>
   );
 }

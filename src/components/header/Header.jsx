@@ -19,7 +19,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
 import { Add, Logout } from "@mui/icons-material";
 import { CreatePostModal } from "components";
-import { logoutUser } from "utils/auth";
+import { logoutUser } from "firebaseUtils/auth";
 import { logout } from "features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -66,13 +66,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export function Header() {
   const [open, setOpen] = React.useState(false);
-  const [chosenEmoji, setChosenEmoji] = React.useState(null);
-  const [showEmoji, setShowEmoji] = React.useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onEmojiClick = (event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -120,11 +115,8 @@ export function Header() {
         </AppBar>
       </Box>
       <CreatePostModal
-        showEmoji={showEmoji}
         open={open}
         handleClose={handleClose}
-        setShowEmoji={setShowEmoji}
-        onEmojiClick={onEmojiClick}
       />
     </ThemeProvider>
   );

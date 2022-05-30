@@ -5,7 +5,7 @@ import { theme } from "App";
 import { Link } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import "./login.css";
-import { loginUser } from "utils/auth";
+import { loginUser } from "firebaseUtils/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "features/auth/authSlice";

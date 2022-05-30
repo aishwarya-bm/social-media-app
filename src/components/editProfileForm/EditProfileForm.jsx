@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import "./editProfileForm.css";
 import { theme } from "App";
-import { updateUserProfile } from "utils/auth";
+import { updateUserProfile } from "firebaseUtils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserProfile } from "features/auth/authSlice";
 export function EditProfileForm({ open, handleCloseModal }) {
