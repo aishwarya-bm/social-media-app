@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "components/toast/Toast";
 import {
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   deleteDoc,
@@ -65,20 +66,58 @@ const addCommentToPost = async (postId, authorId, author, comment, setComment, d
     ...comment,
     author: { firstname, lastname, avatar, id: authorId },
     createdAt: new Date(),
-    postId: postId,
   };
   const postRef = doc(db, "posts", postId);
-  try{
-  await updateDoc(postRef, {
-    comments: arrayUnion(comment),
-  });
-  setComment({ author: {}, comment: "", createdAt: null, postId: null });
-  dispatch(getUserFeedPosts());
-  }
-  catch(err){
+  try {
+    await updateDoc(postRef, {
+      comments: arrayUnion(comment),
+    });
+    setComment({ author: {}, comment: "", createdAt: null, postId: null });
+    dispatch(getUserFeedPosts());
+  } catch (err) {
     Toast({ message: "Some error occured, please try again later.", type: "error" });
   }
-  
 };
 
-export { addCommentToPost, createPost, deletePost, getUserFeedPosts, updatePost };
+const addPostToLiked = async (postId, user, id, dispatch, getUserFeedPosts) => {
+  const { firstname, lastname, avatar } = user;
+  const liked = { firstname, lastname, avatar, id: id };
+  const postRef = doc(db, "posts", postId);
+  try {
+    await updateDoc(postRef, {
+      likes: arrayUnion(liked),
+    });
+    dispatch(getUserFeedPosts());
+  } catch (err) {
+    Toast({ message: "Some error occured, please try again later.", type: "error" });
+  }
+};
+
+const isPostLiked = (id, likes) => {
+  return likes?.find(like => like.id === id);
+};
+
+const removePostFromLiked = async (postId, user, id, dispatch, getUserFeedPosts) => {
+  const { firstname, lastname, avatar } = user;
+  const liked = { firstname, lastname, avatar, id: id };
+  const postRef = doc(db, "posts", postId);
+  try {
+    await updateDoc(postRef, {
+      likes: arrayRemove(liked),
+    });
+    dispatch(getUserFeedPosts());
+  } catch (err) {
+    Toast({ message: "Some error occured, please try again later.", type: "error" });
+  }
+};
+
+export {
+  addCommentToPost,
+  addPostToLiked,
+  createPost,
+  deletePost,
+  getUserFeedPosts,
+  isPostLiked,
+  removePostFromLiked,
+  updatePost,
+};

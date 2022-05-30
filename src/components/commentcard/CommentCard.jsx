@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { Avatar, Grid, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Avatar, Stack, Typography } from "@mui/material";
 import { theme } from "App";
 import "./commentcard.css";
 export function CommentCard({ comment }) {

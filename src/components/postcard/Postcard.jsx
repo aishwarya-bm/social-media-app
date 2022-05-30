@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { BookmarkAdd, Edit, FavoriteBorderOutlined, MessageOutlined } from "@mui/icons-material";
+import { BookmarkAddOutlined, FavoriteBorderOutlined, RemoveRedEye, VisibilityOff } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -9,13 +9,18 @@ import {
   CardHeader,
   CardMedia,
   Divider,
+  IconButton,
+  Link,
+  Stack,
   Typography,
 } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { theme } from "App";
 import { CommentList, CreatePostModal, PostMenu } from "components";
+import { addPostToLiked, getUserFeedPosts, isPostLiked, removePostFromLiked } from "firebaseUtils/posts";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import "./postcard.css"
+import { useDispatch, useSelector } from "react-redux";
+import "./postcard.css";
 export function Postcard(props) {
   const [open, setOpen] = useState(false);
 
@@ -27,8 +32,11 @@ export function Postcard(props) {
     setOpen(false);
   };
   const { id, user } = useSelector(store => store.auth);
+  const dispatch = useDispatch();
   const [viewComments, setViewComments] = useState(false);
-  const { postId,author, createdAt, content, media, comments } = props.post;
+  const { postId, author, createdAt, content, media, comments, likes } = props.post;
+  const isLiked = isPostLiked(id, likes);
+  console.log(isLiked);
   const postDateTime =
     new Date(createdAt.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
     ", " +
@@ -51,19 +59,37 @@ export function Postcard(props) {
           {media && <CardMedia component="img" alt="card-media" height="140" image={media} />}
           <Divider />
           <CardActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
-            <Button color="icon" startIcon={<FavoriteBorderOutlined />} size="small">
-              Like
-            </Button>
-            <Button
-              size="small"
-              color="icon"
-              startIcon={<MessageOutlined />}
-              onClick={() => setViewComments(prev => !prev)}>
-              Comment
-            </Button>
-            <Button size="small" color="icon" startIcon={<BookmarkAdd />}>
-              Save
-            </Button>
+            <Stack direction="row">
+              <IconButton
+                color={isLiked ? "red" : "icon"}
+                size="small"
+                onClick={() =>
+                  isLiked
+                    ? removePostFromLiked(postId, user, id, dispatch, getUserFeedPosts)
+                    : addPostToLiked(postId, user, id, dispatch, getUserFeedPosts)
+                }>
+                {isLiked ? <FavoriteIcon fontSize="inherit" /> : <FavoriteBorderOutlined fontSize="inherit" />}
+              </IconButton>
+              <Link underline="none" component="button" color="icon">
+                {likes?.length || ""} {likes?.length > 1 ? "Likes" : "Like"}
+              </Link>
+            </Stack>
+            <Stack direction="row" alignItems="center" onClick={() => setViewComments(prev => !prev)}>
+              <IconButton color="icon" size="small">
+                {viewComments ? <VisibilityOff fontSize="inhehit" />:<RemoveRedEye fontSize="inherit" />}
+              </IconButton>
+              <Link underline="none" component="button" color="icon">
+                Comment
+              </Link>
+            </Stack>
+            <Stack direction="row" alignItems="center">
+              <IconButton color="icon" size="small">
+                {<BookmarkAddOutlined fontSize="inhehit" />}
+              </IconButton>
+              <Link underline="none" component="button" color="icon">
+                Save
+              </Link>
+            </Stack>
           </CardActions>
           {viewComments && <CommentList viewComments={viewComments} comments={comments} postId={postId} />}
         </Card>
