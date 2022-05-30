@@ -15,6 +15,7 @@ import { theme } from "App";
 import { CommentList, CreatePostModal, PostMenu } from "components";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import "./postcard.css"
 export function Postcard(props) {
   const [open, setOpen] = useState(false);
 
@@ -25,17 +26,17 @@ export function Postcard(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  const { id } = useSelector(store => store.auth);
+  const { id, user } = useSelector(store => store.auth);
   const [viewComments, setViewComments] = useState(false);
-  const { author, createdAt, content, media, comments } = props.post;
+  const { postId,author, createdAt, content, media, comments } = props.post;
   const postDateTime =
-    new Date(createdAt.seconds * 1000).toLocaleDateString() +
+    new Date(createdAt.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
     ", " +
-    new Date(createdAt.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    new Date(createdAt.seconds * 1000).toLocaleDateString();
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Card sx={{ minWidth: "10rem" }} className="post-card">
+        <Card sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px" }} className="post-card">
           <CardHeader
             sx={{ color: "black" }}
             avatar={<Avatar aria-label="author">{author.avatar || author.firstname.charAt(0)}</Avatar>}
@@ -45,6 +46,7 @@ export function Postcard(props) {
           />
           <CardContent sx={{ paddingTop: "0" }}>
             <Typography variant="subtitle1">{content}</Typography>
+            <Typography variant="caption"> {postDateTime}</Typography>
           </CardContent>
           {media && <CardMedia component="img" alt="card-media" height="140" image={media} />}
           <Divider />
@@ -63,7 +65,7 @@ export function Postcard(props) {
               Save
             </Button>
           </CardActions>
-          {viewComments && <CommentList viewComments={viewComments} comments={comments} />}
+          {viewComments && <CommentList viewComments={viewComments} comments={comments} postId={postId} />}
         </Card>
         <CreatePostModal open={open} handleClose={handleClose} editPost={props.post} />
       </ThemeProvider>

@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserProfile } from "features/auth/authSlice";
 export function EditProfileForm({ open, handleCloseModal }) {
   const { user,id } = useSelector(store => store.auth);
-  const { firstname, lastname, bio, website } = user;
+  const { bio, website } = user;
 
   const dispatch = useDispatch();
   const handleSubmit = event => {
@@ -26,7 +26,8 @@ export function EditProfileForm({ open, handleCloseModal }) {
     handleCloseModal()
     const data = new FormData(event.target.form);
     const userData = {
-      ...user, firstname:data.get("firstname"), lastname:data.get("lastname"), bio:data.get("bio"), website:data.get("website")
+      ...user,  
+      bio:data.get("bio"), website:data.get("website")
     };
     updateUserProfile(id, userData, dispatch, setUserProfile);
   };
@@ -51,31 +52,8 @@ export function EditProfileForm({ open, handleCloseModal }) {
           </DialogTitle>
 
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              <Box component="form" sx={{ mt: 1 }} id="profile-edit" >
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  id="name"
-                  label="First name"
-                  name="firstname"
-                  defaultValue={firstname}
-                  autoComplete="name"
-                  autoFocus
-                  color="secondary"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="lastname"
-                  label="Last Name"
-                  name="lastname"
-                  defaultValue={lastname}
-                  autoComplete="lastname"
-                  autoFocus
-                  color="secondary"
-                />
+            <DialogContentText id="alert-dialog-description" component="div" >
+              <Box component="form" id="profile-edit" >
                 <TextField
                   margin="normal"
                   fullWidth

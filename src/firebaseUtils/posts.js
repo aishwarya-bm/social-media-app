@@ -1,6 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "components/toast/Toast";
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "firebaseConfig";
 
 const createPost = async (post, setPostForm, handleClose, dispatch, getUserFeedPosts) => {
@@ -48,4 +59,26 @@ const getUserFeedPosts = createAsyncThunk("feedPosts/getUserFeedPosts", async ()
   return posts;
 });
 
-export { createPost, deletePost, getUserFeedPosts, updatePost };
+const addCommentToPost = async (postId, authorId, author, comment, setComment, dispatch, getUserFeedPosts) => {
+  const { firstname, lastname, avatar } = author;
+  comment = {
+    ...comment,
+    author: { firstname, lastname, avatar, id: authorId },
+    createdAt: new Date(),
+    postId: postId,
+  };
+  const postRef = doc(db, "posts", postId);
+  try{
+  await updateDoc(postRef, {
+    comments: arrayUnion(comment),
+  });
+  setComment({ author: {}, comment: "", createdAt: null, postId: null });
+  dispatch(getUserFeedPosts());
+  }
+  catch(err){
+    Toast({ message: "Some error occured, please try again later.", type: "error" });
+  }
+  
+};
+
+export { addCommentToPost, createPost, deletePost, getUserFeedPosts, updatePost };
