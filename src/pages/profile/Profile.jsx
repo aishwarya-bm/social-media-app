@@ -1,9 +1,9 @@
-import { Avatar, Box, Container, Grid, Tab, Tabs } from "@mui/material";
+import { Avatar, Box, Grid, Tab, Tabs } from "@mui/material";
 import { Postlist } from "components";
 import { UserDetails } from "components/userDetails/UserDetails";
 import { Bookmarks } from "pages";
-import {useState} from "react";
-import "./profile.css"
+import { useState } from "react";
+import "./profile.css";
 
 export function Profile() {
   const [value, setValue] = useState("posts");
@@ -34,11 +34,10 @@ export function Profile() {
             aria-label="secondary tabs example"
             variant="fullWidth">
             <Tab value="posts" label="Posts"></Tab>
-            <Tab value="bookmarks" label="Bookmarks"></Tab>
-            {/* <Tab value="archives" label="Archives"></Tab> */}
+            <Tab value="bookmarks" label="Saved"></Tab>
           </Tabs>
           {value === "posts" && <Postlist isProfilePage={true} />}
-          {value === "bookmarks" && <Bookmarks />}
+          {value === "bookmarks" && <Bookmarks isProfilePage={true} />}
         </Box>
       </div>
     </>

@@ -38,6 +38,8 @@ export function CreatePostModal({ open, handleClose, editPost }) {
           media: "",
           author: {},
           createdAt: "",
+          likes: [],
+          saved: [],
         }
   );
 

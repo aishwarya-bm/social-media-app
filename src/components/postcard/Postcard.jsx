@@ -1,8 +1,13 @@
 import { ThemeProvider } from "@emotion/react";
-import { BookmarkAddOutlined, FavoriteBorderOutlined, RemoveRedEye, VisibilityOff } from "@mui/icons-material";
+import {
+  BookmarkAdded,
+  BookmarkAddOutlined,
+  FavoriteBorderOutlined,
+  RemoveRedEye,
+  VisibilityOff,
+} from "@mui/icons-material";
 import {
   Avatar,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -17,7 +22,15 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { theme } from "App";
 import { CommentList, CreatePostModal, PostMenu } from "components";
-import { addPostToLiked, getUserFeedPosts, isPostLiked, removePostFromLiked } from "firebaseUtils/posts";
+import {
+  addPostToLiked,
+  addPostToSaved,
+  getUserFeedPosts,
+  isPostLiked,
+  isPostSaved,
+  removePostFromLiked,
+  removePostFromSaved,
+} from "firebaseUtils/posts";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./postcard.css";
@@ -34,20 +47,20 @@ export function Postcard(props) {
   const { id, user } = useSelector(store => store.auth);
   const dispatch = useDispatch();
   const [viewComments, setViewComments] = useState(false);
-  const { postId, author, createdAt, content, media, comments, likes } = props.post;
+  const { postId, author, createdAt, content, media, comments, likes, saved } = props.post;
   const isLiked = isPostLiked(id, likes);
-  console.log(isLiked);
+  const isSaved = isPostSaved(id, saved);
   const postDateTime =
-    new Date(createdAt.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
+    new Date(createdAt?.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
     ", " +
-    new Date(createdAt.seconds * 1000).toLocaleDateString();
+    new Date(createdAt?.seconds * 1000).toLocaleDateString();
   return (
     <>
       <ThemeProvider theme={theme}>
         <Card sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px" }} className="post-card">
           <CardHeader
             sx={{ color: "black" }}
-            avatar={<Avatar aria-label="author">{author.avatar || author.firstname.charAt(0)}</Avatar>}
+            avatar={<Avatar aria-label="author">{author?.avatar || author?.firstname?.charAt(0)}</Avatar>}
             title={author?.firstname + " " + author?.lastname}
             subheader={postDateTime}
             action={author?.id === id && <PostMenu handlePostModalOpen={handleClickOpen} postId={props.post.postId} />}
@@ -76,15 +89,22 @@ export function Postcard(props) {
             </Stack>
             <Stack direction="row" alignItems="center" onClick={() => setViewComments(prev => !prev)}>
               <IconButton color="icon" size="small">
-                {viewComments ? <VisibilityOff fontSize="inhehit" />:<RemoveRedEye fontSize="inherit" />}
+                {viewComments ? <VisibilityOff fontSize="inhehit" /> : <RemoveRedEye fontSize="inherit" />}
               </IconButton>
               <Link underline="none" component="button" color="icon">
                 Comment
               </Link>
             </Stack>
-            <Stack direction="row" alignItems="center">
-              <IconButton color="icon" size="small">
-                {<BookmarkAddOutlined fontSize="inhehit" />}
+            <Stack
+              direction="row"
+              alignItems="center"
+              onClick={() =>
+                isSaved
+                  ? removePostFromSaved(postId, id, dispatch, getUserFeedPosts)
+                  : addPostToSaved(postId, id, dispatch, getUserFeedPosts)
+              }>
+              <IconButton color={isSaved ? "primary" : "icon"} size="small">
+                {isSaved ? <BookmarkAdded fontSize="inherit" /> : <BookmarkAddOutlined fontSize="inherit" />}
               </IconButton>
               <Link underline="none" component="button" color="icon">
                 Save
