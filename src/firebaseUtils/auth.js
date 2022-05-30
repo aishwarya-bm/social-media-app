@@ -1,4 +1,3 @@
-import { SwitchLeftSharp } from "@mui/icons-material";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "components/toast/Toast";
 import {
@@ -9,10 +8,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
-import { app } from "firebaseConfig";
-
-const db = getFirestore(app);
-const auth = getAuth(app);
+import { db, auth } from "firebaseConfig";
 
 const isValidEmail = email => {
   const regex =
@@ -137,7 +133,6 @@ const logoutUser = (dispatch, logout, navigate) => {
 };
 
 const getUserData = createAsyncThunk("auth/getUserData", async uid => {
-  const db = getFirestore(app);
   const docRef = doc(db, "user_profile", uid);
   try {
     const docSnap = await getDoc(docRef);
