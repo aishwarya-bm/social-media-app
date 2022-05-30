@@ -107,7 +107,7 @@ export function Postcard(props) {
                 {isSaved ? <BookmarkAdded fontSize="inherit" /> : <BookmarkAddOutlined fontSize="inherit" />}
               </IconButton>
               <Link underline="none" component="button" color="icon">
-                Save
+               {isSaved ? "Saved" :  "Save"}
               </Link>
             </Stack>
           </CardActions>
