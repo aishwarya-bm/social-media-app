@@ -2,6 +2,7 @@ import { RoutePaths } from "RoutePaths";
 import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer } from "react-toastify";
+import { red } from "@mui/material/colors";
 
 export const theme = createTheme({
   palette: {
@@ -19,6 +20,9 @@ export const theme = createTheme({
       main: "#666666",
       light: "#F0F2F5",
     },
+    red:{
+      main: red[500]
+    }
   },
 });
 

@@ -11,7 +11,7 @@ export function Home() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ marginTop: 4 }}>
-        <Stack direction="row" justifyContent="space-between" alignItems="center" margin={1} mt={4}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" margin={1} mt={5}>
           <Typography variant="h6" gutterBottom component="div">
             Home
           </Typography>

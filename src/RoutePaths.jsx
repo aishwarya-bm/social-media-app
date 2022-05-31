@@ -7,7 +7,7 @@ export function RoutePaths(){
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route element={<MainPage />}>
-            <Route path="/bookmarks" element={<Bookmarks />} />
+            <Route path="/saved" element={<Bookmarks />} />
             <Route path="/home" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/profile" element={<Profile />} />

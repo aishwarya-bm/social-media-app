@@ -1,4 +1,8 @@
 .post-card .MuiCardHeader-title{
-    font-weight: bold;
+    font-weight: 500;
     font-size: 1rem;
+}
+
+.post-card{
+    box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px;
 }

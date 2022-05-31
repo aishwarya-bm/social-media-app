@@ -1,18 +1,23 @@
 import { ThemeProvider } from "@emotion/react";
-import { Avatar, Grid, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Avatar, Stack, Typography } from "@mui/material";
 import { theme } from "App";
 import "./commentcard.css";
 export function CommentCard({ comment }) {
-  const { comment_author, comment_author_avatar, comment_content, comment_date } = comment;
+  const { author, createdAt, comment: content } = comment;
+  const commentDateTime =
+    new Date(createdAt?.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
+    ", " +
+    new Date(createdAt?.seconds * 1000).toLocaleDateString();
   return (
     <>
       <ThemeProvider theme={theme}>
         <div>
           <Stack direction="row" spacing={1.5} alignItems="center">
-            <Avatar alt="Remy Sharp" src={comment_author_avatar} sx={{ width: 32, height: 32 }} />
-            <Typography variant="subtitle2">{comment_author}</Typography>
-            <Typography variant="caption">{comment_date}</Typography>
+            <Avatar aria-label="comment-author" sx={{ width: 32, height: 32 }}>
+              {author?.avatar || author?.firstname?.charAt(0)}
+            </Avatar>
+            <Typography variant="subtitle2">{`${author?.firstname} ${author?.lastname}`}</Typography>
+            <Typography variant="caption">{commentDateTime}</Typography>
           </Stack>
           <Typography
             variant="body2"
@@ -24,7 +29,7 @@ export function CommentCard({ comment }) {
               marginRight: 2,
               width: "fit-content",
             }}>
-            {comment_content}
+            {content}
           </Typography>
         </div>
       </ThemeProvider>

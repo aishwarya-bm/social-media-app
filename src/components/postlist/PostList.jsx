@@ -7,13 +7,13 @@ import { useEffect, useMemo } from "react";
 import { getUserFeedPosts } from "firebaseUtils/posts";
 import { filterMyPosts } from "firebaseUtils/postFilter";
 
-export function Postlist({ isProfilePage }) {
+export function Postlist({ isProfilePage, isSavedPage }) {
   const { feedPosts, auth } = useSelector(store => store);
   const { posts } = feedPosts;
   const { id } = auth;
   const dispatch = useDispatch();
 
-  const filteredPosts = useMemo(() => filterMyPosts(posts, id, isProfilePage), [posts]);
+  const filteredPosts = useMemo(() => filterMyPosts(posts, id, isProfilePage, isSavedPage), [posts]);
 
   useEffect(() => {
     dispatch(getUserFeedPosts());

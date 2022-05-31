@@ -27,9 +27,9 @@ export const sidenavItems = [
   },
   {
     id: 5,
-    title: "Bookmarks",
+    title: "Saved",
     nav_icon: <Bookmark fontSize="medium" />,
-    nextUrl: "/bookmarks",
+    nextUrl: "/saved",
   },
   {
     id: 6,
