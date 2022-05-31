@@ -1,21 +1,16 @@
 import { Avatar, Box, Button, Card, Grid, Typography } from "@mui/material";
 import { UserNameCard } from "components";
+import { getAllUsers } from "firebaseUtils/auth";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export function Suggestions() {
-  const suggestedUsers = [
-    {
-      username: "Aishwarya Biradar",
-      avatar: "",
-    },
-    {
-      username: "Aishwarya Biradar",
-      avatar: "",
-    },
-    {
-      username: "Aishwarya Biradar",
-      avatar: "",
-    },
-  ];
+  const { suggested } = useSelector(store => store.auth);
+  const dispatch = useDispatch();
+  console.log(suggested);
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [suggested]);
   return (
     <Grid
       item
@@ -28,8 +23,12 @@ export function Suggestions() {
       <Typography gutterBottom component="div" sx={{ marginTop: 3 }}>
         Suggestions for you:
       </Typography>
-      {suggestedUsers.map(follower => {
-        return <UserNameCard fellowUser={follower} isSuggestionCard={true} />;
+      {suggested?.map((follower, idx) => {
+        return (
+          <div key={"suggestion" + idx}>
+            <UserNameCard fellowUser={follower} isSuggestionCard={true} />
+          </div>
+        );
       })}
     </Grid>
   );

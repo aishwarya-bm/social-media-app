@@ -14,11 +14,11 @@ export function UserNameCard({ isSuggestionCard, isFollowerCard, isFollowingCard
             gap: 2,
             marginBottom: 2,
             paddingRight: 1,
-          }}>         
-            <Stack direction={"row"} alignItems={"center"} gap={1}>
-              <Avatar alt="Remy Sharp" src={fellowUser.avatar} sx={{ m: 1 }} />
-              <Typography component="div">{fellowUser.username}</Typography>
-            </Stack>         
+          }}>
+          <Stack direction={"row"} alignItems={"center"} gap={1}>
+            <Avatar alt="user-avatar" src={fellowUser?.avatar || fellowUser?.firstname?.charAt(0)} sx={{ m: 1 }} />
+            <Typography component="div">{fellowUser?.firstname + " " + fellowUser?.lastname}</Typography>
+          </Stack>
           {isFollowingCard && (
             <Button variant="outlined" color="error">
               unfollow

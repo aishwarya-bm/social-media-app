@@ -10,7 +10,7 @@ export function RoutePaths(){
             <Route path="/saved" element={<Bookmarks />} />
             <Route path="/home" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:profileId" element={<Profile />} />
           </Route>
           <Route path="/auth" element={<Auth />}></Route>
           <Route path="/messages" element={<Auth />}></Route>

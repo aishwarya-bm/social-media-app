@@ -6,14 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { getUserFeedPosts } from "firebaseUtils/posts";
 import { filterMyPosts } from "firebaseUtils/postFilter";
+import { useParams } from "react-router-dom";
 
 export function Postlist({ isProfilePage, isSavedPage }) {
   const { feedPosts, auth } = useSelector(store => store);
   const { posts } = feedPosts;
   const { id } = auth;
   const dispatch = useDispatch();
-
-  const filteredPosts = useMemo(() => filterMyPosts(posts, id, isProfilePage, isSavedPage), [posts]);
+const {profileId} = useParams();
+  const filteredPosts = useMemo(() => filterMyPosts(posts, profileId, isProfilePage, isSavedPage), [posts]);
 
   useEffect(() => {
     dispatch(getUserFeedPosts());

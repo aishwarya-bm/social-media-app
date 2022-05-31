@@ -1,13 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "components/toast/Toast";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc, getDoc, getDocs, query, collection } from "firebase/firestore";
 import { db, auth } from "firebaseConfig";
 
 const isValidEmail = email => {
@@ -168,4 +162,51 @@ const updateUserProfile = async (uid, userData, dispatch, setUserProfile) => {
   }
 };
 
-export { createUser, loginUser, logoutUser, getUserData, isValidEmail, isValidPassword, updateUserProfile };
+const getAllUsers = createAsyncThunk("auth/getAllUsers", async () => {
+  let allUsers = [];
+  try {
+    const q = query(collection(db, "user_profile"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(doc => {
+      const user = doc.data();
+      allUsers.push({ ...user, id: doc.id });
+    });
+  } catch (err) {
+    Toast({
+      message: "Some error occured.",
+      type: "error",
+    });
+  }
+  console.log(allUsers)
+  return allUsers;
+});
+
+const getUserProfile = createAsyncThunk("auth/getAllUsers", async uid => {
+  try {
+    const docRef = doc(db, "user_profile", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return { ...docSnap.data(), id: docSnap.id };
+    } else {
+      console.log("No such document!");
+    }
+  } catch (err) {
+    Toast({
+      message: "Some error occured.",
+      type: "error",
+    });
+  }
+});
+
+export {
+  createUser,
+  loginUser,
+  logoutUser,
+  getAllUsers,
+  getUserData,
+  getUserProfile,
+  isValidEmail,
+  isValidPassword,
+  updateUserProfile,
+};

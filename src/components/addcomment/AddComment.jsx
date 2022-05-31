@@ -22,7 +22,11 @@ export function AddComment({ postId }) {
     <>
       <ThemeProvider theme={theme}>
         <Box sx={{ display: "flex", margin: ".5rem", marginTop: "1rem" }}>
-          <Avatar alt="Remy Sharp" src="" sx={{ width: 32, height: 32 }} />
+          <Avatar
+            alt={user?.firstname}
+            src={user?.avatar || user?.firstname?.charAt(0)}
+            sx={{ width: 32, height: 32 }}
+          />
           <TextField
             fullWidth
             className="comment-input"
