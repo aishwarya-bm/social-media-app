@@ -1,5 +1,5 @@
 import { Avatar, Box, Grid, Tab, Tabs } from "@mui/material";
-import { Postlist } from "components";
+import { Likes, Postlist } from "components";
 import { UserDetails } from "components/userDetails/UserDetails";
 import { getUserProfile } from "firebaseUtils/auth";
 import { Bookmarks } from "pages";
@@ -19,6 +19,7 @@ export function Profile() {
 
   useEffect(() => {
     dispatch(getUserProfile(profileId));
+    console.log("profile", profileDetails);
   }, [profileId]);
   return (
     <>
@@ -28,12 +29,10 @@ export function Profile() {
             <img className="profile-cover" src="https://picsum.photos/200/300" />
             <Avatar
               className="profile-image"
-              alt={profileDetails?.firstname}
-              src={
-                <Avatar aria-label="author">{profileDetails?.avatar || profileDetails?.firstname?.charAt(0)}</Avatar>
-              }
               sx={{ width: 56, height: 56, position: "absolute" }}
-            />
+              aria-label={`${profileDetails?.firstname}`}>
+              {profileDetails?.avatar || profileDetails?.firstname?.charAt(0)}
+            </Avatar>
           </Grid>
           <UserDetails profileDetails={profileDetails} />
 
@@ -42,13 +41,15 @@ export function Profile() {
             onChange={handleChange}
             textColor="secondary"
             indicatorColor="secondary"
-            aria-label="secondary tabs example"
+            aria-label="profile tabs"
             variant="fullWidth">
             <Tab value="posts" label="Posts"></Tab>
             {id === profileDetails?.id && <Tab value="bookmarks" label="Saved"></Tab>}
+            <Tab value="likes" label="Likes"></Tab>
           </Tabs>
           {value === "posts" && <Postlist isProfilePage={true} />}
           {value === "bookmarks" && <Bookmarks isProfilePage={true} />}
+          {value === "likes" && <Likes />}
         </Box>
       </div>
     </>

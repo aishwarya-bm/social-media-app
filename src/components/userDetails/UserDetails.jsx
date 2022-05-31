@@ -5,9 +5,12 @@ import { EditProfileForm, Followers, Following } from "components";
 import { useState } from "react";
 import "./userdetails.css";
 import { theme } from "App";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUserToFollowing, getAllUsers, isFollowing, removeUserFromFollowing } from "firebaseUtils/auth";
 
-export function UserDetails({profileDetails}) {
+export function UserDetails({ profileDetails }) {
+  const dispatch = useDispatch();
+  const { id, user } = useSelector(store => store.auth);
   const [open, setOpen] = useState(false);
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
@@ -19,10 +22,8 @@ export function UserDetails({profileDetails}) {
   const [openFollowing, setOpenFollowing] = useState(false);
   const handleOpenFollowingModal = () => setOpenFollowing(true);
   const handleCloseFollowingModal = () => setOpenFollowing(false);
-
-  const { id } = useSelector(store => store.auth);
   // const { firstname, lastname, bio, website, followers, following } = profileDetails;
-
+const isFollowingUser = isFollowing(profileDetails?.id, user?.following);
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -36,11 +37,22 @@ export function UserDetails({profileDetails}) {
             alignItems="center">
             <Box sx={{ fontWeight: "bold" }}>
               {profileDetails?.firstname} {profileDetails?.lastname} &nbsp;
-              {id !== profileDetails?.id && (
-                <Button variant="outlined" color="error">
-                  Follow
-                </Button>
-              )}
+              {id !== profileDetails?.id &&
+                (isFollowing(profileDetails?.id, user?.following) ? (
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => removeUserFromFollowing(id, user, profileDetails, dispatch)}>
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => addUserToFollowing(id, user, profileDetails, dispatch)}>
+                    Follow
+                  </Button>
+                ))}
             </Box>
             {id === profileDetails?.id && (
               <Button variant="outlined" color="secondary" onClick={handleOpenModal}>
@@ -69,14 +81,22 @@ export function UserDetails({profileDetails}) {
                 <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>followers</Box>
               </Stack>
             </Button>
-            <Followers open={openFollowers} handleClose={handleCloseFollowersModal} />
+            <Followers
+              open={openFollowers}
+              handleClose={handleCloseFollowersModal}
+              followers={profileDetails?.followers}
+            />
             <Button component={Link} variant="string" onClick={handleOpenFollowingModal}>
               <Stack direction={"row"} gap={1}>
                 <Box sx={{ typography: "subtitle2" }}> {profileDetails?.following?.length}</Box>
                 <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>following</Box>
               </Stack>
             </Button>
-            <Following open={openFollowing} handleClose={handleCloseFollowingModal} />
+            <Following
+              open={openFollowing}
+              handleClose={handleCloseFollowingModal}
+              following={profileDetails?.following}
+            />
           </Stack>
         </Stack>
       </ThemeProvider>

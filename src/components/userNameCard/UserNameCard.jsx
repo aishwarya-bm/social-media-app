@@ -6,7 +6,7 @@ export function UserNameCard({ isSuggestionCard, isFollowerCard, isFollowingCard
     <>
       <ThemeProvider theme={theme}>
         <Card
-          elevation={2}
+          elevation = { isSuggestionCard ? 2 : 0 }
           sx={{
             display: "flex",
             justifyContent: "space-between",

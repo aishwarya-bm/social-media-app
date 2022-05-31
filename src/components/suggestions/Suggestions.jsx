@@ -10,7 +10,7 @@ export function Suggestions() {
   console.log(suggested);
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [suggested]);
+  }, []);
   return (
     <Grid
       item

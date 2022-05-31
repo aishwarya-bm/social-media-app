@@ -1,7 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "components/toast/Toast";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc, getDoc, getDocs, query, collection } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  query,
+  collection,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { db, auth } from "firebaseConfig";
 
 const isValidEmail = email => {
@@ -177,11 +187,10 @@ const getAllUsers = createAsyncThunk("auth/getAllUsers", async () => {
       type: "error",
     });
   }
-  console.log(allUsers)
   return allUsers;
 });
 
-const getUserProfile = createAsyncThunk("auth/getAllUsers", async uid => {
+const getUserProfile = createAsyncThunk("auth/getUserProfile", async uid => {
   try {
     const docRef = doc(db, "user_profile", uid);
     const docSnap = await getDoc(docRef);
@@ -199,14 +208,85 @@ const getUserProfile = createAsyncThunk("auth/getAllUsers", async uid => {
   }
 });
 
+const addUserToFollowing = async (followerId, follower, following, dispatch) => {
+  const { firstname, lastname, avatar } = follower;
+  const { firstname: fanme, lastname: lname, avatar: av } = following;
+  const personToFollow = {
+    firstname: fanme,
+    lastname: lname,
+    avatar: av,
+    id: following.id,
+  };
+  const personFollowing = { firstname, lastname, avatar, id: followerId };
+  const followerRef = doc(db, "user_profile", followerId);
+  const followingRef = doc(db, "user_profile", following.id);
+  try {
+    await updateDoc(followerRef, {
+      following: arrayUnion(personToFollow),
+    });
+
+    await updateDoc(followingRef, {
+      followers: arrayUnion(personFollowing),
+    });
+
+    dispatch(getUserProfile(following.id));
+    // dispatch(getSuggestedUsers());
+    Toast({
+      message: `You followed ${fanme} ${lname}`,
+      type: "success",
+    });
+  } catch (err) {
+    Toast({ message: "Some error occured, please try again later.", type: "error" });
+  }
+};
+
+const removeUserFromFollowing = async (followerId, follower, following, dispatch) => {
+  const { firstname, lastname, avatar } = follower;
+  const followingUser = { firstname, lastname, avatar, id: followerId };
+  const followerUser = {
+    firstname: following.firstname,
+    lastname: following.lastname,
+    avatar: following.avatar,
+    id: following.id,
+  };
+
+  const followingRef = doc(db, "user_profile", followerId);
+  const followerRef = doc(db, "user_profile", following.id);
+
+  try {
+    await updateDoc(followingRef, {
+      following: arrayRemove(followerUser),
+    });
+
+    await updateDoc(followerRef, {
+      followers: arrayRemove(followingUser),
+    });
+    dispatch(getUserProfile(following.id));
+    dispatch(getSuggestedUsers());
+    Toast({
+      message: `You unfollowed ${following.firstname} ${following.lastname}`,
+      type: "success",
+    });
+  } catch (err) {
+    Toast({ message: "Some error occured, please try again later.", type: "error" });
+  }
+};
+
+const isFollowing = (followingUserId, following) => {
+  return following?.find(p => p.id === followingUserId);
+};
+
 export {
   createUser,
+  addUserToFollowing,
   loginUser,
   logoutUser,
   getAllUsers,
   getUserData,
   getUserProfile,
+  isFollowing,
   isValidEmail,
   isValidPassword,
+  removeUserFromFollowing,
   updateUserProfile,
 };

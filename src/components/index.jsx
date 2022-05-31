@@ -8,6 +8,7 @@ export { Followers } from "./followers/Followers";
 export { Following } from "./Following/Following";
 export { FilterChips } from "./filters/FilterChips";
 export { Header } from "./header/Header";
+export { Likes } from "./likes/Likes";
 export { Leftnav } from "./leftnav/Leftnav";
 export { Postlist } from "./postlist/PostList";
 export { PostMenu } from "./postMenu/PostMenu";
