@@ -26,7 +26,7 @@ export function Postlist({ isProfilePage, isSavedPage, isLikedPage }) {
 
   useEffect(() => {
     dispatch(setMyPosts(filteredPosts));
-  }, [feed]);
+  }, [feed, profileId]);
 
   return (
     <>

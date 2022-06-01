@@ -208,30 +208,30 @@ const getUserProfile = createAsyncThunk("auth/getUserProfile", async uid => {
   }
 });
 
-const addUserToFollowing = async (followerId, follower, following, dispatch, setUserProfile, peerId) => {
+const addUserToFollowing = async (followerId, follower, peer, dispatch, setUserProfile, viewingProfileId) => {
   const { firstname, lastname, avatar } = follower;
-  const { firstname: fanme, lastname: lname, avatar: av } = following;
+  const { firstname: fanme, lastname: lname, avatar: av } = peer;
   const personToFollow = {
     firstname: fanme,
     lastname: lname,
     avatar: av,
-    id: following.id,
+    id: peer.id,
   };
   const personFollowing = { firstname, lastname, avatar, id: followerId };
   const followerRef = doc(db, "user_profile", followerId);
-  const followingRef = doc(db, "user_profile", following.id);
+  const peerRef = doc(db, "user_profile", peer.id);
   try {
     await updateDoc(followerRef, {
       following: arrayUnion(personToFollow),
     });
 
-    await updateDoc(followingRef, {
+    await updateDoc(peerRef, {
       followers: arrayUnion(personFollowing),
     });
     const user = { ...follower, following: [...follower.following, personToFollow] };
     dispatch(setUserProfile(user));
-    dispatch(getUserProfile(following.id));
-    dispatch(getUserProfile(peerId));
+    dispatch(getUserProfile(peer.id));
+    if(viewingProfileId) dispatch(getUserProfile(viewingProfileId));
     Toast({
       message: `You followed ${fanme} ${lname}`,
       type: "success",
@@ -241,33 +241,32 @@ const addUserToFollowing = async (followerId, follower, following, dispatch, set
   }
 };
 
-const removeUserFromFollowing = async (followerId, follower, following, dispatch, setUserProfile, peerId) => {
+const removeUserFromFollowing = async (followerId, follower, peer, dispatch, setUserProfile, viewingProfileId) => {
   const { firstname, lastname, avatar } = follower;
   const followingUser = { firstname, lastname, avatar, id: followerId };
-  const followerUser = {
-    firstname: following.firstname,
-    lastname: following.lastname,
-    avatar: following.avatar,
-    id: following.id,
+  const peerUser = {
+    firstname: peer.firstname,
+    lastname: peer.lastname,
+    avatar: peer.avatar,
+    id: peer.id,
   };
 
   const followingRef = doc(db, "user_profile", followerId);
-  const followerRef = doc(db, "user_profile", following.id);
+  const peerRef = doc(db, "user_profile", peer.id);
 
   try {
     await updateDoc(followingRef, {
-      following: arrayRemove(followerUser),
+      following: arrayRemove(peerUser),
     });
 
-    await updateDoc(followerRef, {
+    await updateDoc(peerRef, {
       followers: arrayRemove(followingUser),
     });
-    const user = { ...follower, following: follower.following.filter(p => p.id !== following.id) };
+    const user = { ...follower, following: follower.following.filter(p => p.id !== peer.id) };
     dispatch(setUserProfile(user));
-    console.log(following.id, peerId);
-    dispatch(getUserProfile(peerId));
+   if (viewingProfileId) dispatch(getUserProfile(viewingProfileId));
     Toast({
-      message: `You unfollowed ${following.firstname} ${following.lastname}`,
+      message: `You unfollowed ${peer.firstname} ${peer.lastname}`,
       type: "success",
     });
   } catch (err) {
