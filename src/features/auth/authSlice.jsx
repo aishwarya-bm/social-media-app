@@ -6,7 +6,7 @@ const initialState = {
   isLoggedIn: localStorage.getItem("userId") !== "" ? true : false,
   id: localStorage.getItem("userId"),
   isLoading: false,
-  suggested:[],
+  allUsers:[],
   profileDetails:{}
 };
 
@@ -23,7 +23,7 @@ const authSlice = createSlice({
       state.id = null;
       state.user = {};
       localStorage.removeItem("userId");
-      state.suggested = [];
+      state.allUsers = [];
       state.profileDetails={}
     },
     setUserProfile: (state, action) => {
@@ -45,10 +45,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     [getAllUsers.fulfilled]: (state, action) => {
-      // const following = [...state.user.following, id]
-      // const suggestedUsers = action.payload.filter(user => following.some(f.userId === user.id) )
-      console.log(action.payload)
-      state.suggested = action.payload;
+      state.allUsers = action.payload;
       state.isLoading = false;
     },
     [getAllUsers.rejected]: state => {

@@ -1,4 +1,5 @@
 export { AddComment } from "./addcomment/AddComment";
+export { AllSuggestions } from "./suggestions/AllSuggestions";
 export { BottomNav } from "./bottomNav/BottomNav";
 export { CommentCard } from "./commentcard/CommentCard";
 export { CommentList } from "components/commentlist/CommentList";

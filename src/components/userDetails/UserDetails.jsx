@@ -7,6 +7,7 @@ import "./userdetails.css";
 import { theme } from "App";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserToFollowing, getAllUsers, isFollowing, removeUserFromFollowing } from "firebaseUtils/auth";
+import { setUserProfile } from "features/auth/authSlice";
 
 export function UserDetails({ profileDetails }) {
   const dispatch = useDispatch();
@@ -42,14 +43,18 @@ const isFollowingUser = isFollowing(profileDetails?.id, user?.following);
                   <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => removeUserFromFollowing(id, user, profileDetails, dispatch)}>
+                    onClick={() =>
+                      removeUserFromFollowing(id, user, profileDetails, dispatch, setUserProfile, profileDetails.id)
+                    }>
                     Unfollow
                   </Button>
                 ) : (
                   <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => addUserToFollowing(id, user, profileDetails, dispatch)}>
+                    onClick={() =>
+                      addUserToFollowing(id, user, profileDetails, dispatch, setUserProfile, profileDetails.id)
+                    }>
                     Follow
                   </Button>
                 ))}

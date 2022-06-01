@@ -208,7 +208,7 @@ const getUserProfile = createAsyncThunk("auth/getUserProfile", async uid => {
   }
 });
 
-const addUserToFollowing = async (followerId, follower, following, dispatch) => {
+const addUserToFollowing = async (followerId, follower, following, dispatch, setUserProfile, peerId) => {
   const { firstname, lastname, avatar } = follower;
   const { firstname: fanme, lastname: lname, avatar: av } = following;
   const personToFollow = {
@@ -228,9 +228,9 @@ const addUserToFollowing = async (followerId, follower, following, dispatch) => 
     await updateDoc(followingRef, {
       followers: arrayUnion(personFollowing),
     });
-
-    dispatch(getUserProfile(following.id));
-    // dispatch(getSuggestedUsers());
+    const user = { ...follower, following: [...follower.following, personToFollow] };
+    dispatch(setUserProfile(user));
+    if (following.id === peerId) dispatch(getUserProfile(following.id));
     Toast({
       message: `You followed ${fanme} ${lname}`,
       type: "success",
@@ -240,7 +240,7 @@ const addUserToFollowing = async (followerId, follower, following, dispatch) => 
   }
 };
 
-const removeUserFromFollowing = async (followerId, follower, following, dispatch) => {
+const removeUserFromFollowing = async (followerId, follower, following, dispatch, setUserProfile, peerId) => {
   const { firstname, lastname, avatar } = follower;
   const followingUser = { firstname, lastname, avatar, id: followerId };
   const followerUser = {
@@ -261,8 +261,9 @@ const removeUserFromFollowing = async (followerId, follower, following, dispatch
     await updateDoc(followerRef, {
       followers: arrayRemove(followingUser),
     });
-    dispatch(getUserProfile(following.id));
-    dispatch(getSuggestedUsers());
+    const user = { ...follower, following: follower.following.filter(p => p.id !== following.id) };
+    dispatch(setUserProfile(user));
+    if(following.id === peerId) dispatch(getUserProfile(following.id));
     Toast({
       message: `You unfollowed ${following.firstname} ${following.lastname}`,
       type: "success",

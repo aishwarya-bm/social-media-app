@@ -9,4 +9,9 @@ const filterMyPosts = (posts, id, isProfilePage, isSavedPage, isLikedPage) => {
   return posts;
 };
 
-export { filterMyPosts };
+const getSuggestionsList = (allUsers, user,id) => {
+  let suggestions = allUsers.filter(u => u.id !== id);
+  suggestions = suggestions.filter(u => !user?.following?.find(p => p.id === u.id));
+  return suggestions;
+};
+export { filterMyPosts, getSuggestionsList };

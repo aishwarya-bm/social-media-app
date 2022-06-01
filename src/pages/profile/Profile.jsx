@@ -19,7 +19,6 @@ export function Profile() {
 
   useEffect(() => {
     dispatch(getUserProfile(profileId));
-    console.log("profile", profileDetails);
   }, [profileId]);
   return (
     <>

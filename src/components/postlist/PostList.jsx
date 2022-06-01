@@ -5,7 +5,7 @@ import { Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { getUserFeedPosts } from "firebaseUtils/posts";
-import { filterMyPosts } from "firebaseUtils/postFilter";
+import { filterMyPosts } from "firebaseUtils/filters";
 import { useParams } from "react-router-dom";
 
 export function Postlist({ isProfilePage, isSavedPage, isLikedPage }) {
