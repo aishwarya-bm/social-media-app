@@ -58,7 +58,7 @@ export function Postcard(props) {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Card sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px, borderRadius:"5px" }} className="post-card">
+        <Card sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px", borderRadius:"5px" }} className="post-card">
           <CardHeader
             sx={{ color: "black" }}
             avatar={
