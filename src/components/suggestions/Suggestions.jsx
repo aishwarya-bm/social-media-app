@@ -1,3 +1,4 @@
+import { ArrowRightOutlined } from "@mui/icons-material";
 import { Button, Grid, Typography } from "@mui/material";
 import { UserNameCard } from "components";
 import { getAllUsers } from "firebaseUtils/auth";
@@ -13,10 +14,13 @@ export function Suggestions() {
 
   const { allUsers, user, id } = useSelector(store => store.auth);
   const dispatch = useDispatch();
-  const suggestedUsers = useMemo(() => getSuggestionsList(allUsers, user, id),[allUsers, user.followers, user.following]); 
-    useEffect(() => {
-      dispatch(getAllUsers());
-    }, []);
+  const suggestedUsers = useMemo(
+    () => getSuggestionsList(allUsers, user, id),
+    [allUsers, user.followers, user.following]
+  );
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
   return (
     <>
       <Grid
@@ -27,10 +31,15 @@ export function Suggestions() {
         sx={{
           display: { xs: "none", sm: "none", md: "none", lg: "grid" },
         }}>
-        <Typography gutterBottom component="div" sx={{ marginTop: 3 }} textAlign="center" >
-          Suggestions for you: <Button variant="text" onClick={handleOpenSuggestionsModal} >see more</Button>
+        <Typography gutterBottom component="div" sx={{ marginTop: 3 }} textAlign="center">
+          Suggestions:
+          {suggestedUsers?.length > 5 && (
+            <Button endIcon={<ArrowRightOutlined />} variant="text" onClick={handleOpenSuggestionsModal}>
+              see all
+            </Button>
+          )}
         </Typography>
-        {(suggestedUsers.slice(0,5))?.map((follower, idx) => (
+        {suggestedUsers.slice(0, 5)?.map((follower, idx) => (
           <div key={"suggestion" + idx}>
             <UserNameCard fellowUser={follower} isSuggestionCard={true} />
           </div>

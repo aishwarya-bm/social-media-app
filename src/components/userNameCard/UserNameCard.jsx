@@ -17,6 +17,8 @@ export function UserNameCard({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { profileId } = useParams();
+
+  const border = isSuggestionCard ? "1px solid var(--primary-color)" : "0";
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -36,7 +38,11 @@ export function UserNameCard({
             cursor: "pointer",
           }}>
           <Stack direction={"row"} alignItems={"center"} gap={1}>
-            <Avatar alt="user-avatar" src={fellowUser?.avatar || fellowUser?.firstname?.charAt(0)} sx={{ m: 1 }} />
+            <Avatar
+              alt={fellowUser?.firstname}
+              src={fellowUser?.avatar || fellowUser?.firstname?.charAt(0)}
+              sx={{ m: 1 }}
+            />
             <Typography component="div">{fellowUser?.firstname + " " + fellowUser?.lastname}</Typography>
           </Stack>
           {(isFollowerCard || isFollowingCard) &&

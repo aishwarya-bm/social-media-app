@@ -7,19 +7,26 @@ import { useEffect, useMemo } from "react";
 import { getUserFeedPosts } from "firebaseUtils/posts";
 import { filterMyPosts } from "firebaseUtils/filters";
 import { useParams } from "react-router-dom";
+import { setMyPosts } from "features/posts/postsSlice";
 
 export function Postlist({ isProfilePage, isSavedPage, isLikedPage }) {
-  const { feedPosts } = useSelector(store => store);
-  const { posts } = feedPosts;
+  const { feedPosts, auth } = useSelector(store => store);
+  const {id} = auth;
+  const { feed } = feedPosts;
   const dispatch = useDispatch();
   const { profileId } = useParams();
+  const userId = isProfilePage ? profileId : id;
   const filteredPosts = useMemo(
-    () => filterMyPosts(posts, profileId, isProfilePage, isSavedPage, isLikedPage),
-    [profileId, posts]
+    () => filterMyPosts(feed, userId, isProfilePage, isSavedPage, isLikedPage),
+    [profileId, feed]
   );
   useEffect(() => {
     dispatch(getUserFeedPosts());
   }, []);
+
+  useEffect(() => {
+    dispatch(setMyPosts(filteredPosts));
+  }, [feed]);
 
   return (
     <>

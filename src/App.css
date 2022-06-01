@@ -1,6 +1,8 @@
 :root{
     --grey-bg:#e6e8eb;
     --primary-color:#407BFF;
+    --icon-color:#666666;
+    --card-border:#2196f36b;
 }
 
 a{
