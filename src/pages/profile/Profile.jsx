@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, Tab, Tabs } from "@mui/material";
 import { Likes, Postlist } from "components";
 import { UserDetails } from "components/userDetails/UserDetails";
-import { getUserProfile } from "firebaseUtils/auth";
+import { getAllUsers, getUserProfile } from "firebaseUtils/auth";
 import { Bookmarks } from "pages";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,7 @@ export function Profile() {
   useEffect(() => {
     dispatch(getUserProfile(profileId));
   }, [profileId]);
+  
   return (
     <>
       <div className="profile-container">

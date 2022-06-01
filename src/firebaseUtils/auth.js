@@ -230,7 +230,8 @@ const addUserToFollowing = async (followerId, follower, following, dispatch, set
     });
     const user = { ...follower, following: [...follower.following, personToFollow] };
     dispatch(setUserProfile(user));
-    if (following.id === peerId) dispatch(getUserProfile(following.id));
+    dispatch(getUserProfile(following.id));
+    dispatch(getUserProfile(peerId));
     Toast({
       message: `You followed ${fanme} ${lname}`,
       type: "success",
@@ -263,7 +264,8 @@ const removeUserFromFollowing = async (followerId, follower, following, dispatch
     });
     const user = { ...follower, following: follower.following.filter(p => p.id !== following.id) };
     dispatch(setUserProfile(user));
-    if(following.id === peerId) dispatch(getUserProfile(following.id));
+    console.log(following.id, peerId);
+    dispatch(getUserProfile(peerId));
     Toast({
       message: `You unfollowed ${following.firstname} ${following.lastname}`,
       type: "success",
@@ -277,6 +279,10 @@ const isFollowing = (followingUserId, following) => {
   return following?.find(p => p.id === followingUserId);
 };
 
+const isFollower = (followerUserId, follower) => {
+  return follower?.find(p => p.id === followerUserId);
+};
+
 export {
   createUser,
   addUserToFollowing,
@@ -285,6 +291,7 @@ export {
   getAllUsers,
   getUserData,
   getUserProfile,
+  isFollower,
   isFollowing,
   isValidEmail,
   isValidPassword,

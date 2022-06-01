@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { UserNameCard } from "components";
 import { getAllUsers } from "firebaseUtils/auth";
 import { getSuggestionsList } from "firebaseUtils/filters";
@@ -11,14 +11,12 @@ export function Suggestions() {
   const handleOpenSuggestionsModal = () => setOpenSuggestions(true);
   const handleCloseSuggestionsModal = () => setOpenSuggestions(false);
 
-  const { allUsers, user,id } = useSelector(store => store.auth);
+  const { allUsers, user, id } = useSelector(store => store.auth);
   const dispatch = useDispatch();
-  const suggestedUsers = useMemo(() => getSuggestionsList(allUsers, user, id), [user]);
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, []);
-
+  const suggestedUsers = useMemo(() => getSuggestionsList(allUsers, user, id),[allUsers, user.followers, user.following]); 
+    useEffect(() => {
+      dispatch(getAllUsers());
+    }, []);
   return (
     <>
       <Grid

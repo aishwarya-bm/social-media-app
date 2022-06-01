@@ -9,7 +9,7 @@ import { filterMyPosts } from "firebaseUtils/filters";
 import { useParams } from "react-router-dom";
 
 export function Postlist({ isProfilePage, isSavedPage, isLikedPage }) {
-  const { feedPosts, auth } = useSelector(store => store);
+  const { feedPosts } = useSelector(store => store);
   const { posts } = feedPosts;
   const dispatch = useDispatch();
   const { profileId } = useParams();

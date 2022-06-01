@@ -16,7 +16,7 @@ export function AllSuggestions({ open, handleClose, allSuggestions }) {
           <DialogTitle id="alert-dialog-title">
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography variant="h6" gutterBottom component="div">
-                Followers
+                Suggestions
               </Typography>
               <IconButton aria-label="filter" color="secondary" onClick={handleClose}>
                 <Close />
@@ -26,7 +26,11 @@ export function AllSuggestions({ open, handleClose, allSuggestions }) {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               {allSuggestions?.map(user => {
-                return <UserNameCard fellowUser={user} isAllSuggestions={true} />;
+                return (
+                  <div key={"allSuggestions" + user.id}>
+                    <UserNameCard fellowUser={user} isAllSuggestions={true} handleClose={handleClose} />
+                  </div>
+                );
               })}
             </DialogContentText>
           </DialogContent>

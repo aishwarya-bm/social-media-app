@@ -26,7 +26,11 @@ export function Followers({ open, handleClose, followers }) {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               {followers?.map(follower => {
-                return <UserNameCard fellowUser={follower} isFollowerCard={true} />;
+                return (
+                  <div key={"follower"+follower.id}>
+                    <UserNameCard fellowUser={follower} isFollowerCard={true} handleClose={handleClose} />
+                  </div>
+                );
               })}
             </DialogContentText>
           </DialogContent>

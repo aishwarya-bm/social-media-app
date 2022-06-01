@@ -32,8 +32,12 @@ export function Following({open,handleClose,following}) {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {following?.map(follower => {
-                return <UserNameCard fellowUser={follower} isFollowingCard={true} />;
+              {following?.map(following => {
+                return (
+                  <div key={"following" + following.id}>
+                    <UserNameCard fellowUser={following} isFollowingCard={true} handleClose={handleClose} />
+                  </div>
+                );
               })}
             </DialogContentText>
           </DialogContent>

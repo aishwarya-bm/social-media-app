@@ -52,17 +52,14 @@ export function Leftnav() {
           {sidenavItems.map(({ id, nav_icon, title, nextUrl }) => {
             return (
               <>
-                <NavLink
-                  to={title === "Profile" ? nextUrl + `/${userId}` : nextUrl}
-                  style={getActiveStyle}
-                  key={"sidenav" + id}>
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    {nav_icon}
-                    <Typography variant="string" component="span" sx={{ display: { sm: "none", md: "inherit" } }}>
-                      {title}
-                    </Typography>
-                  </Box>
-                </NavLink>
+                  <NavLink key={"nav" + id} to={title === "Profile" ? nextUrl + `/${userId}` : nextUrl} style={getActiveStyle}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      {nav_icon}
+                      <Typography variant="string" component="span" sx={{ display: { sm: "none", md: "inherit" } }}>
+                        {title}
+                      </Typography>
+                    </Box>
+                  </NavLink>
               </>
             );
           })}
