@@ -1,4 +1,4 @@
-import { FilterAlt } from "@mui/icons-material";
+import { SortOutlined } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { theme } from "App";
@@ -7,6 +7,10 @@ import { useState } from "react";
 
 export function Home() {
   const [showFilter, setShowFilter] = useState(false);
+  const [filterBy, setFilterBy] = useState("recent");
+  const handleClick = e => {
+    setFilterBy(e.target.innerText);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -16,12 +20,12 @@ export function Home() {
             Home
           </Typography>
           <IconButton aria-label="filter" color="secondary" onClick={() => setShowFilter(prev => !prev)}>
-            <FilterAlt />
+            <SortOutlined />
           </IconButton>
         </Stack>
       </Box>
-      {showFilter && <FilterChips setShowFilter={setShowFilter} />}
-      <Postlist/>
+      {showFilter && <FilterChips filterBy={filterBy} handleClick={handleClick} />}
+      <Postlist filterByChip={filterBy} />
     </ThemeProvider>
   );
 }

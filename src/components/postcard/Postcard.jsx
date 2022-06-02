@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import {Link as RouterLink} from "react-router-dom"
+import { Link as RouterLink } from "react-router-dom";
 import {
   BookmarkAdded,
   BookmarkAddOutlined,
@@ -104,7 +104,7 @@ export function Postcard(props) {
                   ? `You and ${likes?.length - 1} others liked this`
                   : "You liked this"
                 : likes.length > 1
-                ? `${likes.length} others liked this`
+                ? `${likes[0]?.firstname + " " + likes[0]?.lastname} & ${likes.length-1} other liked this`
                 : likes.length
                 ? `${likes[0]?.firstname + " " + likes[0]?.lastname} liked this`
                 : "Be the first one to like this"}{" "}
@@ -113,29 +113,33 @@ export function Postcard(props) {
 
           <Divider />
           <CardActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
-              <Button
-                size="small"
-                color="icon"
-                startIcon={
-                  isLiked ? (
-                    <FavoriteIcon color="red" fontSize="inherit" />
-                  ) : (
-                    <FavoriteBorderOutlined fontSize="inherit" />
-                  )
-                }
-                onClick={() =>
-                  isLiked
-                    ? removePostFromLiked(postId, user, id, dispatch, getUserFeedPosts)
-                    : addPostToLiked(postId, user, id, dispatch, getUserFeedPosts)
-                }>
-                <Link underline="none" component="button" color="icon">
-                  {likes?.length || ""} {likes?.length > 1 ? "Likes" : "Like"}
-                </Link>
-              </Button>
+            <Button
+              size="small"
+              color="icon"
+              startIcon={
+                isLiked ? (
+                  <FavoriteIcon color="red" fontSize="inherit" />
+                ) : (
+                  <FavoriteBorderOutlined fontSize="inherit" />
+                )
+              }
+              onClick={() =>
+                isLiked
+                  ? removePostFromLiked(postId, user, id, dispatch, getUserFeedPosts)
+                  : addPostToLiked(postId, user, id, dispatch, getUserFeedPosts)
+              }>
+              <Link underline="none" component="button" color="icon">
+                {likes?.length || ""} {likes?.length > 1 ? "Likes" : "Like"}
+              </Link>
+            </Button>
 
-              <LikedUsers open={openLikes} handleClose={handleCloseLikes} likedUsers={likes} />
+            <LikedUsers open={openLikes} handleClose={handleCloseLikes} likedUsers={likes} />
 
-            <Button size="small" color="icon" startIcon={<ChatBubbleOutline />} onClick={()=>setViewComments(prev=>!prev)}>
+            <Button
+              size="small"
+              color="icon"
+              startIcon={<ChatBubbleOutline />}
+              onClick={() => setViewComments(prev => !prev)}>
               <Link underline="none" component="button" color="icon">
                 {comments?.length || ""} {comments?.length > 1 ? "Comments" : "Comment"}
               </Link>
