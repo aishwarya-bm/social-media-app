@@ -19,6 +19,7 @@ export function Profile() {
 
   useEffect(() => {
     dispatch(getUserProfile(profileId));
+    setValue("posts");
   }, [profileId]);
   
   return (
@@ -47,8 +48,8 @@ export function Profile() {
             {id === profileDetails?.id && <Tab value="bookmarks" label="Saved"></Tab>}
             <Tab value="likes" label="Likes"></Tab>
           </Tabs>
-          {value === "posts" && <Postlist isProfilePage={true} />}
-          {value === "bookmarks" && <Bookmarks isProfilePage={true} />}
+          {value === "posts" && <Postlist type="profile" />}
+          {value === "bookmarks" && <Bookmarks type="profile" />}
           {value === "likes" && <Likes />}
         </Box>
       </div>

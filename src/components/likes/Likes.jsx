@@ -5,7 +5,7 @@ export function Likes() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Postlist isLikedPage={true} />
+        <Postlist type="liked" />
       </ThemeProvider>
     </>
   );
