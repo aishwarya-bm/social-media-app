@@ -5,19 +5,28 @@ import { Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { getUserFeedPosts } from "firebaseUtils/posts";
-import { filterMyPosts } from "firebaseUtils/postFilter";
+import { filterPosts } from "firebaseUtils/filters";
+import { useParams } from "react-router-dom";
+import { setMyPosts } from "features/posts/postsSlice";
 
-export function Postlist({ isProfilePage, isSavedPage }) {
+export function Postlist({ type }) {
   const { feedPosts, auth } = useSelector(store => store);
-  const { posts } = feedPosts;
-  const { id } = auth;
+  const {id} = auth;
+  const { feed } = feedPosts;
   const dispatch = useDispatch();
-
-  const filteredPosts = useMemo(() => filterMyPosts(posts, id, isProfilePage, isSavedPage), [posts]);
-
+  const { profileId } = useParams();
+  const userId = (type==="profile" ? profileId : id);
+  const filteredPosts = useMemo(
+    () => filterPosts(feed, userId, type),
+    [profileId, feed]
+  );
   useEffect(() => {
     dispatch(getUserFeedPosts());
   }, []);
+
+  useEffect(() => {
+   if(type==="profile") dispatch(setMyPosts(filteredPosts));
+  }, [feed, profileId]);
 
   return (
     <>

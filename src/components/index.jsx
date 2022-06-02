@@ -1,4 +1,5 @@
 export { AddComment } from "./addcomment/AddComment";
+export { AllSuggestions } from "./suggestions/AllSuggestions";
 export { BottomNav } from "./bottomNav/BottomNav";
 export { CommentCard } from "./commentcard/CommentCard";
 export { CommentList } from "components/commentlist/CommentList";
@@ -8,6 +9,7 @@ export { Followers } from "./followers/Followers";
 export { Following } from "./Following/Following";
 export { FilterChips } from "./filters/FilterChips";
 export { Header } from "./header/Header";
+export { Likes } from "./likes/Likes";
 export { Leftnav } from "./leftnav/Leftnav";
 export { Postlist } from "./postlist/PostList";
 export { PostMenu } from "./postMenu/PostMenu";

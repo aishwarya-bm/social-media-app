@@ -1,13 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "components/toast/Toast";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  query,
+  collection,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { db, auth } from "firebaseConfig";
 
 const isValidEmail = email => {
@@ -168,4 +172,128 @@ const updateUserProfile = async (uid, userData, dispatch, setUserProfile) => {
   }
 };
 
-export { createUser, loginUser, logoutUser, getUserData, isValidEmail, isValidPassword, updateUserProfile };
+const getAllUsers = createAsyncThunk("auth/getAllUsers", async () => {
+  let allUsers = [];
+  try {
+    const q = query(collection(db, "user_profile"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(doc => {
+      const user = doc.data();
+      allUsers.push({ ...user, id: doc.id });
+    });
+  } catch (err) {
+    Toast({
+      message: "Some error occured.",
+      type: "error",
+    });
+  }
+  return allUsers;
+});
+
+const getUserProfile = createAsyncThunk("auth/getUserProfile", async uid => {
+  try {
+    const docRef = doc(db, "user_profile", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return { ...docSnap.data(), id: docSnap.id };
+    } else {
+      console.log("No such document!");
+    }
+  } catch (err) {
+    Toast({
+      message: "Some error occured.",
+      type: "error",
+    });
+  }
+});
+
+const addUserToFollowing = async (followerId, follower, peer, dispatch, setUserProfile, viewingProfileId) => {
+  const { firstname, lastname, avatar } = follower;
+  const { firstname: fanme, lastname: lname, avatar: av } = peer;
+  const personToFollow = {
+    firstname: fanme,
+    lastname: lname,
+    avatar: av,
+    id: peer.id,
+  };
+  const personFollowing = { firstname, lastname, avatar, id: followerId };
+  const followerRef = doc(db, "user_profile", followerId);
+  const peerRef = doc(db, "user_profile", peer.id);
+  try {
+    await updateDoc(followerRef, {
+      following: arrayUnion(personToFollow),
+    });
+
+    await updateDoc(peerRef, {
+      followers: arrayUnion(personFollowing),
+    });
+    const user = { ...follower, following: [...follower.following, personToFollow] };
+    dispatch(setUserProfile(user));
+    dispatch(getUserProfile(peer.id));
+    if(viewingProfileId) dispatch(getUserProfile(viewingProfileId));
+    Toast({
+      message: `You followed ${fanme} ${lname}`,
+      type: "success",
+    });
+  } catch (err) {
+    Toast({ message: "Some error occured, please try again later.", type: "error" });
+  }
+};
+
+const removeUserFromFollowing = async (followerId, follower, peer, dispatch, setUserProfile, viewingProfileId) => {
+  const { firstname, lastname, avatar } = follower;
+  const followingUser = { firstname, lastname, avatar, id: followerId };
+  const peerUser = {
+    firstname: peer.firstname,
+    lastname: peer.lastname,
+    avatar: peer.avatar,
+    id: peer.id,
+  };
+
+  const followingRef = doc(db, "user_profile", followerId);
+  const peerRef = doc(db, "user_profile", peer.id);
+
+  try {
+    await updateDoc(followingRef, {
+      following: arrayRemove(peerUser),
+    });
+
+    await updateDoc(peerRef, {
+      followers: arrayRemove(followingUser),
+    });
+    const user = { ...follower, following: follower.following.filter(p => p.id !== peer.id) };
+    dispatch(setUserProfile(user));
+   if (viewingProfileId) dispatch(getUserProfile(viewingProfileId));
+    Toast({
+      message: `You unfollowed ${peer.firstname} ${peer.lastname}`,
+      type: "success",
+    });
+  } catch (err) {
+    Toast({ message: "Some error occured, please try again later.", type: "error" });
+  }
+};
+
+const isFollowing = (followingUserId, following) => {
+  return following?.find(p => p.id === followingUserId);
+};
+
+const isFollower = (followerUserId, follower) => {
+  return follower?.find(p => p.id === followerUserId);
+};
+
+export {
+  createUser,
+  addUserToFollowing,
+  loginUser,
+  logoutUser,
+  getAllUsers,
+  getUserData,
+  getUserProfile,
+  isFollower,
+  isFollowing,
+  isValidEmail,
+  isValidPassword,
+  removeUserFromFollowing,
+  updateUserProfile,
+};

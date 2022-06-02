@@ -2,12 +2,17 @@ import { ThemeProvider } from "@emotion/react";
 import { Button, Link, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { EditProfileForm, Followers, Following } from "components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./userdetails.css";
 import { theme } from "App";
 import { useDispatch, useSelector } from "react-redux";
+import { addUserToFollowing, isFollowing, removeUserFromFollowing } from "firebaseUtils/auth";
+import { setUserProfile } from "features/auth/authSlice";
 
-export function UserDetails() {
+export function UserDetails({ profileDetails }) {
+  const dispatch = useDispatch();
+  const { id, user } = useSelector(store => store.auth);
+  const { myposts } = useSelector(store => store.feedPosts);
   const [open, setOpen] = useState(false);
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
@@ -18,25 +23,46 @@ export function UserDetails() {
 
   const [openFollowing, setOpenFollowing] = useState(false);
   const handleOpenFollowingModal = () => setOpenFollowing(true);
+  const {firstname, lastname,avatar,id : profileId,website, bio, followers,following} = profileDetails
   const handleCloseFollowingModal = () => setOpenFollowing(false);
-
-  const { id, user } = useSelector(store => store.auth);
-  const { firstname, lastname, bio, website, followers, following } = user;
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Stack direction="column" gap={1} className="profile-details" mt={1}>
-          <Stack direction="row" gap={1} justifyContent="space-between" mt={2} sx={{ typography: "body1" }}>
+        <Stack direction="column" gap={1} className="profile-details" mt={1} alignItems="center">
+          <Stack
+            direction="row"
+            gap={1}
+            justifyContent="space-between"
+            mt={2}
+            sx={{ typography: "body1" }}
+            alignItems="center">
             <Box sx={{ fontWeight: "bold" }}>
               {firstname} {lastname} &nbsp;
-              <Button variant="outlined" color="error">
-                Follow
-              </Button>
+              {id !== profileId &&
+                (isFollowing(profileId, user?.following) ? (
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() =>
+                      removeUserFromFollowing(id, user, profileDetails, dispatch, setUserProfile, profileId)
+                    }>
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => addUserToFollowing(id, user, profileDetails, dispatch, setUserProfile, profileId)}>
+                    Follow
+                  </Button>
+                ))}
             </Box>
-            <Button variant="outlined" color="secondary" onClick={handleOpenModal}>
-              Edit profile
-            </Button>
+            {id === profileId && (
+              <Button variant="outlined" color="secondary" onClick={handleOpenModal}>
+                Edit profile
+              </Button>
+            )}
             <EditProfileForm open={open} handleCloseModal={handleCloseModal} />
           </Stack>
 
@@ -49,24 +75,27 @@ export function UserDetails() {
           </Box>
 
           <Stack direction={"row"} gap={1} justifyContent="flex-start">
-            <Stack direction={"row"} gap={1} alignItems="center">
-              <Box sx={{ typography: "subtitle2" }}> 2</Box>
-              <Box sx={{ typography: "body2" }}>posts</Box>
-            </Stack>
-            <Button component={Link} variant="string" onClick={handleOpenFollowersModal}>
-              <Stack direction={"row"} gap={1}>
+            <Button component={Link} color="error" onClick={handleOpenFollowersModal}>
+              <Stack direction={"row"} gap={1} alignItems="center">
                 <Box sx={{ typography: "subtitle2" }}> {followers?.length}</Box>
-                <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>followers</Box>
+                <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>
+                  {followers?.length > 1 ? "followers" : "follower"}
+                </Box>
               </Stack>
             </Button>
-            <Followers open={openFollowers} handleClose={handleCloseFollowersModal} />
-            <Button component={Link} variant="string" onClick={handleOpenFollowingModal}>
-              <Stack direction={"row"} gap={1}>
+            <Stack direction={"row"} gap={1} alignItems="center">
+              <Box sx={{ typography: "subtitle2" }}> {myposts?.length}</Box>
+              <Box sx={{ typography: "body2" }}>{myposts?.length > 1 ? "posts" : "post"}</Box>
+            </Stack>
+
+            <Followers open={openFollowers} handleClose={handleCloseFollowersModal} followers={followers} />
+            <Button component={Link} color="error" onClick={handleOpenFollowingModal}>
+              <Stack direction={"row"} gap={1} alignItems="center">
                 <Box sx={{ typography: "subtitle2" }}> {following?.length}</Box>
                 <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>following</Box>
               </Stack>
             </Button>
-            <Following open={openFollowing} handleClose={handleCloseFollowingModal} />
+            <Following open={openFollowing} handleClose={handleCloseFollowingModal} following={following} />
           </Stack>
         </Stack>
       </ThemeProvider>

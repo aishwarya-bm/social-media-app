@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
+import {Link as RouterLink} from "react-router-dom"
 import {
   BookmarkAdded,
   BookmarkAddOutlined,
@@ -57,14 +58,19 @@ export function Postcard(props) {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Card sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px" }} className="post-card">
+        <Card sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px", borderRadius:"5px" }} className="post-card">
           <CardHeader
             sx={{ color: "black" }}
-            avatar={<Avatar aria-label="author">{author?.avatar || author?.firstname?.charAt(0)}</Avatar>}
-            title={author?.firstname + " " + author?.lastname}
+            avatar={
+              <RouterLink to={`/profile/${author?.id}`}>
+                <Avatar aria-label="author">{author?.avatar || author?.firstname?.charAt(0)}</Avatar>
+              </RouterLink>
+            }
+            title={<RouterLink to={`/profile/${author?.id}`}>{author?.firstname + " " + author?.lastname}</RouterLink>}
             subheader={postDateTime}
             action={author?.id === id && <PostMenu handlePostModalOpen={handleClickOpen} postId={props.post.postId} />}
           />
+
           <CardContent sx={{ paddingTop: "0" }}>
             <Typography variant="subtitle1">{content}</Typography>
             <Typography variant="caption"> {postDateTime}</Typography>
@@ -92,7 +98,7 @@ export function Postcard(props) {
                 {viewComments ? <VisibilityOff fontSize="inhehit" /> : <RemoveRedEye fontSize="inherit" />}
               </IconButton>
               <Link underline="none" component="button" color="icon">
-                Comment
+                {comments?.length || ""} {comments?.length > 1 ? "Comments" : "Comment"}
               </Link>
             </Stack>
             <Stack
@@ -107,7 +113,7 @@ export function Postcard(props) {
                 {isSaved ? <BookmarkAdded fontSize="inherit" /> : <BookmarkAddOutlined fontSize="inherit" />}
               </IconButton>
               <Link underline="none" component="button" color="icon">
-               {isSaved ? "Saved" :  "Save"}
+                {isSaved ? "Saved" : "Save"}
               </Link>
             </Stack>
           </CardActions>

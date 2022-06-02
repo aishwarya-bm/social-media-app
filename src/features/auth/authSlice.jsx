@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserData } from "firebaseUtils/auth";
+import { getAllUsers, getUserData, getUserProfile } from "firebaseUtils/auth";
 
 const initialState = {
   user: {},
   isLoggedIn: localStorage.getItem("userId") !== "" ? true : false,
   id: localStorage.getItem("userId"),
   isLoading: false,
+  allUsers:[],
+  profileDetails:{}
 };
 
 const authSlice = createSlice({
@@ -21,6 +23,8 @@ const authSlice = createSlice({
       state.id = null;
       state.user = {};
       localStorage.removeItem("userId");
+      state.allUsers = [];
+      state.profileDetails={}
     },
     setUserProfile: (state, action) => {
       state.user = action.payload;
@@ -35,6 +39,27 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
     [getUserData.rejected]: state => {
+      state.isLoading = false;
+    },
+    [getAllUsers.pending]: state => {
+      state.isLoading = true;
+    },
+    [getAllUsers.fulfilled]: (state, action) => {
+      state.allUsers = action.payload;
+      state.isLoading = false;
+    },
+    [getAllUsers.rejected]: state => {
+      state.isLoading = false;
+    },
+
+    [getUserProfile.pending]: state => {
+      state.isLoading = true;
+    },
+    [getUserProfile.fulfilled]: (state, action) => {
+      state.profileDetails = action.payload;
+      state.isLoading = false;
+    },
+    [getUserProfile.rejected]: state => {
       state.isLoading = false;
     },
   },

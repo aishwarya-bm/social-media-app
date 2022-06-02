@@ -4,7 +4,7 @@ import { Avatar, Box, Button, Card, IconButton, Modal, Stack, Typography } from 
 import { theme } from "App";
 import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { UserNameCard } from "components";
-export function Followers({ open, handleClose, followers }) {
+export function AllSuggestions({ open, handleClose, allSuggestions }) {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -16,7 +16,7 @@ export function Followers({ open, handleClose, followers }) {
           <DialogTitle id="alert-dialog-title">
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography variant="h6" gutterBottom component="div">
-                Followers
+                Suggestions
               </Typography>
               <IconButton aria-label="filter" color="secondary" onClick={handleClose}>
                 <Close />
@@ -25,10 +25,10 @@ export function Followers({ open, handleClose, followers }) {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {followers?.map(follower => {
+              {allSuggestions?.map(user => {
                 return (
-                  <div key={"follower"+follower.id}>
-                    <UserNameCard fellowUser={follower} cardType="follower" handleClose={handleClose} />
+                  <div key={"allSuggestions" + user.id}>
+                    <UserNameCard fellowUser={user} cardType="allSuggestions" handleClose={handleClose} />
                   </div>
                 );
               })}

@@ -21,7 +21,7 @@ export function Home() {
         </Stack>
       </Box>
       {showFilter && <FilterChips setShowFilter={setShowFilter} />}
-      <Postlist isProfilePage={false} />
+      <Postlist/>
     </ThemeProvider>
   );
 }

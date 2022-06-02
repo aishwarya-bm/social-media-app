@@ -9,21 +9,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { UserNameCard } from "components";
-export function Following({open,handleClose}) {
-  const following = [
-    {
-      username: "Aishwarya Biradar",
-      avatar: "",
-    },
-    {
-      username: "Aishwarya Biradar",
-      avatar: "",
-    },
-    {
-      username: "Aishwarya Biradar",
-      avatar: "",
-    },
-  ];
+export function Following({open,handleClose,following}) {
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -45,8 +32,12 @@ export function Following({open,handleClose}) {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {following.map(follower => {
-                return <UserNameCard fellowUser={follower} isFollowingCard={true} />;
+              {following?.map(following => {
+                return (
+                  <div key={"following" + following.id}>
+                    <UserNameCard fellowUser={following} cardType="following" handleClose={handleClose} />
+                  </div>
+                );
               })}
             </DialogContentText>
           </DialogContent>
