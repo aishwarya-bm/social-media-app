@@ -28,7 +28,7 @@ export function Followers({ open, handleClose, followers }) {
               {followers?.map(follower => {
                 return (
                   <div key={"follower"+follower.id}>
-                    <UserNameCard fellowUser={follower} isFollowerCard={true} handleClose={handleClose} />
+                    <UserNameCard fellowUser={follower} cardType="follower" handleClose={handleClose} />
                   </div>
                 );
               })}

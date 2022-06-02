@@ -41,7 +41,7 @@ export function Suggestions() {
         </Typography>
         {suggestedUsers.slice(0, 5)?.map((follower, idx) => (
           <div key={"suggestion" + idx}>
-            <UserNameCard fellowUser={follower} isSuggestionCard={true} />
+            <UserNameCard fellowUser={follower} cardType="suggestions" />
           </div>
         ))}
       </Grid>

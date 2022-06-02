@@ -35,7 +35,7 @@ export function Following({open,handleClose,following}) {
               {following?.map(following => {
                 return (
                   <div key={"following" + following.id}>
-                    <UserNameCard fellowUser={following} isFollowingCard={true} handleClose={handleClose} />
+                    <UserNameCard fellowUser={following} cardType="following" handleClose={handleClose} />
                   </div>
                 );
               })}

@@ -5,20 +5,19 @@ import { setUserProfile } from "features/auth/authSlice";
 import { addUserToFollowing, isFollower, isFollowing, removeUserFromFollowing } from "firebaseUtils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+
 export function UserNameCard({
-  isSuggestionCard,
-  isFollowerCard,
-  isFollowingCard,
-  isAllSuggestions,
+  cardType,
   fellowUser,
   handleClose,
-}) {
+}) 
+{
   const { id, user } = useSelector(store => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { profileId } = useParams();
 
-  const border = isSuggestionCard ? "1px solid var(--primary-color)" : "0";
+  const border = cardType === "suggestions" ? "1px solid var(--primary-color)" : "0";
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -27,7 +26,7 @@ export function UserNameCard({
             navigate(`/profile/${fellowUser.id}`);
             handleClose();
           }}
-          elevation={isSuggestionCard ? 2 : 0}
+          elevation={cardType === "suggestions" ? 2 : 0}
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -45,7 +44,7 @@ export function UserNameCard({
             />
             <Typography component="div">{fellowUser?.firstname + " " + fellowUser?.lastname}</Typography>
           </Stack>
-          {(isFollowerCard || isFollowingCard) &&
+          {(cardType === "follower" || cardType === "following") &&
             (isFollowing(fellowUser?.id, user?.following) ? (
               <Button
                 variant="outlined"
@@ -69,7 +68,7 @@ export function UserNameCard({
                 </Button>
               )
             ))}
-          {(isSuggestionCard || isAllSuggestions) && (
+          {(cardType === "suggestions" || cardType === "allSuggestions") && (
             <Button
               variant="outlined"
               color="error"

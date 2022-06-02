@@ -28,7 +28,7 @@ export function AllSuggestions({ open, handleClose, allSuggestions }) {
               {allSuggestions?.map(user => {
                 return (
                   <div key={"allSuggestions" + user.id}>
-                    <UserNameCard fellowUser={user} isAllSuggestions={true} handleClose={handleClose} />
+                    <UserNameCard fellowUser={user} cardType="allSuggestions" handleClose={handleClose} />
                   </div>
                 );
               })}

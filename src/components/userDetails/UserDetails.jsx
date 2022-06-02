@@ -78,7 +78,9 @@ export function UserDetails({ profileDetails }) {
             <Button component={Link} color="error" onClick={handleOpenFollowersModal}>
               <Stack direction={"row"} gap={1} alignItems="center">
                 <Box sx={{ typography: "subtitle2" }}> {followers?.length}</Box>
-                <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>followers</Box>
+                <Box sx={{ typography: "body2", textTransform: "lowerCase" }}>
+                  {followers?.length > 1 ? "followers" : "follower"}
+                </Box>
               </Stack>
             </Button>
             <Stack direction={"row"} gap={1} alignItems="center">
