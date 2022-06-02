@@ -9,7 +9,6 @@ const filterPosts = (posts, id, type) => {
     default:
       return posts;
   }
-  return posts;
 };
 
 const getSuggestionsList = (allUsers, user, id) => {

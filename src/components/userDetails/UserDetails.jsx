@@ -23,8 +23,9 @@ export function UserDetails({ profileDetails }) {
 
   const [openFollowing, setOpenFollowing] = useState(false);
   const handleOpenFollowingModal = () => setOpenFollowing(true);
-  const {firstname, lastname,avatar,id : profileId,website, bio, followers,following} = profileDetails
   const handleCloseFollowingModal = () => setOpenFollowing(false);
+  
+  const {firstname, lastname,avatar,id : profileId,website, bio, followers,following} = profileDetails
 
   return (
     <>

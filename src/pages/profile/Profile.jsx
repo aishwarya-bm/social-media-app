@@ -1,5 +1,5 @@
 import { Avatar, Box, Grid, Tab, Tabs } from "@mui/material";
-import { Likes, Postlist } from "components";
+import { LikedPosts, Postlist } from "components";
 import { UserDetails } from "components/userDetails/UserDetails";
 import { getAllUsers, getUserProfile } from "firebaseUtils/auth";
 import { Bookmarks } from "pages";
@@ -50,7 +50,7 @@ export function Profile() {
           </Tabs>
           {value === "posts" && <Postlist type="profile" />}
           {value === "bookmarks" && <Bookmarks type="profile" />}
-          {value === "likes" && <Likes />}
+          {value === "likes" && <LikedPosts />}
         </Box>
       </div>
     </>

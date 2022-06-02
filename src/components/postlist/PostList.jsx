@@ -7,7 +7,7 @@ import { useEffect, useMemo } from "react";
 import { getUserFeedPosts } from "firebaseUtils/posts";
 import { filterPosts } from "firebaseUtils/filters";
 import { useParams } from "react-router-dom";
-import { setMyPosts } from "features/posts/postsSlice";
+import { setProfilePosts } from "features/posts/postsSlice";
 
 export function Postlist({ type }) {
   const { feedPosts, auth } = useSelector(store => store);
@@ -25,7 +25,7 @@ export function Postlist({ type }) {
   }, []);
 
   useEffect(() => {
-   if(type==="profile") dispatch(setMyPosts(filteredPosts));
+   if(type==="profile") dispatch(setProfilePosts(filteredPosts));
   }, [feed, profileId]);
 
   return (

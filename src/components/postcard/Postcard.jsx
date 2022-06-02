@@ -3,12 +3,13 @@ import {Link as RouterLink} from "react-router-dom"
 import {
   BookmarkAdded,
   BookmarkAddOutlined,
+  ChatBubbleOutline,
   FavoriteBorderOutlined,
-  RemoveRedEye,
-  VisibilityOff,
+  ThumbUpAlt,
 } from "@mui/icons-material";
 import {
   Avatar,
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -22,7 +23,7 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { theme } from "App";
-import { CommentList, CreatePostModal, PostMenu } from "components";
+import { CommentList, CreatePostModal, LikedUsers, PostMenu } from "components";
 import {
   addPostToLiked,
   addPostToSaved,
@@ -45,6 +46,16 @@ export function Postcard(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const [openLikes, setOpenLikes] = useState(false);
+
+  const handleOpenLikes = () => {
+    setOpenLikes(true);
+  };
+
+  const handleCloseLikes = () => {
+    setOpenLikes(false);
+  };
   const { id, user } = useSelector(store => store.auth);
   const dispatch = useDispatch();
   const [viewComments, setViewComments] = useState(false);
@@ -58,7 +69,9 @@ export function Postcard(props) {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Card sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px", borderRadius:"5px" }} className="post-card">
+        <Card
+          sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px", borderRadius: "5px" }}
+          className="post-card">
           <CardHeader
             sx={{ color: "black" }}
             avatar={
@@ -77,30 +90,56 @@ export function Postcard(props) {
           </CardContent>
           {media && <CardMedia component="img" alt="card-media" height="140" image={media} />}
           <Divider />
+
+          <Link
+            component="button"
+            color="inherit"
+            underline="none"
+            sx={{ pt: 1, pb: 1, pl: 2, pr: 2 }}
+            onClick={handleOpenLikes}>
+            <Stack direction="row" gap={1}>
+              <ThumbUpAlt fontSize="inherit" color="primary" />
+              {isLiked
+                ? likes?.length > 1
+                  ? `You and ${likes?.length - 1} others liked this`
+                  : "You liked this"
+                : likes.length > 1
+                ? `${likes.length} others liked this`
+                : likes.length
+                ? `${likes[0]?.firstname + " " + likes[0]?.lastname} liked this`
+                : "Be the first one to like this"}{" "}
+            </Stack>
+          </Link>
+
+          <Divider />
           <CardActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
-            <Stack direction="row">
-              <IconButton
-                color={isLiked ? "red" : "icon"}
+              <Button
                 size="small"
+                color="icon"
+                startIcon={
+                  isLiked ? (
+                    <FavoriteIcon color="red" fontSize="inherit" />
+                  ) : (
+                    <FavoriteBorderOutlined fontSize="inherit" />
+                  )
+                }
                 onClick={() =>
                   isLiked
                     ? removePostFromLiked(postId, user, id, dispatch, getUserFeedPosts)
                     : addPostToLiked(postId, user, id, dispatch, getUserFeedPosts)
                 }>
-                {isLiked ? <FavoriteIcon fontSize="inherit" /> : <FavoriteBorderOutlined fontSize="inherit" />}
-              </IconButton>
-              <Link underline="none" component="button" color="icon">
-                {likes?.length || ""} {likes?.length > 1 ? "Likes" : "Like"}
-              </Link>
-            </Stack>
-            <Stack direction="row" alignItems="center" onClick={() => setViewComments(prev => !prev)}>
-              <IconButton color="icon" size="small">
-                {viewComments ? <VisibilityOff fontSize="inhehit" /> : <RemoveRedEye fontSize="inherit" />}
-              </IconButton>
+                <Link underline="none" component="button" color="icon">
+                  {likes?.length || ""} {likes?.length > 1 ? "Likes" : "Like"}
+                </Link>
+              </Button>
+
+              <LikedUsers open={openLikes} handleClose={handleCloseLikes} likedUsers={likes} />
+
+            <Button size="small" color="icon" startIcon={<ChatBubbleOutline />} onClick={()=>setViewComments(prev=>!prev)}>
               <Link underline="none" component="button" color="icon">
                 {comments?.length || ""} {comments?.length > 1 ? "Comments" : "Comment"}
               </Link>
-            </Stack>
+            </Button>
             <Stack
               direction="row"
               alignItems="center"
