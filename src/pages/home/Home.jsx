@@ -1,12 +1,26 @@
-import { FilterAlt } from "@mui/icons-material";
+import { SortOutlined } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { theme } from "App";
 import { FilterChips, Postlist } from "components";
-import { useState } from "react";
+import { setUserProfile } from "features/auth/authSlice";
+import { getUserData } from "firebaseUtils/auth";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export function Home() {
+  const dispatch = useDispatch();
+  const {id} = useSelector(store=>store.auth)
   const [showFilter, setShowFilter] = useState(false);
+  const [filterBy, setFilterBy] = useState("recent");
+  const handleClick = e => {
+    setFilterBy(e.target.innerText);
+  };
+
+  const handleClose = () =>{
+    setShowFilter(prev => !prev);
+    // setFilterBy("recent")
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -15,13 +29,13 @@ export function Home() {
           <Typography variant="h6" gutterBottom component="div">
             Home
           </Typography>
-          <IconButton aria-label="filter" color="secondary" onClick={() => setShowFilter(prev => !prev)}>
-            <FilterAlt />
+          <IconButton aria-label="filter" color="secondary" onClick={() => handleClose()}>
+            <SortOutlined />
           </IconButton>
         </Stack>
       </Box>
-      {showFilter && <FilterChips setShowFilter={setShowFilter} />}
-      <Postlist/>
+      {showFilter && <FilterChips filterBy={filterBy} handleClick={handleClick} />}
+      <Postlist filterByChip={filterBy} />
     </ThemeProvider>
   );
 }

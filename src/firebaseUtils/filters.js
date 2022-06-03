@@ -9,7 +9,22 @@ const filterPosts = (posts, id, type) => {
     default:
       return posts;
   }
-  return posts;
+};
+
+const getFeed = (posts, user) => posts.filter(p => user?.following?.find(f => f.id === p.author.id || user.uid === p.author.id));
+
+
+const filterPostsByChip = (posts, chip) => {
+  switch (chip) {
+    case "recent":
+      return [...posts].sort((a, b) => b.createdAt - a.createdAt);
+    case "trending":
+      return [...posts].sort((a, b) => b.likes.length - a.likes.length);
+    case "oldest":
+      return [...posts].sort((a, b) => a.createdAt - b.createdAt);
+    default:
+      return posts;
+  }
 };
 
 const getSuggestionsList = (allUsers, user, id) => {
@@ -17,4 +32,4 @@ const getSuggestionsList = (allUsers, user, id) => {
   suggestions = suggestions.filter(u => !user?.following?.find(p => p.id === u.id));
   return suggestions;
 };
-export { getSuggestionsList, filterPosts };
+export { getSuggestionsList, filterPosts, filterPostsByChip, getFeed };

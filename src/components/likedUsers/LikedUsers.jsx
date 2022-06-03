@@ -2,15 +2,9 @@ import { ThemeProvider } from "@emotion/react";
 import { Close } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { theme } from "App";
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { UserNameCard } from "components";
-export function Following({open,handleClose,following}) {
-
+export function LikedUsers({ open, handleClose, likedUsers }) {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -22,7 +16,7 @@ export function Following({open,handleClose,following}) {
           <DialogTitle id="alert-dialog-title">
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography variant="h6" gutterBottom component="div">
-                Following
+                Liked by:
               </Typography>
               <IconButton aria-label="filter" color="secondary" onClick={handleClose}>
                 <Close />
@@ -32,10 +26,10 @@ export function Following({open,handleClose,following}) {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {following?.map(following => {
+              {likedUsers?.map(user => {
                 return (
-                  <div key={"following" + following.id}>
-                    <UserNameCard fellowUser={following} cardType="following" handleClose={handleClose} />
+                  <div key={"user" + user.id}>
+                    <UserNameCard fellowUser={user} cardType={"likedUsers"} handleClose={handleClose} />
                   </div>
                 );
               })}

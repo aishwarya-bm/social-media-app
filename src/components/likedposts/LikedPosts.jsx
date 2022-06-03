@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
 import { Postlist } from "components";
-export function Likes() {
+export function LikedPosts() {
   return (
     <>
       <ThemeProvider theme={theme}>

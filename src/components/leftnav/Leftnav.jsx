@@ -30,7 +30,7 @@ export function Leftnav() {
           fontSize: "1.2rem",
         }
       : {
-          color: theme.palette.iconColor,
+          color: theme.palette.icon.main,
           fontWeight: "400",
           padding: "0 .5rem",
         };

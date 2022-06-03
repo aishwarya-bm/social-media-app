@@ -11,7 +11,7 @@ const postSlice = createSlice({
   name: "feedPosts",
   initialState,
   reducers:{
-    setMyPosts : (state,action) =>{
+    setProfilePosts : (state,action) =>{
       state.myposts = action.payload
     }
   },
@@ -29,5 +29,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { setMyPosts } = postSlice.actions;
+export const { setProfilePosts } = postSlice.actions;
 export default postSlice.reducer;
