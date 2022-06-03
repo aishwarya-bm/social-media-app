@@ -104,7 +104,7 @@ export function Postcard(props) {
                   ? `You and ${likes?.length - 1} others liked this`
                   : "You liked this"
                 : likes.length > 1
-                ? `${likes[0]?.firstname + " " + likes[0]?.lastname} & ${likes.length-1} other liked this`
+                ? `${likes[0]?.firstname + " " + likes[0]?.lastname} & ${likes.length - 1} other liked this`
                 : likes.length
                 ? `${likes[0]?.firstname + " " + likes[0]?.lastname} liked this`
                 : "Be the first one to like this"}{" "}
@@ -128,7 +128,7 @@ export function Postcard(props) {
                   ? removePostFromLiked(postId, user, id, dispatch, getUserFeedPosts)
                   : addPostToLiked(postId, user, id, dispatch, getUserFeedPosts)
               }>
-              <Link underline="none" component="button" color="icon">
+              <Link underline="none" color="icon">
                 {likes?.length || ""} {likes?.length > 1 ? "Likes" : "Like"}
               </Link>
             </Button>
@@ -140,7 +140,7 @@ export function Postcard(props) {
               color="icon"
               startIcon={<ChatBubbleOutline />}
               onClick={() => setViewComments(prev => !prev)}>
-              <Link underline="none" component="button" color="icon">
+              <Link underline="none" color="icon">
                 {comments?.length || ""} {comments?.length > 1 ? "Comments" : "Comment"}
               </Link>
             </Button>
@@ -152,12 +152,21 @@ export function Postcard(props) {
                   ? removePostFromSaved(postId, id, dispatch, getUserFeedPosts)
                   : addPostToSaved(postId, id, dispatch, getUserFeedPosts)
               }>
-              <IconButton color={isSaved ? "primary" : "icon"} size="small">
-                {isSaved ? <BookmarkAdded fontSize="inherit" /> : <BookmarkAddOutlined fontSize="inherit" />}
-              </IconButton>
-              <Link underline="none" component="button" color="icon">
-                {isSaved ? "Saved" : "Save"}
-              </Link>
+              <Button
+                size="small"
+                color="icon"
+                startIcon={
+                  isSaved ? (
+                    <BookmarkAdded fontSize="inherit" color="primary" />
+                  ) : (
+                    <BookmarkAddOutlined color="icon" fontSize="inherit" />
+                  )
+                }
+                >
+                <Link underline="none" color="icon">
+                  {isSaved ? "Saved" : "Save"}
+                </Link>
+              </Button>
             </Stack>
           </CardActions>
           {viewComments && <CommentList viewComments={viewComments} comments={comments} postId={postId} />}

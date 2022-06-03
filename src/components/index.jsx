@@ -15,5 +15,6 @@ export { Leftnav } from "./leftnav/Leftnav";
 export { Postlist } from "./postlist/PostList";
 export { PostMenu } from "./postMenu/PostMenu";
 export { RequiresAuth } from "./requiresAuth/RequiresAuth";
+export { SearchProfiles } from "./searchProfiles/SearchProfiles";
 export { Suggestions } from "./suggestions/Suggestions";
 export { UserNameCard } from "./userNameCard/UserNameCard";
