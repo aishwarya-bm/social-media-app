@@ -16,7 +16,7 @@ export function SearchProfiles({ searchText , showSearch}) {
   return (
     <>
       <ThemeProvider theme={theme}>
-       {showSearch && <Box component="div" className="matching-users" textAlign="center">
+       {showSearch && <Box component="div" className="matching-users" textAlign="center" sx={{backgroundColor:"white"}} >
           { searchText !=="" ? (matchingProfiles.length ? matchingProfiles?.map((fellowUser, idx) => (
             <div key={"matching" + idx}>
               <Card

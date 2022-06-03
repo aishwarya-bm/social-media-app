@@ -8,7 +8,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
-import { Add, Clear, Logout } from "@mui/icons-material";
+import { Add, Logout } from "@mui/icons-material";
 import { CreatePostModal, SearchProfiles } from "components";
 import { logoutUser } from "firebaseUtils/auth";
 import { logout } from "features/auth/authSlice";
