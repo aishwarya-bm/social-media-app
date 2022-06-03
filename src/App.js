@@ -20,9 +20,16 @@ export const theme = createTheme({
       main: "#666666",
       light: "#F0F2F5",
     },
-    red:{
-      main: red[500]
-    }
+    red: {
+      main: red[500],
+    },
+  },
+  typography: {
+    fontFamily: `"Ubuntu", "Helvetica", "Arial", sans-serif`,
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
   },
 });
 
