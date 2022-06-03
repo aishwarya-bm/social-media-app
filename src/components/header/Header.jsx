@@ -21,9 +21,9 @@ import "./header.css";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.black, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.black, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -92,7 +92,9 @@ export function Header() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="fixed">
+        <AppBar
+          position="fixed"
+          sx={{ backgroundColor: theme.palette.common.white, color: theme.palette.common.black }}>
           <Toolbar className="app-header">
             <Stack direction="row" alignItems="center">
               {
@@ -100,8 +102,16 @@ export function Header() {
                   <img src="https://cdn.iconscout.com/icon/premium/png-32-thumb/social-374-297540.png" alt="logo" />
                 </IconButton>
               }
-              <Typography variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
-                Ssup!
+              <Typography
+                color="primary"
+                component="div"
+                sx={{
+                  display: { xs: "none", sm: "block" },
+                  fontSize: "2rem",
+                  fontFamily: "Dancing Script, cursive",
+                  fontWeight: "bolder",
+                }}>
+                Ssup
               </Typography>
             </Stack>
             <Search>
@@ -135,7 +145,7 @@ export function Header() {
             </Box>
           </Toolbar>
         </AppBar>
-        <SearchProfiles searchText={searchText} showSearch ={showSearch}/>
+        <SearchProfiles searchText={searchText} showSearch={showSearch} />
       </Box>
       <CreatePostModal open={open} handleClose={handleClose} />
     </ThemeProvider>
