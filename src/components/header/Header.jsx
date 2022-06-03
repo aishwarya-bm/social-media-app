@@ -72,6 +72,7 @@ export function Header() {
   };
 
   const [searchText, setSearhText] = useState("");
+  const [showSearch,setShowSearch] = useState(false);
 
   const handleSearchTextChange = e => {
     debouncedText(e.target.value);
@@ -108,6 +109,8 @@ export function Header() {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
+                onFocus={() => setShowSearch(true)}
+                onBlur={() => setShowSearch(false)}
                 type="search"
                 placeholder="Search user…"
                 inputProps={{ "aria-label": "search" }}
@@ -132,7 +135,7 @@ export function Header() {
             </Box>
           </Toolbar>
         </AppBar>
-        <SearchProfiles searchText={searchText} />
+        <SearchProfiles searchText={searchText} showSearch ={showSearch}/>
       </Box>
       <CreatePostModal open={open} handleClose={handleClose} />
     </ThemeProvider>

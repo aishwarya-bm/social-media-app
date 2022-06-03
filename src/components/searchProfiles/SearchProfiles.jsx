@@ -2,8 +2,11 @@ import { ThemeProvider } from "@emotion/react";
 import { Avatar, Box, Card, Stack, Typography } from "@mui/material";
 import { theme } from "App";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import "./searchProfiles.css";
-export function SearchProfiles({ searchText }) {
+export function SearchProfiles({ searchText , showSearch}) {
+  const navigate = useNavigate()
   const { allUsers } = useSelector(store => store.auth);
 
   const matchingProfiles = allUsers.filter(user =>
@@ -13,13 +16,12 @@ export function SearchProfiles({ searchText }) {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box component="div" className="matching-users">
-          { searchText && matchingProfiles?.map((fellowUser, idx) => (
+       {showSearch && <Box component="div" className="matching-users" textAlign="center">
+          { searchText !=="" ? (matchingProfiles.length ? matchingProfiles?.map((fellowUser, idx) => (
             <div key={"matching" + idx}>
               <Card
                 onClick={e => {
                   navigate(`/profile/${fellowUser.id}`);
-                  handleClose();
                 }}
                 elevation={0}
                 sx={{
@@ -40,8 +42,8 @@ export function SearchProfiles({ searchText }) {
                 </Stack>
               </Card>
             </div>
-          ))}
-        </Box>
+          )) : "No results for your search") : "Search for your friends..."}
+        </Box>}
       </ThemeProvider>
     </>
   );

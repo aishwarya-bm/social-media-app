@@ -1,9 +1,10 @@
 .matching-users {
+  padding: 1rem;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   z-index: 2;
-  position: absolute;
+  position: fixed;
   width: 18rem;
   margin-top: 1rem;
   margin-left: 1rem;

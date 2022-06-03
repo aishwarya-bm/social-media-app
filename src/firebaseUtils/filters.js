@@ -11,10 +11,13 @@ const filterPosts = (posts, id, type) => {
   }
 };
 
-const filterPostsByChip = (posts,chip) => {
+const getFeed = (posts, user) => posts.filter(p => user?.following?.find(f => f.id === p.author.id || user.uid === p.author.id));
+
+
+const filterPostsByChip = (posts, chip) => {
   switch (chip) {
     case "recent":
-      return [...posts].sort((a,b) => b.createdAt - a.createdAt);
+      return [...posts].sort((a, b) => b.createdAt - a.createdAt);
     case "trending":
       return [...posts].sort((a, b) => b.likes.length - a.likes.length);
     case "oldest":
@@ -29,4 +32,4 @@ const getSuggestionsList = (allUsers, user, id) => {
   suggestions = suggestions.filter(u => !user?.following?.find(p => p.id === u.id));
   return suggestions;
 };
-export { getSuggestionsList, filterPosts, filterPostsByChip };
+export { getSuggestionsList, filterPosts, filterPostsByChip, getFeed };
