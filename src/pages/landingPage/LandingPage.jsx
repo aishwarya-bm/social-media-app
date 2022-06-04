@@ -14,7 +14,7 @@ export function LandingPage() {
           <Stack direction="column" alignItems="center" justifyContent="center" width="45vw" gap={1}>
             <Typography variant="h3"> Welcome to Ssup!</Typography>
             <Typography variant="h5"> Connect with your loved ones here...</Typography>
-            <Button variant="contained" onClick={() => navigate("/auth")}>
+            <Button variant="contained" onClick={() => navigate("/login")}>
               Get started
             </Button>
           </Stack>

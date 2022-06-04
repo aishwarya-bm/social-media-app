@@ -7,7 +7,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import "./login.css";
 import { loginUser } from "firebaseUtils/auth";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { login } from "features/auth/authSlice";
 
 export function Login({ setIsSignupForm }) {
@@ -15,7 +15,7 @@ export function Login({ setIsSignupForm }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-
+const location=useLocation();
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -23,7 +23,7 @@ export function Login({ setIsSignupForm }) {
       email: data.get("email"),
       password: data.get("password"),
     };
-    loginUser(userData, dispatch, login,navigate);
+    loginUser(userData, dispatch, login, navigate, location);
   };
   return (
     <>

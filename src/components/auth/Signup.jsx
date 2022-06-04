@@ -5,7 +5,7 @@ import { theme } from "App";
 import { login } from "features/auth/authSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createUser, isValidEmail, isValidPassword } from "firebaseUtils/auth";
 import "./login.css";
 
@@ -13,6 +13,7 @@ export function Signup({ setIsSignupForm }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({ email: "", password: "" });
+  const location = useLocation();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -35,7 +36,7 @@ export function Signup({ setIsSignupForm }) {
       return;
     }
     setFormErrors({ email: "", password: "" });
-    createUser(userData, dispatch, login, navigate);
+    createUser(userData, dispatch, login, navigate,location);
   };
 
   return (

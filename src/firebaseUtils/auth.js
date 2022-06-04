@@ -33,7 +33,7 @@ onAuthStateChanged(auth, user => {
   }
 });
 
-const createUser = (newUser, dispatch, login, navigate) => {
+const createUser = (newUser, dispatch, login, navigate,location) => {
   const { email, password } = newUser;
   createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
@@ -43,7 +43,7 @@ const createUser = (newUser, dispatch, login, navigate) => {
       localStorage.setItem("userId", uid);
       dispatch(login(uid));
       createUserProfile(newUser, uid);
-      navigate("/home");
+      navigate(location.state?.from?.pathname || "/home");
       Toast({ message: "Signup successful.", type: "success" });
     })
     .catch(error => {
@@ -82,7 +82,7 @@ const createUserProfile = async (user, uid) => {
   });
 };
 
-const loginUser = (user, dispatch, login, navigate) => {
+const loginUser = (user, dispatch, login, navigate,location) => {
   const { email, password } = user;
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
@@ -91,7 +91,7 @@ const loginUser = (user, dispatch, login, navigate) => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userId", uid);
       dispatch(login(uid));
-      navigate("/home");
+      navigate(location.state?.from?.pathname || "/home");
       Toast({ message: "Login successful.", type: "success" });
     })
     .catch(error => {
@@ -122,7 +122,7 @@ const logoutUser = (dispatch, logout, navigate) => {
       dispatch(logout());
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
-      navigate("/auth");
+      navigate("/login");
       Toast({
         message: "Logout successful.",
         type: "success",

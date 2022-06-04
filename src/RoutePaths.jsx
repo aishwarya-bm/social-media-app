@@ -9,7 +9,6 @@ export function RoutePaths(){
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Auth />} />
-
           <Route
             element={
               <RequiresAuth>
@@ -21,9 +20,6 @@ export function RoutePaths(){
             <Route path="/explore" element={<Explore />} />
             <Route path="/profile/:profileId" element={<Profile />} />
           </Route>
-          <Route path="/auth" element={<Auth />}></Route>
-          <Route path="/messages" element={<Auth />}></Route>
-          <Route path="/notifications" element={<Auth />}></Route>
           <Route path="*" element={<Error />}></Route>
         </Routes>
       </>
