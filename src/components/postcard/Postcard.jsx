@@ -76,7 +76,10 @@ export function Postcard(props) {
             sx={{ color: "black" }}
             avatar={
               <RouterLink to={`/profile/${author?.id}`}>
-                <Avatar aria-label="author">{author?.avatar || author?.firstname?.charAt(0)}</Avatar>
+                <Avatar
+                  aria-label="author"
+                  alt={author?.firstname}
+                  src={author?.avatar || author?.firstname?.charAt(0)}></Avatar>
               </RouterLink>
             }
             title={<RouterLink to={`/profile/${author?.id}`}>{author?.firstname + " " + author?.lastname}</RouterLink>}
@@ -86,7 +89,6 @@ export function Postcard(props) {
 
           <CardContent sx={{ paddingTop: "0" }}>
             <Typography variant="subtitle1">{content}</Typography>
-            <Typography variant="caption"> {postDateTime}</Typography>
           </CardContent>
           {media && <CardMedia component="img" alt="card-media" height="140" image={media} />}
           <Divider />
@@ -161,8 +163,7 @@ export function Postcard(props) {
                   ) : (
                     <BookmarkAddOutlined color="icon" fontSize="inherit" />
                   )
-                }
-                >
+                }>
                 <Link underline="none" color="icon">
                   {isSaved ? "Saved" : "Save"}
                 </Link>

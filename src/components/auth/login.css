@@ -3,3 +3,13 @@
     padding-left: 5rem;
     padding-top: 5rem;
 }
+
+.signup-avatar{
+    filter: brightness(50%);
+    cursor: pointer;
+}
+.signup-avatar:hover,.signup-avatar-focus{
+    filter: brightness(100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+}

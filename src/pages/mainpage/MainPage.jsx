@@ -40,13 +40,13 @@ export function MainPage() {
           </Grid>
           <Fab
             color="primary"
-            size="small"
+            size="medium"
             aria-label="add"
             className="floating-addpost"
             onClick={handleClickOpen}
             sx={{
               position: "fixed",
-              display: { xs: "none", sm: "inline-flex", md: "none" },
+              display: { sm: "inline-flex", md: "none"},
             }}>
             <AddIcon />
           </Fab>

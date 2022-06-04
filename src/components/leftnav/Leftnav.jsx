@@ -44,7 +44,7 @@ export function Leftnav() {
         item
         sx={{
           flexDirection: "column",
-          margin: "0 1rem",
+          margin: "1rem",
           gap: "1rem",
           display: { xs: "none", sm: "flex", md: "flex" },
         }}>

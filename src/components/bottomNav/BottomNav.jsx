@@ -41,17 +41,16 @@ export function BottomNav() {
             {sidenavItems.map(({ id, nav_icon, title, nextUrl }) => {
               return (
                 <>
-                  <NavLink
-                    key={"nav" + id}
-                    to={title === "Profile" ? nextUrl + `/${userId}` : nextUrl}
-                    style={getActiveStyle}>
-                    <Box sx={{ display: "flex", alignItems: "center", flexDirection:"column" }}>
-                      {nav_icon}
-                      <Typography variant="body1" component="span" sx={{ display: { sm: "none", md: "inherit" } }}>
-                        {title}
-                      </Typography>
-                    </Box>
-                  </NavLink>
+                  <span key={"nav" + id}>
+                    <NavLink to={title === "Profile" ? nextUrl + `/${userId}` : nextUrl} style={getActiveStyle}>
+                      <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+                        {nav_icon}
+                        <Typography variant="body1" component="span" sx={{ display: { sm: "none", md: "inherit" } }}>
+                          {title}
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                  </span>
                 </>
               );
             })}

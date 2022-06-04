@@ -22,10 +22,6 @@ export function UserNameCard({
     <>
       <ThemeProvider theme={theme}>
         <Card
-          onClick={e => {
-            navigate(`/profile/${fellowUser.id}`);
-            handleClose();
-          }}
           elevation={cardType === "suggestions" ? 2 : 0}
           sx={{
             display: "flex",
@@ -36,7 +32,14 @@ export function UserNameCard({
             paddingRight: 1,
             cursor: "pointer",
           }}>
-          <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            gap={1}
+            onClick={e => {
+              navigate(`/profile/${fellowUser.id}`);
+              if (handleClose) handleClose();
+            }}>
             <Avatar
               alt={fellowUser?.firstname}
               src={fellowUser?.avatar || fellowUser?.firstname?.charAt(0)}

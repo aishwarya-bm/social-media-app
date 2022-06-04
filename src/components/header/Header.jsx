@@ -8,11 +8,11 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
-import { Add, Logout } from "@mui/icons-material";
-import { CreatePostModal, SearchProfiles } from "components";
+import { Logout } from "@mui/icons-material";
+import { CreatePostModal, SearchProfiles, SwitchMode } from "components";
 import { logoutUser } from "firebaseUtils/auth";
 import { logout } from "features/auth/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Stack } from "@mui/material";
@@ -59,6 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function Header() {
+  const { isLoggedIn } = useSelector(store => store.auth);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ export function Header() {
   };
 
   const [searchText, setSearhText] = useState("");
-  const [showSearch,setShowSearch] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   const handleSearchTextChange = e => {
     debouncedText(e.target.value);
@@ -87,7 +88,7 @@ export function Header() {
       }, delay);
     };
   }
- const debouncedText = debounce(text => setSearhText(text));
+  const debouncedText = debounce(text => setSearhText(text));
 
   return (
     <ThemeProvider theme={theme}>
@@ -96,10 +97,10 @@ export function Header() {
           position="fixed"
           sx={{ backgroundColor: theme.palette.common.white, color: theme.palette.common.black }}>
           <Toolbar className="app-header">
-            <Stack direction="row" alignItems="center">
+            <Stack direction="row" alignItems="center" sx={{cursor:"pointer"}} onClick={()=>navigate("/home")} >
               {
                 <IconButton size="large" edge="start" color="inherit" aria-label="open drawer">
-                  <img src="https://cdn.iconscout.com/icon/premium/png-32-thumb/social-374-297540.png" alt="logo" />
+                  <img src="https://cdn.iconscout.com/icon/free/png-32/stumbleupon-3771309-3147926.png" alt="logo" />
                 </IconButton>
               }
               <Typography
@@ -128,21 +129,18 @@ export function Header() {
                 defaultValue=""
               />
             </Search>
-            <Box sx={{ display: { md: "flex" } }}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-                onClick={() => logoutUser(dispatch, logout, navigate)}>
-                <Logout />
-              </IconButton>
-            </Box>
-
-            <Box sx={{ display: { xs: "flex", sm: "none" } }}>
-              <IconButton size="medium" color="inherit" onClick={handleClickOpen}>
-                <Add />
-              </IconButton>
-            </Box>
+            <Stack direction="row">
+              <SwitchMode />
+              <Box sx={{ display: { md: "flex" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="logout"
+                  color="inherit"
+                  onClick={() => logoutUser(dispatch, logout, navigate)}>
+                  <Logout />
+                </IconButton>
+              </Box>
+            </Stack>
           </Toolbar>
         </AppBar>
         <SearchProfiles searchText={searchText} showSearch={showSearch} />

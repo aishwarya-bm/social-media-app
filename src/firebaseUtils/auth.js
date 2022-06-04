@@ -73,11 +73,11 @@ const createUserProfile = async (user, uid) => {
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
-    bio: "",
-    website: "",
+    bio: "Eat, sleep, SSUP, repeat!",
+    website: "Under construction",
     followers: [],
     following: [],
-    avatar: "",
+    avatar: user.avatar,
     coverImg: "",
   });
 };
@@ -122,7 +122,7 @@ const logoutUser = (dispatch, logout, navigate) => {
       dispatch(logout());
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
-      navigate("/login");
+      navigate("/");
       Toast({
         message: "Logout successful.",
         type: "success",
@@ -230,7 +230,6 @@ const addUserToFollowing = async (followerId, follower, peer, dispatch, setUserP
     });
     const user = { ...follower, following: [...follower.following, personToFollow] };
     dispatch(setUserProfile(user));
-    dispatch(getUserProfile(peer.id));
     if(viewingProfileId) dispatch(getUserProfile(viewingProfileId));
     Toast({
       message: `You followed ${fanme} ${lname}`,

@@ -2,7 +2,6 @@ import { ThemeProvider } from "@emotion/react";
 import { Avatar, Button, Container,TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { theme } from "App";
-import { Link } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import "./login.css";
 import { loginUser } from "firebaseUtils/auth";

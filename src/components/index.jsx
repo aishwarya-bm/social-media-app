@@ -17,4 +17,5 @@ export { PostMenu } from "./postMenu/PostMenu";
 export { RequiresAuth } from "./requiresAuth/RequiresAuth";
 export { SearchProfiles } from "./searchProfiles/SearchProfiles";
 export { Suggestions } from "./suggestions/Suggestions";
+export { SwitchMode } from "./switchMode/SwitchMode";
 export { UserNameCard } from "./userNameCard/UserNameCard";

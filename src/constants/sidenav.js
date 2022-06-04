@@ -13,18 +13,6 @@ export const sidenavItems = [
     nav_icon: <Explore fontSize="medium" />,
     nextUrl: "/explore",
   },
-  // {
-  //   id: 3,
-  //   title: "Notifications",
-  //   nav_icon: <Notifications fontSize="medium" />,
-  //   nextUrl: "/notifications",
-  // },
-  // {
-  //   id: 4,
-  //   title: "Messages",
-  //   nav_icon: <Message fontSize="medium" />,
-  //   nextUrl: "/messages",
-  // },
   {
     id: 3,
     title: "Saved",
