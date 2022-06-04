@@ -10,7 +10,7 @@ export const profileAvatars = [
   },
   {
     id: 3,
-    hero_avatar: "https://cdn.iconscout.com/icon/free/png-128/iron-man-2545629-2126626.png",
+    hero_avatar: "https://cdn.iconscout.com/icon/premium/png-128-thumb/ironman-1417689-1197301.png",
   },
   {
     id: 4,

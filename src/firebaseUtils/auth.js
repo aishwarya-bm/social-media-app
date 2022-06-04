@@ -96,6 +96,7 @@ const loginUser = (user, dispatch, login, navigate,location) => {
     })
     .catch(error => {
       const errorCode = error.code;
+      console.log(error)
       switch (errorCode) {
         case "auth/wrong-password":
           return Toast({
@@ -107,10 +108,15 @@ const loginUser = (user, dispatch, login, navigate,location) => {
             message: "Invalid email id.",
             type: "error",
           });
+        case "auth/user-not-found":
+          return Toast({
+            message: "User not found.",
+            type: "error",
+          });
         default:
           return Toast({
             message: "Some error occured, please try again later.",
-            type: "warning",
+            type: "error",
           });
       }
     });

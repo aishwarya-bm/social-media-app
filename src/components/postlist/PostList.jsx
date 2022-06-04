@@ -17,16 +17,17 @@ export function Postlist({ type, filterByChip }) {
   const { profileId } = useParams();
   const userId = profileId || id;
   let filteredPosts = useMemo(() =>getFeed(feed, user),[feed,user]);
-  let profilePosts = useMemo(() => filterPosts(filteredPosts, userId, type), [profileId, filteredPosts]);
+  let profilePosts = useMemo(() => filterPosts(filteredPosts, userId, type), [userId, feed]);
   let filterByChipsPosts = filterPostsByChip(filteredPosts, filterByChip);
   filteredPosts = (type ? profilePosts : filterByChipsPosts);
+
   useEffect(() => {
     dispatch(getUserFeedPosts());
   }, []);
 
   useEffect(() => {
     if (type === "profile") dispatch(setProfilePosts(filteredPosts));
-  }, [feed, profileId]);
+  }, [feed, profileId, profilePosts]);
 
   return (
     <>

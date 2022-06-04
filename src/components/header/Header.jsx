@@ -97,10 +97,10 @@ export function Header() {
           position="fixed"
           sx={{ backgroundColor: theme.palette.common.white, color: theme.palette.common.black }}>
           <Toolbar className="app-header">
-            <Stack direction="row" alignItems="center" sx={{cursor:"pointer"}} onClick={()=>navigate("/home")} >
+            <Stack direction="row" alignItems="center" sx={{ cursor: "pointer" }} onClick={() => navigate("/home")}>
               {
                 <IconButton size="large" edge="start" color="inherit" aria-label="open drawer">
-                  <img src="https://cdn.iconscout.com/icon/free/png-32/stumbleupon-3771309-3147926.png" alt="logo" />
+                  <img src="https://cdn.iconscout.com/icon/free/png-32/askfm-3771581-3149784.png" alt="logo" />
                 </IconButton>
               }
               <Typography
