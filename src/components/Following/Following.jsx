@@ -32,13 +32,25 @@ export function Following({open,handleClose,following}) {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {following?.map(following => {
-                return (
-                  <div key={"following" + following.id}>
-                    <UserNameCard fellowUser={following} cardType="following" handleClose={handleClose} />
-                  </div>
-                );
-              })}
+              {following?.length ? (
+                following?.map(following => {
+                  return (
+                    <div key={"following" + following.id}>
+                      <UserNameCard fellowUser={following} cardType="following" handleClose={handleClose} />
+                    </div>
+                  );
+                })
+              ) : (
+                <Stack alignItems="center">
+                  <Typography gutterBottom component="div" textAlign="center">
+                    Not following anyone yet, see <i>Suggestions</i> to follow your friends.
+                  </Typography>
+                  <img
+                    src="https://cdn.iconscout.com/icon/premium/png-128-thumb/add-friend-4216840-3498387.png"
+                    alt="following-empty-list"
+                  />
+                </Stack>
+              )}
             </DialogContentText>
           </DialogContent>
         </Dialog>

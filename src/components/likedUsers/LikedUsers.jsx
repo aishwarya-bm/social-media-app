@@ -26,13 +26,25 @@ export function LikedUsers({ open, handleClose, likedUsers }) {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {likedUsers?.map(user => {
-                return (
-                  <div key={"user" + user.id}>
-                    <UserNameCard fellowUser={user} cardType={"likedUsers"} handleClose={handleClose} />
-                  </div>
-                );
-              })}
+              {likedUsers?.length ? (
+                likedUsers?.map(user => {
+                  return (
+                    <div key={"user" + user.id}>
+                      <UserNameCard fellowUser={user} cardType={"likedUsers"} handleClose={handleClose} />
+                    </div>
+                  );
+                })
+              ) : (
+                <Stack alignItems="center">
+                  <Typography gutterBottom component="div" textAlign="center">
+                    No likes on this post yet.
+                  </Typography>
+                  <img
+                    src="https://cdn.iconscout.com/icon/premium/png-128-thumb/like-3926003-3261770.png"
+                    alt="follower-empty-list"
+                  />
+                </Stack>
+              )}
             </DialogContentText>
           </DialogContent>
         </Dialog>

@@ -17,8 +17,8 @@ export function Home() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ marginTop: 4 }}>
-        <Typography variant="h6" gutterBottom component="div">
+      <Box sx={{ mt: 4, mb:2 }}>
+        <Typography variant="h5" gutterBottom component="div">
           Home
         </Typography>
       </Box>

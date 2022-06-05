@@ -20,7 +20,7 @@ export function Profile() {
   useEffect(() => {
     dispatch(getUserProfile(profileId));
     setValue("posts");
-  }, [profileId,user]);
+  }, [profileId, user]);
   
   return (
     <>

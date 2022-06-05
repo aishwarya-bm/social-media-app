@@ -25,13 +25,21 @@ export function AllSuggestions({ open, handleClose, allSuggestions }) {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {allSuggestions?.map(user => {
+              { allSuggestions.length ? allSuggestions?.map(user => {
                 return (
                   <div key={"allSuggestions" + user.id}>
                     <UserNameCard fellowUser={user} cardType="allSuggestions" handleClose={handleClose} />
                   </div>
                 );
-              })}
+              }) : <Stack alignItems="center" >
+              <Typography gutterBottom component="div" sx={{ marginTop: 1 }} textAlign="center">
+                No suggestions, check out your news feed to stay updated.
+              </Typography>
+              <img
+                src="https://cdn.iconscout.com/icon/premium/png-128-thumb/empty-folder-5400756-4557891.png"
+                alt="no-suggestions"
+              />
+            </Stack>}
             </DialogContentText>
           </DialogContent>
         </Dialog>

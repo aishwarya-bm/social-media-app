@@ -1,20 +1,33 @@
-import { Filter, Filter1Outlined, FilterAlt, SortOutlined } from "@mui/icons-material";
-import { IconButton, Stack, Typography } from "@mui/material";
+import { SortOutlined } from "@mui/icons-material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { theme } from "App";
 import { FilterChips, Postlist } from "components";
-import { useState } from "react";
+import { Postcard } from "components/postcard/Postcard";
+import { filterPostsByChip } from "firebaseUtils/filters";
+import { getUserFeedPosts } from "firebaseUtils/posts";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export function Explore() {
+  const dispatch = useDispatch();
+  const {
+    feedPosts: { feed },
+  } = useSelector(store => store);
+
   const [showFilter, setShowFilter] = useState(false);
   const [filterBy, setFilterBy] = useState("recent");
   const handleClick = e => {
     setFilterBy(e.target.innerText);
   };
-
   const handleClose = () => {
     setShowFilter(prev => !prev);
   };
+  let filterByChipsPosts = filterPostsByChip(feed, filterBy);
+
+  useEffect(() => {
+    dispatch(getUserFeedPosts());
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -23,13 +36,19 @@ export function Explore() {
           <Typography variant="h6" gutterBottom component="div">
             Explore
           </Typography>
-          <IconButton aria-label="filter" color="secondary" onClick={() => handleClose()}>
-            <SortOutlined />
-          </IconButton>
+          <Button startIcon={<SortOutlined />} aria-label="filter" color="secondary" onClick={() => handleClose()}>
+            Sort
+          </Button>
         </Stack>
       </Box>
       {showFilter && <FilterChips filterBy={filterBy} handleClick={handleClick} />}
-      <Postlist filterByChip={filterBy} />
+      <Stack direction="column" gap={3}>
+        {filterByChipsPosts?.map(p => (
+          <div key={p.postId}>
+            <Postcard isExplorePage={true} post={p} />
+          </div>
+        ))}
+      </Stack>
     </ThemeProvider>
   );
 }

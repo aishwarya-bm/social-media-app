@@ -114,7 +114,7 @@ export function Postcard(props) {
           </Link>
 
           <Divider />
-          <CardActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
+         {!props.isExplorePage && <CardActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
             <Button
               size="small"
               color="icon"
@@ -169,7 +169,7 @@ export function Postcard(props) {
                 </Link>
               </Button>
             </Stack>
-          </CardActions>
+          </CardActions>}
           {viewComments && <CommentList viewComments={viewComments} comments={comments} postId={postId} />}
         </Card>
         <CreatePostModal open={open} handleClose={handleClose} editPost={props.post} />

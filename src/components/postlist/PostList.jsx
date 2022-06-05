@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "App";
 import { Postcard } from "components/postcard/Postcard";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { getUserFeedPosts } from "firebaseUtils/posts";
@@ -17,7 +17,7 @@ export function Postlist({ type, filterByChip }) {
   const { profileId } = useParams();
   const userId = profileId || id;
   let filteredPosts = useMemo(() =>getFeed(feed, user),[feed,user]);
-  let profilePosts = useMemo(() => filterPosts(filteredPosts, userId, type), [userId, feed]);
+  let profilePosts = useMemo(() => filterPosts(filteredPosts, userId, type), [userId,filteredPosts, feed]);
   let filterByChipsPosts = filterPostsByChip(filteredPosts, filterByChip);
   filteredPosts = (type ? profilePosts : filterByChipsPosts);
 
@@ -33,11 +33,27 @@ export function Postlist({ type, filterByChip }) {
     <>
       <ThemeProvider theme={theme}>
         <Stack direction="column" gap={3}>
-          {filteredPosts?.map(p => (
-            <div key={p.postId}>
-              <Postcard post={p} />
-            </div>
-          ))}
+          {filteredPosts.length ? (
+            filteredPosts?.map(p => (
+              <div key={p.postId}>
+                <Postcard post={p} />
+              </div>
+            ))
+          ) : (
+            <Stack alignItems="center" mt={2}>
+              <Typography gutterBottom component="div" sx={{ mt: 3, mb:2 }} textAlign="center">
+                {type ? "Oops, no posts in this list!" : "Follow your friends to check their latest updates here."}
+              </Typography>
+              <img
+                src={
+                  type
+                    ? "https://cdn.iconscout.com/icon/premium/png-128-thumb/file-broken-5400710-4557870.png"
+                    : "https://cdn.iconscout.com/icon/premium/png-128-thumb/follower-3047568-2536967.png"
+                }
+                alt="no-posts"
+              />
+            </Stack>
+          )}
         </Stack>
       </ThemeProvider>
     </>
