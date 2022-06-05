@@ -6,7 +6,7 @@ import { Box, Fab, Grid } from "@mui/material";
 import "./mainpage.css";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUserData } from "firebaseUtils/auth";
 
 

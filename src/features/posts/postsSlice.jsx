@@ -3,7 +3,7 @@ const { getUserFeedPosts } = require("firebaseUtils/posts");
 
 const initialState = {
   feed: [],
-  isLoading: false,
+  isLoadingPosts: false,
   myposts:[]
 };
 
@@ -17,14 +17,14 @@ const postSlice = createSlice({
   },
   extraReducers: {
     [getUserFeedPosts.pending]: state => {
-      state.isLoading = true;
+      state.isLoadingPosts = true;
     },
     [getUserFeedPosts.fulfilled]: (state, action) => {
       state.feed = action.payload;
-      state.isLoading = false;
+      state.isLoadingPosts = false;
     },
     [getUserFeedPosts.rejected]: state => {
-      state.isLoading = false;
+      state.isLoadingPosts = false;
     },
   },
 });

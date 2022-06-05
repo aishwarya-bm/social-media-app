@@ -59,7 +59,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function Header() {
-  const { isLoggedIn } = useSelector(store => store.auth);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -70,6 +69,14 @@ export function Header() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const [checked, setChecked] = useState(false);
+
+  const switchHandler = event => {
+    const value = event.target.checked;
+    setChecked(value);
+    value ? localStorage.setItem("appTheme", "dark") : localStorage.setItem("appTheme", "light");
   };
 
   const [searchText, setSearhText] = useState("");
@@ -130,7 +137,7 @@ export function Header() {
               />
             </Search>
             <Stack direction="row">
-              <SwitchMode />
+              <SwitchMode checked={checked} switchHandler={switchHandler} />
               <Box sx={{ display: { md: "flex" } }}>
                 <IconButton
                   size="large"
