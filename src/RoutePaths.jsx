@@ -18,7 +18,11 @@ export function RoutePaths(){
             <Route path="/explore" element={<Explore />} />
             <Route path="/profile/:profileId" element={<Profile />} />
           </Route>
-          <Route path="*" element={<Error />}></Route>
+          <Route
+            path="*"
+            element={
+                <Error />
+            }></Route>
         </Routes>
       </>
     );

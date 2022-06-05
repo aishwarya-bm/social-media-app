@@ -9,9 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserToFollowing, isFollowing, removeUserFromFollowing } from "firebaseUtils/auth";
 import { setUserProfile } from "features/auth/authSlice";
 
-export function UserDetails() {
+export function UserDetails({ isFollowingUser }) {
   const dispatch = useDispatch();
-  const { id, user,profileDetails } = useSelector(store => store.auth);
+  const { id, user, profileDetails } = useSelector(store => store.auth);
   const { myposts } = useSelector(store => store.feedPosts);
   const [open, setOpen] = useState(false);
   const handleOpenModal = () => setOpen(true);
@@ -24,7 +24,6 @@ export function UserDetails() {
   const [openFollowing, setOpenFollowing] = useState(false);
   const handleOpenFollowingModal = () => setOpenFollowing(true);
   const handleCloseFollowingModal = () => setOpenFollowing(false);
-  const isFollowingUser = isFollowing(profileDetails?.id, user?.following);
 
   return (
     <>
@@ -85,12 +84,12 @@ export function UserDetails() {
                 </Box>
               </Stack>
             </Button>
-            {(isFollowingUser  || id === profileDetails?.id) &&
+            {(isFollowingUser || id === profileDetails?.id) && (
               <Stack direction={"row"} gap={1} alignItems="center">
                 <Box sx={{ typography: "subtitle2" }}> {myposts?.length}</Box>
                 <Box sx={{ typography: "body2" }}>{myposts?.length > 1 ? "posts" : "post"}</Box>
               </Stack>
-            }
+            )}
 
             <Followers
               open={openFollowers}

@@ -9,17 +9,17 @@ import { filterPosts, filterPostsByChip, getFeed } from "firebaseUtils/filters";
 import { useParams } from "react-router-dom";
 import { setProfilePosts } from "features/posts/postsSlice";
 
-export function Postlist({ type, filterByChip }) {
+export function Postlist({ type, filterByChip, isFollowingUser }) {
   const { feedPosts, auth } = useSelector(store => store);
   const { id, user } = auth;
   const { feed } = feedPosts;
   const dispatch = useDispatch();
   const { profileId } = useParams();
   const userId = profileId || id;
-  let filteredPosts = useMemo(() =>getFeed(feed, user),[feed,user]);
-  let profilePosts = useMemo(() => filterPosts(filteredPosts, userId, type), [userId,filteredPosts, feed]);
+  let filteredPosts = useMemo(() => getFeed(feed, user), [feed, user]);
+  let profilePosts = useMemo(() => filterPosts(filteredPosts, userId, type), [userId, filteredPosts, feed]);
   let filterByChipsPosts = filterPostsByChip(filteredPosts, filterByChip);
-  filteredPosts = (type ? profilePosts : filterByChipsPosts);
+  filteredPosts = type ? profilePosts : filterByChipsPosts;
 
   useEffect(() => {
     dispatch(getUserFeedPosts());
@@ -41,8 +41,8 @@ export function Postlist({ type, filterByChip }) {
             ))
           ) : (
             <Stack alignItems="center" mt={2}>
-              <Typography gutterBottom component="div" sx={{ mt: 3, mb:2 }} textAlign="center">
-                {type ? "Oops, no posts in this list!" : "Follow your friends to check their latest updates here."}
+              <Typography gutterBottom component="div" sx={{ mt: 3, mb: 2 }} textAlign="center">
+                {type ? ( isFollowingUser ? "Oops, no posts in this list!" : "Follow user to see their posts") : "Follow your friends to check their latest updates here."}
               </Typography>
               <img
                 src={
