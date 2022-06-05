@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { Close } from "@mui/icons-material";
-import { Avatar, Box, Button, Card, IconButton, Modal, Stack, Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import { theme } from "App";
 import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { UserNameCard } from "components";

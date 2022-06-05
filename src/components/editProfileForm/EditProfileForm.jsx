@@ -17,17 +17,18 @@ import { updateUserProfile } from "firebaseUtils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserProfile } from "features/auth/authSlice";
 export function EditProfileForm({ open, handleCloseModal }) {
-  const { user,id } = useSelector(store => store.auth);
-  const { bio, website } = user;
+  const { user, id } = useSelector(store => store.auth);
+  const { avatar, firstname, lastname, bio, website } = user;
 
   const dispatch = useDispatch();
   const handleSubmit = event => {
     event.preventDefault();
-    handleCloseModal()
+    handleCloseModal();
     const data = new FormData(event.target.form);
     const userData = {
-      ...user,  
-      bio:data.get("bio"), website:data.get("website")
+      ...user,
+      bio: data.get("bio"),
+      website: data.get("website"),
     };
     updateUserProfile(id, userData, dispatch, setUserProfile);
   };
@@ -41,19 +42,24 @@ export function EditProfileForm({ open, handleCloseModal }) {
           aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
+              <Typography id="modal-modal-title" variant="h6" component="h2" color="primary" >
                 Edit profile
               </Typography>
+
               <Avatar
                 className="profile-cover"
-                src="https://picsum.photos/200/300"
+                alt={firstname}
+                src={avatar || firstname?.charAt(0)}
                 sx={{ width: 56, height: 56 }}></Avatar>
             </Box>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              {firstname + " " + lastname}
+            </Typography>
           </DialogTitle>
 
           <DialogContent>
-            <DialogContentText id="alert-dialog-description" component="div" >
-              <Box component="form" id="profile-edit" >
+            <DialogContentText id="alert-dialog-description" component="div">
+              <Box component="form" id="profile-edit">
                 <TextField
                   margin="normal"
                   fullWidth

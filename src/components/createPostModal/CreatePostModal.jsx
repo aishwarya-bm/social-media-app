@@ -18,8 +18,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPost, getUserFeedPosts, updatePost } from "firebaseUtils/posts";
 
 export function CreatePostModal({ open, handleClose, editPost }) {
-  const { id, user } = useSelector(store => store.auth);
-  const { firstname, lastname, avatar } = user;
+  const {
+    id,
+    user: { firstname, lastname, avatar },
+  } = useSelector(store => store.auth);
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [showEmoji, setShowEmoji] = useState(false);
   const dispatch = useDispatch();

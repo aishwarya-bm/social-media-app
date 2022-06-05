@@ -15,9 +15,12 @@ export function CommentCard({ comment }) {
         <div>
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Link to={`/profile/${author?.id}`}>
-              <Avatar aria-label="comment-author" sx={{ width: 32, height: 32 }}>
-                {author?.avatar || author?.firstname?.charAt(0)}
-              </Avatar>
+              <Avatar
+                aria-label="comment-author"
+                sx={{ width: 32, height: 32 }}
+                alt={author?.firstname?.charAt(0)}
+                src={author?.avatar}
+              />
             </Link>
             <Link to={`/profile/${author?.id}`}>
               <Typography variant="subtitle2">{`${author?.firstname} ${author?.lastname}`}</Typography>

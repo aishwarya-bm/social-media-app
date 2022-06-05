@@ -11,8 +11,11 @@ const filterPosts = (posts, id, type) => {
   }
 };
 
-const getFeed = (posts, user) => posts.filter(p => user?.following?.find(f => f.id === p.author.id || user.uid === p.author.id));
-
+const getFeed = (posts, user) => {
+  let myPosts = posts.filter(p => user.uid === p.author.id);
+  let followerPosts = user?.following?.length ? posts.filter(p => user?.following?.find(f => f.id === p.author.id)) : [];
+  return [...myPosts, ...followerPosts];
+};
 
 const filterPostsByChip = (posts, chip) => {
   switch (chip) {

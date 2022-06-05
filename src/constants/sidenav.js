@@ -15,24 +15,12 @@ export const sidenavItems = [
   },
   {
     id: 3,
-    title: "Notifications",
-    nav_icon: <Notifications fontSize="medium" />,
-    nextUrl: "/notifications",
-  },
-  {
-    id: 4,
-    title: "Messages",
-    nav_icon: <Message fontSize="medium" />,
-    nextUrl: "/messages",
-  },
-  {
-    id: 5,
     title: "Saved",
     nav_icon: <Bookmark fontSize="medium" />,
     nextUrl: "/saved",
   },
   {
-    id: 6,
+    id: 4,
     title: "Profile",
     nav_icon: <AccountCircle fontSize="medium" />,
     nextUrl: "/profile",

@@ -33,7 +33,7 @@ onAuthStateChanged(auth, user => {
   }
 });
 
-const createUser = (newUser, dispatch, login, navigate) => {
+const createUser = (newUser, dispatch, login, navigate,location) => {
   const { email, password } = newUser;
   createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
@@ -43,7 +43,7 @@ const createUser = (newUser, dispatch, login, navigate) => {
       localStorage.setItem("userId", uid);
       dispatch(login(uid));
       createUserProfile(newUser, uid);
-      navigate("/home");
+      navigate(location.state?.from?.pathname || "/home");
       Toast({ message: "Signup successful.", type: "success" });
     })
     .catch(error => {
@@ -73,16 +73,16 @@ const createUserProfile = async (user, uid) => {
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
-    bio: "",
-    website: "",
+    bio: "Eat, sleep, SSUP, repeat!",
+    website: "Under construction",
     followers: [],
     following: [],
-    avatar: "",
+    avatar: user.avatar,
     coverImg: "",
   });
 };
 
-const loginUser = (user, dispatch, login, navigate) => {
+const loginUser = (user, dispatch, login, navigate,location) => {
   const { email, password } = user;
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
@@ -91,11 +91,12 @@ const loginUser = (user, dispatch, login, navigate) => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userId", uid);
       dispatch(login(uid));
-      navigate("/home");
+      navigate(location.state?.from?.pathname || "/home");
       Toast({ message: "Login successful.", type: "success" });
     })
     .catch(error => {
       const errorCode = error.code;
+      console.log(error)
       switch (errorCode) {
         case "auth/wrong-password":
           return Toast({
@@ -107,10 +108,15 @@ const loginUser = (user, dispatch, login, navigate) => {
             message: "Invalid email id.",
             type: "error",
           });
+        case "auth/user-not-found":
+          return Toast({
+            message: "User not found.",
+            type: "error",
+          });
         default:
           return Toast({
             message: "Some error occured, please try again later.",
-            type: "warning",
+            type: "error",
           });
       }
     });
@@ -122,7 +128,7 @@ const logoutUser = (dispatch, logout, navigate) => {
       dispatch(logout());
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
-      navigate("/auth");
+      navigate("/");
       Toast({
         message: "Logout successful.",
         type: "success",
@@ -230,7 +236,6 @@ const addUserToFollowing = async (followerId, follower, peer, dispatch, setUserP
     });
     const user = { ...follower, following: [...follower.following, personToFollow] };
     dispatch(setUserProfile(user));
-    dispatch(getUserProfile(peer.id));
     if(viewingProfileId) dispatch(getUserProfile(viewingProfileId));
     Toast({
       message: `You followed ${fanme} ${lname}`,

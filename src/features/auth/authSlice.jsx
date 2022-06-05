@@ -3,7 +3,7 @@ import { getAllUsers, getUserData, getUserProfile } from "firebaseUtils/auth";
 
 const initialState = {
   user: {},
-  isLoggedIn: localStorage.getItem("userId") !== "" ? true : false,
+  isLoggedIn: localStorage.getItem("userId") === null ? false : true,
   id: localStorage.getItem("userId"),
   isLoading: false,
   allUsers:[],

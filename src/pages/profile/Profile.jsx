@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, Tab, Tabs } from "@mui/material";
 import { LikedPosts, Postlist } from "components";
 import { UserDetails } from "components/userDetails/UserDetails";
-import { getAllUsers, getUserProfile } from "firebaseUtils/auth";
+import { getUserProfile } from "firebaseUtils/auth";
 import { Bookmarks } from "pages";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,7 @@ export function Profile() {
   const [value, setValue] = useState("posts");
   const dispatch = useDispatch();
   const { profileId } = useParams();
-  const { profileDetails, id } = useSelector(store => store.auth);
+  const { profileDetails, id, user } = useSelector(store => store.auth);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -20,22 +20,26 @@ export function Profile() {
   useEffect(() => {
     dispatch(getUserProfile(profileId));
     setValue("posts");
-  }, [profileId]);
+  }, [profileId,user]);
   
   return (
     <>
       <div className="profile-container">
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Grid item className="profile-header">
-            <img className="profile-cover" src="https://picsum.photos/200/300" />
+            <img
+              className="profile-cover"
+              src="https://4.bp.blogspot.com/-QeD3O-d5UOI/W390jAmnKLI/AAAAAAAAFXU/m26xdFe-XKcX7c24HZ8XOg9ekRkNfScXQCLcBGAs/s640/excuse-me-do-i-know-you-fb-cover.jpg"
+            />
             <Avatar
               className="profile-image"
               sx={{ width: 56, height: 56, position: "absolute" }}
-              aria-label={`${profileDetails?.firstname}`}>
-              {profileDetails?.avatar || profileDetails?.firstname?.charAt(0)}
-            </Avatar>
+              src={profileDetails?.avatar || profileDetails?.firstname?.charAt(0)}
+              alt={profileDetails?.firstname}
+              aria-label={profileDetails?.firstname}
+            />
           </Grid>
-          <UserDetails profileDetails={profileDetails} />
+          <UserDetails />
 
           <Tabs
             value={value}
