@@ -8,10 +8,11 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUserData } from "firebaseUtils/auth";
-
+import { setMode } from "features/theme/themeSlice";
 
 export function MainPage() {
-  const userId=localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
+  const appTheme = localStorage.getItem("appTheme");
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -24,7 +25,8 @@ export function MainPage() {
   };
 
   useEffect(() => {
-    dispatch(getUserData(userId))
+    dispatch(getUserData(userId));
+    dispatch(setMode(appTheme))
   }, []);
   return (
     <>
@@ -46,14 +48,11 @@ export function MainPage() {
             onClick={handleClickOpen}
             sx={{
               position: "fixed",
-              display: { sm: "inline-flex", md: "none"},
+              display: { sm: "inline-flex", md: "none" },
             }}>
             <AddIcon />
           </Fab>
-          <CreatePostModal
-            open={open}
-            handleClose={handleClose}
-          />
+          <CreatePostModal open={open} handleClose={handleClose} />
           <BottomNav />
         </Box>
       </ThemeProvider>

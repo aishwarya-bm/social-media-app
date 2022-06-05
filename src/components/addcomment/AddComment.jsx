@@ -6,7 +6,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCommentToPost, getUserFeedPosts } from "firebaseUtils/posts";
 export function AddComment({ postId }) {
+  const { mode } = useSelector(store => store.theme);
   const { id, user } = useSelector(store => store.auth);
+  const {palette:{common :{black, white}}} = theme;
+  const bgColor = mode === "light" ? white : black;
+  const fColor = mode === "light" ? black : white;
+
   const dispatch = useDispatch();
   const [commentForm, setCommentForm] = useState({
     author: {},
@@ -18,10 +23,11 @@ export function AddComment({ postId }) {
   const handleChange = e => {
     setCommentForm({ ...commentForm, comment: e.target.value });
   };
+
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ display: "flex", margin: ".5rem", marginTop: "1rem" }}>
+        <Box sx={{ display: "flex", margin: ".5rem", marginTop: "1rem", backgroundColor: bgColor, color:fColor }}>
           <Avatar
             alt={user?.firstname}
             src={user?.avatar || user?.firstname?.charAt(0)}

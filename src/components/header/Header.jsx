@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Stack } from "@mui/material";
 import "./header.css";
+import { setMode } from "features/theme/themeSlice";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,24 +60,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function Header() {
-  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const [checked, setChecked] = useState(false);
-
+  const {mode} = useSelector(store=>store.theme);
   const switchHandler = event => {
-    const value = event.target.checked;
-    setChecked(value);
-    value ? localStorage.setItem("appTheme", "dark") : localStorage.setItem("appTheme", "light");
+    event.target.checked ? localStorage.setItem("appTheme", "dark") : localStorage.setItem("appTheme", "light");
+    dispatch(setMode(localStorage.getItem("appTheme")));
   };
 
   const [searchText, setSearhText] = useState("");
@@ -137,7 +127,7 @@ export function Header() {
               />
             </Search>
             <Stack direction="row">
-              <SwitchMode checked={checked} switchHandler={switchHandler} />
+              <SwitchMode checked={mode==="dark"} switchHandler={switchHandler} />
               <Box sx={{ display: { md: "flex" } }}>
                 <IconButton
                   size="large"
@@ -152,7 +142,6 @@ export function Header() {
         </AppBar>
         <SearchProfiles searchText={searchText} showSearch={showSearch} />
       </Box>
-      <CreatePostModal open={open} handleClose={handleClose} />
     </ThemeProvider>
   );
 }
