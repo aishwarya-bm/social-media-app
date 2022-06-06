@@ -40,7 +40,7 @@ export function Suggestions() {
             </Button>
           )}
         </Typography>
-        {suggestedUsers.length ? (
+        {suggestedUsers?.length ? (
           suggestedUsers?.slice(0, 5)?.map((follower, idx) => (
             <div key={"suggestion" + idx}>
               <UserNameCard fellowUser={follower} cardType="suggestions" />

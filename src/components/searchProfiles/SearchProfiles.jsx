@@ -23,7 +23,7 @@ export function SearchProfiles({ searchText, showSearch, setShowSearch }) {
         {showSearch && (
           <Box component="div" className="matching-users" textAlign="center">
             {searchText !== "" &&
-              (matchingProfiles.length ? (
+              (matchingProfiles?.length ? (
                 matchingProfiles?.map((fellowUser, idx) => (
                   <div key={"matching" + idx} onClick={() => openProfile(fellowUser.id)}>
                     <Card

@@ -16,6 +16,7 @@ export { Postlist } from "./postlist/PostList";
 export { PostMenu } from "./postMenu/PostMenu";
 export { RequiresAuth } from "./requiresAuth/RequiresAuth";
 export { SearchProfiles } from "./searchProfiles/SearchProfiles";
+export { SkeletonPost } from "./skeleton/SkeletonPost";
 export { Suggestions } from "./suggestions/Suggestions";
 export { SwitchMode } from "./switchMode/SwitchMode";
 export { UserNameCard } from "./userNameCard/UserNameCard";

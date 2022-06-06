@@ -6,11 +6,12 @@ import { getUserFeedPosts } from "firebaseUtils/posts";
 import { filterPosts, filterPostsByChip, getFeed } from "firebaseUtils/filters";
 import { useParams } from "react-router-dom";
 import { setProfilePosts } from "features/posts/postsSlice";
+import { SkeletonPost } from "components";
 
 export function Postlist({ type, filterByChip, isFollowingUser }) {
   const { feedPosts, auth } = useSelector(store => store);
   const { id, user } = auth;
-  const { feed } = feedPosts;
+  const { feed, isLoadingPosts } = feedPosts;
   const dispatch = useDispatch();
   const { profileId } = useParams();
   const userId = profileId || id;
@@ -29,29 +30,35 @@ export function Postlist({ type, filterByChip, isFollowingUser }) {
 
   return (
     <>
-        <Stack direction="column" gap={3}>
-          {filteredPosts.length ? (
-            filteredPosts?.map(p => (
-              <div key={p.postId}>
-                <Postcard post={p} />
-              </div>
-            ))
-          ) : (
-            <Stack alignItems="center" mt={2}>
-              <Typography gutterBottom component="div" sx={{ mt: 3, mb: 2 }} textAlign="center">
-                {type ? ( isFollowingUser ? "Oops, no posts in this list!" : "Follow user to see their posts.") : "Follow your friends to check their latest updates here."}
-              </Typography>
-              <img
-                src={
-                  type
-                    ? "https://cdn.iconscout.com/icon/premium/png-128-thumb/file-broken-5400710-4557870.png"
-                    : "https://cdn.iconscout.com/icon/premium/png-128-thumb/follower-3047568-2536967.png"
-                }
-                alt="no-posts"
-              />
-            </Stack>
-          )}
-        </Stack>
+      <Stack direction="column" gap={3}>
+        {filteredPosts?.length ? (
+          filteredPosts?.map(p => (
+            <div key={p.postId}>
+              <Postcard post={p} />
+            </div>
+          ))
+        ) : isLoadingPosts ? (
+          <SkeletonPost />
+        ) : (
+          <Stack alignItems="center" mt={2}>
+            <Typography gutterBottom component="div" sx={{ mt: 3, mb: 2 }} textAlign="center">
+              {type
+                ? isFollowingUser
+                  ? "Oops, no posts in this list!"
+                  : "Follow user to see their posts."
+                : "Follow your friends to check their latest updates here."}
+            </Typography>
+            <img
+              src={
+                type
+                  ? "https://cdn.iconscout.com/icon/premium/png-128-thumb/file-broken-5400710-4557870.png"
+                  : "https://cdn.iconscout.com/icon/premium/png-128-thumb/follower-3047568-2536967.png"
+              }
+              alt="no-posts"
+            />
+          </Stack>
+        )}
+      </Stack>
     </>
   );
 }

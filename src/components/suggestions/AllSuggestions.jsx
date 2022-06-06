@@ -22,7 +22,7 @@ export function AllSuggestions({ open, handleClose, allSuggestions }) {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              { allSuggestions.length ? allSuggestions?.map(user => {
+              { allSuggestions?.length ? allSuggestions?.map(user => {
                 return (
                   <div key={"allSuggestions" + user.id}>
                     <UserNameCard fellowUser={user} cardType="allSuggestions" handleClose={handleClose} />
