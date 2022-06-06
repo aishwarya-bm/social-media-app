@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@emotion/react";
 import {
   Avatar,
   Box,
@@ -12,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import "./editProfileForm.css";
-import { theme } from "App";
 import { updateUserProfile } from "firebaseUtils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserProfile } from "features/auth/authSlice";
@@ -34,7 +32,6 @@ export function EditProfileForm({ open, handleCloseModal }) {
   };
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Dialog
           open={open}
           onClose={handleCloseModal}
@@ -94,7 +91,6 @@ export function EditProfileForm({ open, handleCloseModal }) {
             </Button>
           </DialogActions>
         </Dialog>
-      </ThemeProvider>
     </>
   );
 }

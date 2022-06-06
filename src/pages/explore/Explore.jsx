@@ -1,7 +1,6 @@
 import { SortOutlined } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
-import { Box, ThemeProvider } from "@mui/system";
-import { theme } from "App";
+import { Box } from "@mui/system";
 import { FilterChips, Postlist } from "components";
 import { Postcard } from "components/postcard/Postcard";
 import { filterPostsByChip } from "firebaseUtils/filters";
@@ -30,7 +29,7 @@ export function Explore() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Box sx={{ marginTop: 4 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" margin={1} mt={5}>
           <Typography variant="h6" gutterBottom component="div">
@@ -49,6 +48,6 @@ export function Explore() {
           </div>
         ))}
       </Stack>
-    </ThemeProvider>
+    </>
   );
 }

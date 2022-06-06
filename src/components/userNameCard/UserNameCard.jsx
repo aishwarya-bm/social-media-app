@@ -1,6 +1,5 @@
-import { Stack, ThemeProvider } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Avatar, Box, Button, Card, Typography } from "@mui/material";
-import { theme } from "App";
 import { setUserProfile } from "features/auth/authSlice";
 import { addUserToFollowing, isFollower, isFollowing, removeUserFromFollowing } from "firebaseUtils/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,12 +16,11 @@ export function UserNameCard({
   const navigate = useNavigate();
   const { profileId } = useParams();
 
-  const border = cardType === "suggestions" ? "1px solid var(--primary-color)" : "0";
+  const border = cardType === "suggestions" ? "1px solid var(--icon-color)" : "0";
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Card
-          elevation={cardType === "suggestions" ? 2 : 0}
+          elevation={0}
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -31,6 +29,8 @@ export function UserNameCard({
             marginBottom: 2,
             paddingRight: 1,
             cursor: "pointer",
+            backgroundColor:"transparent",
+            border:border
           }}>
           <Stack
             direction={"row"}
@@ -51,7 +51,7 @@ export function UserNameCard({
             (isFollowing(fellowUser?.id, user?.following) ? (
               <Button
                 variant="outlined"
-                color="error"
+                color="secondary"
                 onClick={e => {
                   e.stopPropagation();
                   removeUserFromFollowing(id, user, fellowUser, dispatch, setUserProfile, profileId);
@@ -83,7 +83,6 @@ export function UserNameCard({
             </Button>
           )}
         </Card>
-      </ThemeProvider>
     </>
   );
 }

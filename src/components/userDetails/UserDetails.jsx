@@ -1,10 +1,8 @@
-import { ThemeProvider } from "@emotion/react";
 import { Button, Link, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { EditProfileForm, Followers, Following } from "components";
 import { useEffect, useState } from "react";
 import "./userdetails.css";
-import { theme } from "App";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserToFollowing, isFollowing, removeUserFromFollowing } from "firebaseUtils/auth";
 import { setUserProfile } from "features/auth/authSlice";
@@ -27,8 +25,7 @@ export function UserDetails({ isFollowingUser }) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Stack direction="column" gap={1} className="profile-details" mt={1} alignItems="center">
+        <Stack direction="column" gap={1} className="profile-details" mt={1} alignItems="center" border="1px solid">
           <Stack
             direction="row"
             gap={1}
@@ -109,7 +106,6 @@ export function UserDetails({ isFollowingUser }) {
             />
           </Stack>
         </Stack>
-      </ThemeProvider>
     </>
   );
 }

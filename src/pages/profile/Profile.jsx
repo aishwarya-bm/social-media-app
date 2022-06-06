@@ -1,5 +1,3 @@
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "App";
 import { Avatar, Box, Grid, Tab, Tabs } from "@mui/material";
 import { LikedPosts, Postlist } from "components";
 import { UserDetails } from "components/userDetails/UserDetails";
@@ -28,8 +26,6 @@ export function Profile() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-
       <div className="profile-container">
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Grid item className="profile-header">
@@ -63,7 +59,6 @@ export function Profile() {
           {value === "likes" && <LikedPosts isFollowingUser={isFollowingUser} />}
         </Box>
       </div>
-      </ThemeProvider>
     </>
   );
 }

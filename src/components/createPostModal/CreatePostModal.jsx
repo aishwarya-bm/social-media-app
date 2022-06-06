@@ -8,11 +8,9 @@ import {
   Button,
   TextField,
   Typography,
-  ThemeProvider,
 } from "@mui/material";
 import { CameraAlt, EmojiEmotions } from "@mui/icons-material";
 import EmojiPicker from "emoji-picker-react";
-import { theme } from "App";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, getUserFeedPosts, updatePost } from "firebaseUtils/posts";
@@ -65,7 +63,6 @@ export function CreatePostModal({ open, handleClose, editPost }) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Dialog
         fullWidth
         open={open}
@@ -127,6 +124,5 @@ export function CreatePostModal({ open, handleClose, editPost }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </ThemeProvider>
   );
 }

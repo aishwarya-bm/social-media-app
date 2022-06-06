@@ -1,5 +1,3 @@
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "App";
 import { ArrowRightOutlined } from "@mui/icons-material";
 import { Button, Grid, Stack, Typography } from "@mui/material";
 import { UserNameCard } from "components";
@@ -25,48 +23,46 @@ export function Suggestions() {
   }, []);
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Grid
-          item
-          position="fixed"
-          right="3rem"
-          mt="2rem"
-          sx={{
-            display: { xs: "none", sm: "none", md: "none", lg: "grid" },
-            width: "18rem",
-          }}>
-          <Typography gutterBottom component="div" variant="h6" sx={{ marginTop: 3 }} textAlign="center">
-            Suggestions:
-            {suggestedUsers?.length > 5 && (
-              <Button endIcon={<ArrowRightOutlined />} variant="text" onClick={handleOpenSuggestionsModal}>
-                see all
-              </Button>
-            )}
-          </Typography>
-          {suggestedUsers.length ? (
-            suggestedUsers?.slice(0, 5)?.map((follower, idx) => (
-              <div key={"suggestion" + idx}>
-                <UserNameCard fellowUser={follower} cardType="suggestions" />
-              </div>
-            ))
-          ) : (
-            <Stack alignItems="center">
-              <Typography gutterBottom component="div" sx={{ marginTop: 1 }} textAlign="center">
-                No suggestions, check out your news feed to stay updated.
-              </Typography>
-              <img
-                src="https://cdn.iconscout.com/icon/premium/png-128-thumb/empty-folder-5400756-4557891.png"
-                alt="no-suggestions"
-              />
-            </Stack>
+      <Grid
+        item
+        position="fixed"
+        right="3rem"
+        mt="2rem"
+        sx={{
+          display: { xs: "none", sm: "none", md: "none", lg: "grid" },
+          width: "20rem",
+        }}>
+        <Typography gutterBottom component="div" variant="h6" sx={{ marginTop: 3 }} textAlign="center">
+          Suggestions:
+          {suggestedUsers?.length > 5 && (
+            <Button endIcon={<ArrowRightOutlined />} variant="text" onClick={handleOpenSuggestionsModal}>
+              see all
+            </Button>
           )}
-        </Grid>
-        <AllSuggestions
-          open={openSuggestions}
-          handleClose={handleCloseSuggestionsModal}
-          allSuggestions={suggestedUsers}
-        />
-      </ThemeProvider>
+        </Typography>
+        {suggestedUsers.length ? (
+          suggestedUsers?.slice(0, 5)?.map((follower, idx) => (
+            <div key={"suggestion" + idx}>
+              <UserNameCard fellowUser={follower} cardType="suggestions" />
+            </div>
+          ))
+        ) : (
+          <Stack alignItems="center">
+            <Typography gutterBottom component="div" sx={{ marginTop: 1 }} textAlign="center">
+              No suggestions, check out your news feed to stay updated.
+            </Typography>
+            <img
+              src="https://cdn.iconscout.com/icon/premium/png-128-thumb/empty-folder-5400756-4557891.png"
+              alt="no-suggestions"
+            />
+          </Stack>
+        )}
+      </Grid>
+      <AllSuggestions
+        open={openSuggestions}
+        handleClose={handleCloseSuggestionsModal}
+        allSuggestions={suggestedUsers}
+      />
     </>
   );
 }

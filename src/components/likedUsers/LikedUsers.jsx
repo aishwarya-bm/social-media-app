@@ -1,13 +1,10 @@
-import { ThemeProvider } from "@emotion/react";
 import { Close } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { theme } from "App";
 import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { UserNameCard } from "components";
 export function LikedUsers({ open, handleClose, likedUsers }) {
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -48,7 +45,6 @@ export function LikedUsers({ open, handleClose, likedUsers }) {
             </DialogContentText>
           </DialogContent>
         </Dialog>
-      </ThemeProvider>
     </>
   );
 }

@@ -1,7 +1,5 @@
-import { ThemeProvider } from "@emotion/react";
 import { Close } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { theme } from "App";
 import {
   Dialog,
   DialogContent,
@@ -13,7 +11,6 @@ export function Following({open,handleClose,following}) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -54,7 +51,6 @@ export function Following({open,handleClose,following}) {
             </DialogContentText>
           </DialogContent>
         </Dialog>
-      </ThemeProvider>
     </>
   );
 }

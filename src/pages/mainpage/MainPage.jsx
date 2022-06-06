@@ -1,5 +1,3 @@
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "App";
 import { BottomNav, CreatePostModal, Header, Leftnav, Suggestions } from "components";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Fab, Grid } from "@mui/material";
@@ -30,7 +28,6 @@ export function MainPage() {
   }, []);
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Header />
         <Box sx={{ flexGrow: 1 }} className="main-container">
           <Grid container>
@@ -55,7 +52,6 @@ export function MainPage() {
           <CreatePostModal open={open} handleClose={handleClose} />
           <BottomNav />
         </Box>
-      </ThemeProvider>
     </>
   );
 }

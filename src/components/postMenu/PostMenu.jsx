@@ -1,8 +1,6 @@
-import { ThemeProvider } from "@emotion/react";
 import { MoreVert } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import { Box } from "@mui/system";
-import { theme } from "App";
 import { deletePost, getUserFeedPosts } from "firebaseUtils/posts";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -50,7 +48,6 @@ export function PostMenu({ handlePostModalOpen, postId }) {
   );
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Box>
           <IconButton
             size="large"
@@ -63,7 +60,6 @@ export function PostMenu({ handlePostModalOpen, postId }) {
           </IconButton>
         </Box>
         {renderMenu}
-      </ThemeProvider>
     </>
   );
 }

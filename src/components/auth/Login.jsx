@@ -1,7 +1,5 @@
-import { ThemeProvider } from "@emotion/react";
 import { Avatar, Button, Container,TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { theme } from "App";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import "./login.css";
 import { loginUser } from "firebaseUtils/auth";
@@ -26,7 +24,6 @@ const location=useLocation();
   };
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -65,7 +62,6 @@ const location=useLocation();
             </Box>
           </Box>
         </Container>
-      </ThemeProvider>
     </>
   );
 }

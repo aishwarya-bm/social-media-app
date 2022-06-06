@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@emotion/react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   BookmarkAdded,
@@ -15,14 +14,13 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
+  createTheme,
   Divider,
-  IconButton,
   Link,
   Stack,
   Typography,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { theme } from "App";
 import { CommentList, CreatePostModal, LikedUsers, PostMenu } from "components";
 import {
   addPostToLiked,
@@ -66,14 +64,39 @@ export function Postcard(props) {
     new Date(createdAt?.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
     ", " +
     new Date(createdAt?.seconds * 1000).toLocaleDateString();
+  const { mode } = useSelector(store => store.theme);
+
+
+    const theme1 = createTheme({
+      palette: {
+        mode: mode,
+        primary: {
+          main: "#407BFF",
+        },
+        secondary: {
+          main: "#6068e2",
+        },
+        icon: {
+          main: "#666666",
+          light: "#F0F2F5",
+          dark: "#363636",
+        },
+       
+      },
+      typography: {
+        fontFamily: `"Ubuntu", "Helvetica", "Arial","Dancing Script, cursive", sans-serif`,
+        fontSize: 14,
+        fontWeightLight: 300,
+        fontWeightRegular: 400,
+        fontWeightMedium: 500,
+      },
+    });
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Card
           sx={{ minWidth: "10rem", boxShadow: "rgb(0 0 0 / 15%) 0px 2px 8px", borderRadius: "5px" }}
           className="post-card">
           <CardHeader
-            sx={{ color: "black" }}
             avatar={
               <RouterLink to={`/profile/${author?.id}`}>
                 <Avatar
@@ -173,7 +196,6 @@ export function Postcard(props) {
           {viewComments && <CommentList viewComments={viewComments} comments={comments} postId={postId} />}
         </Card>
         <CreatePostModal open={open} handleClose={handleClose} editPost={props.post} />
-      </ThemeProvider>
     </>
   );
 }

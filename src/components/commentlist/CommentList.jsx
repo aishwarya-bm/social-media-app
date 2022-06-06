@@ -1,5 +1,3 @@
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "App";
 import { Box } from "@mui/system";
 import { Divider, Stack} from "@mui/material";
 import { AddComment, CommentCard } from "components";
@@ -7,7 +5,6 @@ import { AddComment, CommentCard } from "components";
 export function CommentList({comments, postId}) {
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Divider />
         <AddComment postId={postId} />
         <Box
@@ -20,7 +17,6 @@ export function CommentList({comments, postId}) {
             ))}
           </Stack>
         </Box>
-      </ThemeProvider>
     </>
   );
 }

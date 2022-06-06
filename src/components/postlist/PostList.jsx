@@ -1,5 +1,3 @@
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "App";
 import { Postcard } from "components/postcard/Postcard";
 import { Stack, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +29,6 @@ export function Postlist({ type, filterByChip, isFollowingUser }) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Stack direction="column" gap={3}>
           {filteredPosts.length ? (
             filteredPosts?.map(p => (
@@ -42,7 +39,7 @@ export function Postlist({ type, filterByChip, isFollowingUser }) {
           ) : (
             <Stack alignItems="center" mt={2}>
               <Typography gutterBottom component="div" sx={{ mt: 3, mb: 2 }} textAlign="center">
-                {type ? ( isFollowingUser ? "Oops, no posts in this list!" : "Follow user to see their posts") : "Follow your friends to check their latest updates here."}
+                {type ? ( isFollowingUser ? "Oops, no posts in this list!" : "Follow user to see their posts.") : "Follow your friends to check their latest updates here."}
               </Typography>
               <img
                 src={
@@ -55,7 +52,6 @@ export function Postlist({ type, filterByChip, isFollowingUser }) {
             </Stack>
           )}
         </Stack>
-      </ThemeProvider>
     </>
   );
 }

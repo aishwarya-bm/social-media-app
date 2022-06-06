@@ -1,12 +1,12 @@
 import { Paper, Stack } from "@mui/material";
 import { sidenavItems } from "constants/sidenav";
 import { useSelector } from "react-redux";
-import { ThemeProvider } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
-import { theme } from "App";
 import { NavLink } from "react-router-dom";
+import { appTheme } from "theme-util";
 export function BottomNav() {
-  const { id: userId } = useSelector(store => store.auth);
+  const { theme:{mode}, auth : {id: userId} } = useSelector(store => store);
+  const theme = appTheme(mode);
   const getActiveStyle = ({ isActive }) =>
     isActive
       ? {
@@ -21,8 +21,6 @@ export function BottomNav() {
         };
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
         <Paper
           className="paper-bottomnav"
           sx={{
@@ -40,9 +38,10 @@ export function BottomNav() {
             sx={{ display: { xs: "flex", sm: "flex" }, p: 1 }}>
             {sidenavItems.map(({ id, nav_icon, title, nextUrl }) => {
               return (
-                <>
-                  <span key={"nav" + id}>
-                    <NavLink to={title === "Profile" ? nextUrl + `/${userId}` : nextUrl} style={getActiveStyle}>
+                    <NavLink
+                      key={"bottomnav" + id}
+                      to={title === "Profile" ? nextUrl + `/${userId}` : nextUrl}
+                      style={getActiveStyle}>
                       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
                         {nav_icon}
                         <Typography variant="body1" component="span" sx={{ display: { sm: "none", md: "inherit" } }}>
@@ -50,13 +49,9 @@ export function BottomNav() {
                         </Typography>
                       </Box>
                     </NavLink>
-                  </span>
-                </>
               );
             })}
           </Stack>
         </Paper>
-      </ThemeProvider>
-    </>
   );
 }
