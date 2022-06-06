@@ -33,9 +33,9 @@ export function Postlist({ type, filterByChip, isFollowingUser }) {
       <Stack direction="column" gap={3}>
         {filteredPosts?.length ? (
           filteredPosts?.map(p => (
-            <div key={p.postId}>
-              <Postcard post={p} />
-            </div>
+            // <div key={p.postId}>
+              <Postcard post={p} key={p.postId} />
+            // </div>
           ))
         ) : isLoadingPosts ? (
           <SkeletonPost />
@@ -45,6 +45,8 @@ export function Postlist({ type, filterByChip, isFollowingUser }) {
               {type
                 ? isFollowingUser
                   ? "Oops, no posts in this list!"
+                  : type === "saved"
+                  ? "No saved posts yet"
                   : "Follow user to see their posts."
                 : "Follow your friends to check their latest updates here."}
             </Typography>

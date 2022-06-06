@@ -14,7 +14,11 @@ export function Home() {
   return (
     <>
       <Box sx={{ mt: 4, mb: 2 }}>
-        <Typography variant="h5" gutterBottom component="div">
+        <Typography
+          variant="h5"
+          gutterBottom
+          component="div"
+          sx={{ display: { xs: "none", sm: "block", md: "block" } }}>
           Home
         </Typography>
       </Box>

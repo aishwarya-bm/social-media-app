@@ -32,15 +32,20 @@ export function Explore() {
     <>
       <Box sx={{ marginTop: 4 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" margin={1} mt={5}>
-          <Typography variant="h6" gutterBottom component="div">
+          <Typography
+            variant="h6"
+            gutterBottom
+            component="div"
+            sx={{ display: { xs: "none", sm: "block", md: "block" } }}>
             Explore
           </Typography>
           <Button startIcon={<SortOutlined />} aria-label="filter" color="secondary" onClick={() => handleClose()}>
             Sort
           </Button>
+          {showFilter && <FilterChips filterBy={filterBy} handleClick={handleClick} />}
         </Stack>
       </Box>
-      {showFilter && <FilterChips filterBy={filterBy} handleClick={handleClick} />}
+
       <Stack direction="column" gap={3}>
         {filterByChipsPosts?.map(p => (
           <div key={p.postId}>
