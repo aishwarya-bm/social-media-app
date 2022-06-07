@@ -125,7 +125,7 @@ export function Postcard(props) {
             </Stack>
           </Link>
         )}
-
+        <LikedUsers open={openLikes} handleClose={handleCloseLikes} likedUsers={likes} />
         {!props.isExplorePage && (
           <>
             <Divider />
@@ -149,8 +149,6 @@ export function Postcard(props) {
                   {likes?.length || ""} {likes?.length > 1 ? "Likes" : "Like"}
                 </Link>
               </Button>
-
-              <LikedUsers open={openLikes} handleClose={handleCloseLikes} likedUsers={likes} />
 
               <Button
                 size="small"
