@@ -116,10 +116,6 @@ export function Header({ isAuthPage }) {
               </SearchIconWrapper>
               <StyledInputBase
                 onFocus={() => setShowSearch(true)}
-                // onBlur={() => {
-                //   console.log("blurred");
-                //   setShowSearch(false);
-                // }}
                 type="search"
                 placeholder="Search user…"
                 inputProps={{ "aria-label": "search" }}
@@ -130,15 +126,17 @@ export function Header({ isAuthPage }) {
           )}
           <Stack direction="row">
             <SwitchMode checked={mode === "dark"} switchHandler={switchHandler} />
-            <Box sx={{ display: { md: "flex" } }}>
-              <IconButton
-                size="large"
-                aria-label="logout"
-                color="inherit"
-                onClick={() => logoutUser(dispatch, logout, navigate)}>
-                <Logout />
-              </IconButton>
-            </Box>
+            {!isAuthPage && (
+              <Box sx={{ display: { md: "flex" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="logout"
+                  color="inherit"
+                  onClick={() => logoutUser(dispatch, logout, navigate)}>
+                  <Logout />
+                </IconButton>
+              </Box>
+            )}
           </Stack>
         </Toolbar>
       </AppBar>
