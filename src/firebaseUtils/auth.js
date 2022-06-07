@@ -74,7 +74,7 @@ const createUserProfile = async (user, uid) => {
     lastname: user.lastname,
     email: user.email,
     bio: "Eat, sleep, SSUP, repeat!",
-    website: "Website coming soon...",
+    website: "Coming soon...",
     followers: [],
     following: [],
     avatar: user.avatar,

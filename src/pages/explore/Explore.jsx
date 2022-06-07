@@ -49,7 +49,7 @@ export function Explore() {
       <Stack direction="column" gap={3}>
         {filterByChipsPosts?.map(p => (
           <div key={p.postId}>
-            <Postcard post={p} />
+            <Postcard post={p} isExplorePage={true} />
           </div>
         ))}
       </Stack>

@@ -63,13 +63,13 @@ export function Postcard(props) {
     new Date(createdAt?.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
     ", " +
     new Date(createdAt?.seconds * 1000).toLocaleDateString();
-
+console.log(props.isExplorePage);
   return (
     <>
       <Card elevation={1}
         sx={{
           minWidth: "10rem",
-          boxShadow: "box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 20%)",
+          boxShadow: "0px 0px 0px 2px rgb(0 0 0 / 20%)",
           borderRadius: "5px",
         }}
         className="post-card">
@@ -93,7 +93,7 @@ export function Postcard(props) {
         {media && <CardMedia component="img" alt="card-media" height="140" image={media} />}
         <Divider />
 
-        <Link
+      { !props.isExplorePage && <><Link
           component="button"
           color="inherit"
           underline="none"
@@ -109,7 +109,7 @@ export function Postcard(props) {
               ? `${likes[0]?.firstname + " " + likes[0]?.lastname} & ${likes?.length - 1} other liked this`
               : likes?.length
               ? `${likes[0]?.firstname + " " + likes[0]?.lastname} liked this`
-              : "Be the first one to like this"}{" "}
+              : "Be the first one to like this"}
           </Stack>
         </Link>
 
@@ -165,7 +165,7 @@ export function Postcard(props) {
               </Link>
             </Button>
           </Stack>
-        </CardActions>
+        </CardActions></>}
         {viewComments && <CommentList viewComments={viewComments} comments={comments} postId={postId} />}
       </Card>
       <CreatePostModal open={open} handleClose={handleClose} editPost={props.post} />

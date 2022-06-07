@@ -76,14 +76,14 @@ export function UserDetails({ isFollowingUser }) {
           <Skeleton animation="wave" height={10} width={100} style={{ marginBottom: 6 }} />
         ) : (
           <Box component={"div"} sx={{ typography: "body1" }}>
-            {profileDetails?.website}
+           Website: {profileDetails?.website}
           </Box>
         )}
         {isLoading ? (
           <Skeleton animation="wave" height={10} width={100} style={{ marginBottom: 6 }} />
         ) : (
           <Box component={"div"} sx={{ typography: "body1" }}>
-            {profileDetails?.bio}
+          Bio:  {profileDetails?.bio}
           </Box>
         )}
 
