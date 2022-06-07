@@ -1,17 +1,16 @@
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "App";
 import { BottomNav, CreatePostModal, Header, Leftnav, Suggestions } from "components";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Fab, Grid } from "@mui/material";
 import "./mainpage.css";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUserData } from "firebaseUtils/auth";
-
+import { setMode } from "features/theme/themeSlice";
 
 export function MainPage() {
-  const userId=localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
+  const appTheme = localStorage.getItem("appTheme");
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -24,11 +23,11 @@ export function MainPage() {
   };
 
   useEffect(() => {
-    dispatch(getUserData(userId))
+    dispatch(getUserData(userId));
+    dispatch(setMode(appTheme))
   }, []);
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Header />
         <Box sx={{ flexGrow: 1 }} className="main-container">
           <Grid container>
@@ -46,17 +45,13 @@ export function MainPage() {
             onClick={handleClickOpen}
             sx={{
               position: "fixed",
-              display: { sm: "inline-flex", md: "none"},
+              display: { sm: "inline-flex", md: "none" },
             }}>
             <AddIcon />
           </Fab>
-          <CreatePostModal
-            open={open}
-            handleClose={handleClose}
-          />
+          <CreatePostModal open={open} handleClose={handleClose} />
           <BottomNav />
         </Box>
-      </ThemeProvider>
     </>
   );
 }

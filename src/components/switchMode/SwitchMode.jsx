@@ -1,6 +1,5 @@
-import * as React from "react";
 import { styled } from "@mui/material/styles";
-import "./switchMode.css"
+import "./switchMode.css";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { FormGroup } from "@mui/material";
@@ -52,10 +51,10 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export function SwitchMode() {
+export function SwitchMode({checked, switchHandler}) {
   return (
     <FormGroup className="app-mode">
-      <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />} />
+      <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }}  checked ={checked} onChange={switchHandler} />} />
     </FormGroup>
   );
 }

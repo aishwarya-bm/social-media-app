@@ -1,15 +1,11 @@
-import { ThemeProvider } from "@emotion/react";
-import { theme } from "App";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import { useEffect, useState } from "react";
 import { filterChipsData } from "constants/filterChips";
 
 export function FilterChips({filterBy, handleClick}) {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Stack direction="row" spacing={1} marginBottom={2} justifyContent="center">
+        <Stack direction="row" spacing={1}  justifyContent="center" alignItems="center">
           {filterChipsData.map(({ label, id }) => (
             <Chip
               label={label}
@@ -20,7 +16,6 @@ export function FilterChips({filterBy, handleClick}) {
             />
           ))}
         </Stack>
-      </ThemeProvider>
     </>
   );
 }

@@ -1,13 +1,10 @@
-import { ThemeProvider } from "@emotion/react";
 import { Close } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { theme } from "App";
 import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { UserNameCard } from "components";
 export function LikedUsers({ open, handleClose, likedUsers }) {
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -26,17 +23,28 @@ export function LikedUsers({ open, handleClose, likedUsers }) {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {likedUsers?.map(user => {
-                return (
-                  <div key={"user" + user.id}>
-                    <UserNameCard fellowUser={user} cardType={"likedUsers"} handleClose={handleClose} />
-                  </div>
-                );
-              })}
+              {likedUsers?.length ? (
+                likedUsers?.map(user => {
+                  return (
+                    <div key={"user" + user.id}>
+                      <UserNameCard fellowUser={user} cardType={"likedUsers"} handleClose={handleClose} />
+                    </div>
+                  );
+                })
+              ) : (
+                <Stack alignItems="center">
+                  <Typography gutterBottom component="div" textAlign="center">
+                    No likes on this post yet.
+                  </Typography>
+                  <img
+                    src="https://cdn.iconscout.com/icon/premium/png-128-thumb/like-3926003-3261770.png"
+                    alt="follower-empty-list"
+                  />
+                </Stack>
+              )}
             </DialogContentText>
           </DialogContent>
         </Dialog>
-      </ThemeProvider>
     </>
   );
 }

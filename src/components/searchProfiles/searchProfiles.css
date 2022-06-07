@@ -1,5 +1,4 @@
 .matching-users {
-  padding: 1rem;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -7,7 +6,7 @@
   position: fixed;
   width: 18rem;
   margin-top: 1rem;
-  box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px;
+  /* box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px; */
   max-height: 15rem;
   overflow-y: auto;
 }

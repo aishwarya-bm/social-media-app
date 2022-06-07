@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -9,6 +10,6 @@ export function Toast({ message, type }) {
     transition: Slide,
     closeOnClick: true,
     pauseOnHover: false,
-    theme: "light",
+    theme: localStorage.getItem("appTheme"),
   });
 }

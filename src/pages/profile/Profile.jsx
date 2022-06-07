@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, Tab, Tabs } from "@mui/material";
 import { LikedPosts, Postlist } from "components";
 import { UserDetails } from "components/userDetails/UserDetails";
-import { getUserProfile } from "firebaseUtils/auth";
+import { getUserProfile, isFollowing } from "firebaseUtils/auth";
 import { Bookmarks } from "pages";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,11 +17,13 @@ export function Profile() {
     setValue(newValue);
   };
 
+  const isFollowingUser = isFollowing(profileDetails?.id, user?.following);
+
   useEffect(() => {
     dispatch(getUserProfile(profileId));
     setValue("posts");
-  }, [profileId,user]);
-  
+  }, [profileId, user]);
+
   return (
     <>
       <div className="profile-container">
@@ -39,7 +41,7 @@ export function Profile() {
               aria-label={profileDetails?.firstname}
             />
           </Grid>
-          <UserDetails />
+          <UserDetails isFollowingUser={isFollowingUser} />
 
           <Tabs
             value={value}
@@ -52,9 +54,9 @@ export function Profile() {
             {id === profileDetails?.id && <Tab value="bookmarks" label="Saved"></Tab>}
             <Tab value="likes" label="Likes"></Tab>
           </Tabs>
-          {value === "posts" && <Postlist type="profile" />}
+          {value === "posts" && <Postlist type="profile" isFollowingUser={isFollowingUser} />}
           {value === "bookmarks" && <Bookmarks type="profile" />}
-          {value === "likes" && <LikedPosts />}
+          {value === "likes" && <LikedPosts isFollowingUser={isFollowingUser} />}
         </Box>
       </div>
     </>

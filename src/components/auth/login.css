@@ -2,10 +2,11 @@
     width: 40vw;
     padding-left: 5rem;
     padding-top: 5rem;
+    box-sizing: border-box;
 }
 
 .signup-avatar{
-    filter: brightness(50%);
+    filter: brightness(40%);
     cursor: pointer;
 }
 .signup-avatar:hover,.signup-avatar-focus{

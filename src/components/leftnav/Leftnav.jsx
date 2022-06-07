@@ -1,16 +1,16 @@
 import "./leftnav.css";
-import { ThemeProvider } from "@mui/material/styles";
 import { Button, Box, Grid, Typography } from "@mui/material";
-import { theme } from "App";
 import { NavLink } from "react-router-dom";
 import { Add } from "@mui/icons-material";
 import React, { useState } from "react";
 import { CreatePostModal } from "components";
 import { sidenavItems } from "constants/sidenav";
 import { useSelector } from "react-redux";
+import { appTheme } from "theme-util";
 
 export function Leftnav() {
-  const { id: userId, user } = useSelector(store => store.auth);
+  const { auth:{id: userId, user}, theme:{mode} } = useSelector(store => store);
+  const theme = appTheme();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -36,7 +36,6 @@ export function Leftnav() {
         };
 
   return (
-    <ThemeProvider theme={theme}>
       <Grid
         position="fixed"
         left="3rem"
@@ -51,8 +50,8 @@ export function Leftnav() {
         <Box component={"div"} sx={{ display: { xs: "none", sm: "inline" } }}>
           {sidenavItems.map(({ id, nav_icon, title, nextUrl }) => {
             return (
-              <>
-                  <NavLink key={"nav" + id} to={title === "Profile" ? nextUrl + `/${userId}` : nextUrl} style={getActiveStyle}>
+              
+                  <NavLink key={"leftnav"+id} to={title === "Profile" ? nextUrl + `/${userId}` : nextUrl} style={getActiveStyle}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                       {nav_icon}
                       <Typography variant="string" component="span" sx={{ display: { sm: "none", md: "inherit" } }}>
@@ -60,7 +59,7 @@ export function Leftnav() {
                       </Typography>
                     </Box>
                   </NavLink>
-              </>
+              
             );
           })}
 
@@ -82,6 +81,5 @@ export function Leftnav() {
           <CreatePostModal open={open} handleClose={handleClose} />
         </Box>
       </Grid>
-    </ThemeProvider>
   );
 }

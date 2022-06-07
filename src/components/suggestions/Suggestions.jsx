@@ -1,5 +1,5 @@
 import { ArrowRightOutlined } from "@mui/icons-material";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { UserNameCard } from "components";
 import { getAllUsers } from "firebaseUtils/auth";
 import { getSuggestionsList } from "firebaseUtils/filters";
@@ -30,8 +30,9 @@ export function Suggestions() {
         mt="2rem"
         sx={{
           display: { xs: "none", sm: "none", md: "none", lg: "grid" },
+          width: "20rem",
         }}>
-        <Typography gutterBottom component="div" sx={{ marginTop: 3 }} textAlign="center">
+        <Typography gutterBottom component="div" variant="h6" sx={{ marginTop: 3 }} textAlign="center">
           Suggestions:
           {suggestedUsers?.length > 5 && (
             <Button endIcon={<ArrowRightOutlined />} variant="text" onClick={handleOpenSuggestionsModal}>
@@ -39,11 +40,23 @@ export function Suggestions() {
             </Button>
           )}
         </Typography>
-        {suggestedUsers.slice(0, 5)?.map((follower, idx) => (
-          <div key={"suggestion" + idx}>
-            <UserNameCard fellowUser={follower} cardType="suggestions" />
-          </div>
-        ))}
+        {suggestedUsers?.length ? (
+          suggestedUsers?.slice(0, 5)?.map((follower, idx) => (
+            <div key={"suggestion" + idx}>
+              <UserNameCard fellowUser={follower} cardType="suggestions" />
+            </div>
+          ))
+        ) : (
+          <Stack alignItems="center">
+            <Typography gutterBottom component="div" sx={{ marginTop: 1 }} textAlign="center">
+              No suggestions, check out your news feed to stay updated.
+            </Typography>
+            <img
+              src="https://cdn.iconscout.com/icon/premium/png-128-thumb/empty-folder-5400756-4557891.png"
+              alt="no-suggestions"
+            />
+          </Stack>
+        )}
       </Grid>
       <AllSuggestions
         open={openSuggestions}

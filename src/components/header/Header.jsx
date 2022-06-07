@@ -6,10 +6,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "App";
 import { Logout } from "@mui/icons-material";
-import { CreatePostModal, SearchProfiles, SwitchMode } from "components";
+import { SearchProfiles, SwitchMode } from "components";
 import { logoutUser } from "firebaseUtils/auth";
 import { logout } from "features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Stack } from "@mui/material";
 import "./header.css";
+import { setMode } from "features/theme/themeSlice";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,18 +57,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export function Header() {
-  const { isLoggedIn } = useSelector(store => store.auth);
-  const [open, setOpen] = useState(false);
+export function Header({ isAuthPage }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const { mode } = useSelector(store => store.theme);
+  const switchHandler = event => {
+    event.target.checked ? localStorage.setItem("appTheme", "dark") : localStorage.setItem("appTheme", "light");
+    dispatch(setMode(localStorage.getItem("appTheme")));
   };
 
   const [searchText, setSearhText] = useState("");
@@ -90,38 +85,41 @@ export function Header() {
   }
   const debouncedText = debounce(text => setSearhText(text));
 
+  const bgColor = mode === "light" ? "white" : "black";
+
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar
-          position="fixed"
-          sx={{ backgroundColor: theme.palette.common.white, color: theme.palette.common.black }}>
-          <Toolbar className="app-header">
-            <Stack direction="row" alignItems="center" sx={{ cursor: "pointer" }} onClick={() => navigate("/home")}>
-              {
-                <IconButton size="large" edge="start" color="inherit" aria-label="open drawer">
-                  <img src="https://cdn.iconscout.com/icon/free/png-32/askfm-3771581-3149784.png" alt="logo" />
-                </IconButton>
-              }
-              <Typography
-                color="primary"
-                component="div"
-                sx={{
-                  display: { xs: "none", sm: "block" },
-                  fontSize: "2rem",
-                  fontFamily: "Dancing Script, cursive",
-                  fontWeight: "bolder",
-                }}>
-                Ssup
-              </Typography>
-            </Stack>
-            <Search>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar color={bgColor} position="fixed">
+        <Toolbar className="app-header">
+          <Stack direction="row" alignItems="center" sx={{ cursor: "pointer" }} onClick={() => navigate("/home")}>
+            {
+              <IconButton size="large" edge="start" color="inherit" aria-label="open drawer">
+                <img src="https://cdn.iconscout.com/icon/free/png-32/askfm-3771581-3149784.png" alt="logo" />
+              </IconButton>
+            }
+            <Typography
+              color="primary"
+              component="div"
+              sx={{
+                display: { xs: "none", sm: "block" },
+                fontSize: "2rem",
+                fontFamily: "Dancing Script, cursive",
+                fontWeight: "bolder",
+              }}>
+              Ssup
+            </Typography>
+          </Stack>
+          {!isAuthPage && (
+            <Search sx={{ border: "1px solid var(--icon-color)" }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
                 onFocus={() => setShowSearch(true)}
-                onBlur={() => setShowSearch(false)}
+                // onBlur={() => {
+                //   console.log("blurred");
+                //   setShowSearch(false);
+                // }}
                 type="search"
                 placeholder="Search user…"
                 inputProps={{ "aria-label": "search" }}
@@ -129,23 +127,22 @@ export function Header() {
                 defaultValue=""
               />
             </Search>
-            <Stack direction="row">
-              <SwitchMode />
-              <Box sx={{ display: { md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="logout"
-                  color="inherit"
-                  onClick={() => logoutUser(dispatch, logout, navigate)}>
-                  <Logout />
-                </IconButton>
-              </Box>
-            </Stack>
-          </Toolbar>
-        </AppBar>
-        <SearchProfiles searchText={searchText} showSearch={showSearch} />
-      </Box>
-      <CreatePostModal open={open} handleClose={handleClose} />
-    </ThemeProvider>
+          )}
+          <Stack direction="row">
+            <SwitchMode checked={mode === "dark"} switchHandler={switchHandler} />
+            <Box sx={{ display: { md: "flex" } }}>
+              <IconButton
+                size="large"
+                aria-label="logout"
+                color="inherit"
+                onClick={() => logoutUser(dispatch, logout, navigate)}>
+                <Logout />
+              </IconButton>
+            </Box>
+          </Stack>
+        </Toolbar>
+      </AppBar>
+      <SearchProfiles searchText={searchText} showSearch={showSearch} setShowSearch={setShowSearch} />
+    </Box>
   );
 }

@@ -1,7 +1,7 @@
-import { ThemeProvider } from "@emotion/react";
 import { Avatar, Stack, Typography } from "@mui/material";
-import { theme } from "App";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { appTheme } from "theme-util";
 import "./commentcard.css";
 export function CommentCard({ comment }) {
   const { author, createdAt, comment: content } = comment;
@@ -9,9 +9,14 @@ export function CommentCard({ comment }) {
     new Date(createdAt?.seconds * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
     ", " +
     new Date(createdAt?.seconds * 1000).toLocaleDateString();
+
+  const { mode } = useSelector(store => store.theme);
+  const {palette:{common :{black, white,icon}}} = appTheme(mode);
+  const bgColor = mode === "light" ? "var(--grey-bg)" : "icon.dark";
+  const fColor = mode === "light" ? black : white;
+
   return (
     <>
-      <ThemeProvider theme={theme}>
         <div>
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Link to={`/profile/${author?.id}`}>
@@ -23,14 +28,14 @@ export function CommentCard({ comment }) {
               />
             </Link>
             <Link to={`/profile/${author?.id}`}>
-              <Typography variant="subtitle2">{`${author?.firstname} ${author?.lastname}`}</Typography>
+              <Typography variant="subtitle2" color="primary.dark" >{`${author?.firstname} ${author?.lastname}`}</Typography>
             </Link>
             <Typography variant="caption">{commentDateTime}</Typography>
           </Stack>
           <Typography
             variant="body2"
             sx={{
-              backgroundColor: "var(--grey-bg)",
+              backgroundColor: bgColor,
               padding: 1,
               borderRadius: 4,
               marginLeft: 5,
@@ -40,7 +45,6 @@ export function CommentCard({ comment }) {
             {content}
           </Typography>
         </div>
-      </ThemeProvider>
     </>
   );
 }
