@@ -7,14 +7,14 @@ const filterPosts = (posts, id, type) => {
     case "liked":
       return posts.filter(p => p.likes.find(like => like.id === id));
     default:
-      return posts;
+      return [...posts].sort((a, b) => b.createdAt - a.createdAt);
   }
 };
 
 const getFeed = (posts, user) => {
   let myPosts = posts.filter(p => user.uid === p.author.id);
   let followerPosts = user?.following?.length ? posts.filter(p => user?.following?.find(f => f.id === p.author.id)) : [];
-  return [...myPosts, ...followerPosts];
+  return [...myPosts, ...followerPosts].sort((a, b) => b.createdAt - a.createdAt);
 };
 
 const filterPostsByChip = (posts, chip) => {

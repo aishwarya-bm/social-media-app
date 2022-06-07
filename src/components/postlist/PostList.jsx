@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { setProfilePosts } from "features/posts/postsSlice";
 import { SkeletonPost } from "components";
 
-export function Postlist({ type, filterByChip, isFollowingUser }) {
+export function Postlist({ type, isFollowingUser }) {
   const { feedPosts, auth } = useSelector(store => store);
   const { id, user } = auth;
   const { feed, isLoadingPosts } = feedPosts;
@@ -17,8 +17,7 @@ export function Postlist({ type, filterByChip, isFollowingUser }) {
   const userId = profileId || id;
   let filteredPosts = useMemo(() => getFeed(feed, user), [feed, user]);
   let profilePosts = useMemo(() => filterPosts(filteredPosts, userId, type), [userId, filteredPosts, feed]);
-  let filterByChipsPosts = filterPostsByChip(filteredPosts, filterByChip);
-  filteredPosts = type ? profilePosts : filterByChipsPosts;
+  if(type) filteredPosts = profilePosts
 
   useEffect(() => {
     dispatch(getUserFeedPosts());
@@ -33,9 +32,7 @@ export function Postlist({ type, filterByChip, isFollowingUser }) {
       <Stack direction="column" gap={3}>
         {filteredPosts?.length ? (
           filteredPosts?.map(p => (
-            // <div key={p.postId}>
               <Postcard post={p} key={p.postId} />
-            // </div>
           ))
         ) : isLoadingPosts ? (
           <SkeletonPost />

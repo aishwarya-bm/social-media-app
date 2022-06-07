@@ -6,10 +6,10 @@ import { useState } from "react";
 
 export function Home() {
   const [showFilter, setShowFilter] = useState(false);
-  const [filterBy, setFilterBy] = useState("recent");
-  const handleClick = e => {
-    setFilterBy(e.target.innerText);
-  };
+  // const [filterBy, setFilterBy] = useState("recent");
+  // const handleClick = e => {
+  //   setFilterBy(e.target.innerText);
+  // };
 
   return (
     <>
@@ -22,8 +22,8 @@ export function Home() {
           Home
         </Typography>
       </Box>
-      {showFilter && <FilterChips filterBy={filterBy} handleClick={handleClick} />}
-      <Postlist filterByChip={filterBy} />
+      {/* {showFilter && <FilterChips filterBy={filterBy} handleClick={handleClick} />} */}
+      <Postlist  />
     </>
   );
 }

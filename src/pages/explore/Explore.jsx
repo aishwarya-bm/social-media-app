@@ -15,7 +15,7 @@ export function Explore() {
   } = useSelector(store => store);
 
   const [showFilter, setShowFilter] = useState(false);
-  const [filterBy, setFilterBy] = useState("recent");
+  const [filterBy, setFilterBy] = useState("trending");
   const handleClick = e => {
     setFilterBy(e.target.innerText);
   };
