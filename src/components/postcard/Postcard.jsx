@@ -71,7 +71,6 @@ export function Postcard(props) {
           minWidth: "10rem",
           boxShadow: "box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 20%)",
           borderRadius: "5px",
-          border: "1px solid  var(--icon-light)",
         }}
         className="post-card">
         <CardHeader

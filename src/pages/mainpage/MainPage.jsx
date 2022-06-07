@@ -4,13 +4,14 @@ import { Box, Fab, Grid } from "@mui/material";
 import "./mainpage.css";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "firebaseUtils/auth";
 import { setMode } from "features/theme/themeSlice";
 
 export function MainPage() {
   const userId = localStorage.getItem("userId");
-  const appTheme = localStorage.getItem("appTheme");
+  const { mode } = useSelector(store => store.theme);
+  const appTheme = mode;
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
