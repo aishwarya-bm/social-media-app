@@ -83,7 +83,6 @@ export function Signup({ setIsSignupForm }) {
                 label="Last name"
                 name="lastname"
                 autoComplete="lastname"
-                autoFocus
               />
               <TextField
                 margin="normal"
@@ -93,7 +92,6 @@ export function Signup({ setIsSignupForm }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 error={formErrors.email ? true : false}
                 helperText={formErrors.email ? formErrors.email : ""}
               />
