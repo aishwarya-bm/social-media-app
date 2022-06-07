@@ -21,7 +21,7 @@ export function SearchProfiles({ searchText, showSearch, setShowSearch }) {
     <>
         <CssBaseline />
         {showSearch && (
-          <Box component="div" className="matching-users" textAlign="center">
+          <Box component="div" className="matching-users" textAlign="center" border="1px solid var(--icon-color)" >
             {searchText !== "" &&
               (matchingProfiles?.length ? (
                 matchingProfiles?.map((fellowUser, idx) => (
