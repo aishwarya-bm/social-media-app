@@ -10,7 +10,6 @@ export function SearchProfiles({ searchText, showSearch, setShowSearch }) {
   );
 
   const openProfile = userid => {
-    console.log("clicked");
     navigate(`/profile/${userid}`);
     setShowSearch(false);
   };
