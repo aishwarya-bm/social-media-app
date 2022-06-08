@@ -1,6 +1,6 @@
 # Ssup
 
-Ssip is a social media app to connect with people.
+Ssup is a social media app to connect with people.
 
 [](https://github.com/aishwarya-bm/social-media-app/README.md#technologies-used)Technologies used
 ----------------------------------------------------------------------------------------------
