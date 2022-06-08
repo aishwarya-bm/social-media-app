@@ -59,6 +59,7 @@ Ssup is a social media app to connect with people.
 ![dark](https://user-images.githubusercontent.com/66695068/172709125-43cccb20-8f70-47a1-b2d4-60f6f57559c9.PNG)
 
 -   Responsive
+
 ![responsive](https://user-images.githubusercontent.com/66695068/172709374-0ce2928c-340d-4dd4-a02b-98a5486dc466.PNG)
 
 
