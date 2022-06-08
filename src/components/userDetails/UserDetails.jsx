@@ -25,7 +25,14 @@ export function UserDetails({ isFollowingUser }) {
 
   return (
     <>
-      <Stack direction="column" gap={1} className="profile-details" mt={1} alignItems="center" border="1px solid var(--icon-color)">
+      <Stack
+        direction="column"
+        gap={1}
+        className="profile-details"
+        mt={1}
+        alignItems="center"
+        border={1}
+        borderColor="icon.main">
         <Stack
           direction="row"
           gap={1}
@@ -76,14 +83,14 @@ export function UserDetails({ isFollowingUser }) {
           <Skeleton animation="wave" height={10} width={100} style={{ marginBottom: 6 }} />
         ) : (
           <Box component={"div"} sx={{ typography: "body1" }}>
-           Website: {profileDetails?.website}
+            Website: {profileDetails?.website}
           </Box>
         )}
         {isLoading ? (
           <Skeleton animation="wave" height={10} width={100} style={{ marginBottom: 6 }} />
         ) : (
           <Box component={"div"} sx={{ typography: "body1" }}>
-          Bio:  {profileDetails?.bio}
+            Bio: {profileDetails?.bio}
           </Box>
         )}
 

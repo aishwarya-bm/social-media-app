@@ -11,6 +11,6 @@
 }
 .signup-avatar:hover,.signup-avatar-focus{
     filter: brightness(100%);
-    border: 2px solid var(--primary-color);
+    border: 2px solid;
     border-radius: 50%;
 }

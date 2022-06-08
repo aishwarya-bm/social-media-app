@@ -32,7 +32,7 @@ export function UserNameCard({ cardType, fellowUser, handleClose }) {
           alignItems={"center"}
           gap={1}
           onClick={e => {
-            navigate(`/profile/${fellowUser.id}`);
+            navigate(`/profile/${fellowUser?.id}`);
             if (handleClose) handleClose();
           }}>
           {isLoading ? (
@@ -95,23 +95,6 @@ export function UserNameCard({ cardType, fellowUser, handleClose }) {
             )}
           </>
         )}
-        {/* {isLoading ? (
-          <Skeleton sx={{ bgcolor: "#666666" }} variant="rectangular" width={50} height={30}>
-            <Typography></Typography>
-          </Skeleton>
-        ) : (
-          (cardType === "suggestions" || cardType === "allSuggestions") && (
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={e => {
-                e.stopPropagation();
-                addUserToFollowing(id, user, fellowUser, dispatch, setUserProfile, profileId);
-              }}>
-              follow
-            </Button>
-          )
-        )} */}
       </Card>
     </>
   );

@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material";
 import { grey, red } from "@mui/material/colors";
 
 export const appTheme = mode => {
- return createTheme({
+  return createTheme({
     palette: {
       mode: mode,
       primary: {
@@ -24,6 +24,10 @@ export const appTheme = mode => {
       },
       white: {
         main: grey[50],
+      },
+      grey: {
+        main: grey[500],
+        light: "#e6e8eb",
       },
     },
     typography: {

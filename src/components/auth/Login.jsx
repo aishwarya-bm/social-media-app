@@ -68,8 +68,8 @@ export function Login({ setIsSignupForm }) {
             sx={{ mt: 1 }}
             onClick={() => {
               const userData = {
-                email: "testuser@gmail.com",
-                password: "Test@1",
+                email: "aishwarya@gmail.com",
+                password: "Aishwarya@1",
               };
               loginUser(userData, dispatch, login, navigate, location);
             }}>
