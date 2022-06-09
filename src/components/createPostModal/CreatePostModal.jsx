@@ -85,15 +85,15 @@ export function CreatePostModal({ open, handleClose, editPost }) {
             onChange={e => handleChange(e)}
           />
           <Box component="div">
-            <IconButton aria-label="add-photo" color="icon">
+            {/* <IconButton aria-label="add-photo" color="icon">
               <CameraAlt style={{ cursor: "pointer" }} />
-            </IconButton>
+            </IconButton> */}
             <IconButton aria-label="add-emoji" color="icon" onClick={() => setShowEmoji(prev => !prev)}>
               <EmojiEmotions />
             </IconButton>
-            <label htmlFor="post-image">
+            {/* <label htmlFor="post-image">
               <input id="post-image" type="file" name="post-image" accept="image/*" />
-            </label>
+            </label> */}
             {showEmoji && (
               <div style={{ position: "inherit" }}>
                 <EmojiPicker onEmojiClick={onEmojiClick} />
