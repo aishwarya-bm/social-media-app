@@ -96,7 +96,6 @@ const loginUser = (user, dispatch, login, navigate,location) => {
     })
     .catch(error => {
       const errorCode = error.code;
-      console.log(error)
       switch (errorCode) {
         case "auth/wrong-password":
           return Toast({
@@ -204,7 +203,10 @@ const getUserProfile = createAsyncThunk("auth/getUserProfile", async uid => {
     if (docSnap.exists()) {
       return { ...docSnap.data(), id: docSnap.id };
     } else {
-      console.log("No such document!");
+      Toast({
+        message: "Some error occured.",
+        type: "error",
+      });
     }
   } catch (err) {
     Toast({

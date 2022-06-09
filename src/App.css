@@ -1,19 +1,17 @@
-:root{
-    --grey-bg:#e6e8eb;
-    --primary-color:#407BFF;
-    --icon-color:#666666;
-    --card-border:#2196f36b;
-    --icon-light:#00000042;
+:root {
+  --grey-bg: #e6e8eb;
+  --primary-color: #407bff;
+  --icon-color: #666666;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
 
-/* input[type="text"]{
-    padding: 0.5rem;
-} */
+.modal-create-post .MuiPaper-root {
+  width: 50vw;
+}
 
-.modal-create-post .MuiPaper-root{
-     width: 50vw;
+.img {
+  object-fit: cover;
 }

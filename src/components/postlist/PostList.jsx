@@ -17,7 +17,7 @@ export function Postlist({ type, isFollowingUser }) {
   const userId = profileId || id;
   let filteredPosts = useMemo(() => getFeed(feed, user), [feed, user]);
   let profilePosts = useMemo(() => filterPosts(filteredPosts, userId, type), [userId, filteredPosts, feed]);
-  if(type) filteredPosts = profilePosts
+  if (type) filteredPosts = profilePosts;
 
   useEffect(() => {
     dispatch(getUserFeedPosts());
@@ -31,9 +31,7 @@ export function Postlist({ type, isFollowingUser }) {
     <>
       <Stack direction="column" gap={3}>
         {filteredPosts?.length ? (
-          filteredPosts?.map(p => (
-              <Postcard post={p} key={p.postId} />
-          ))
+          filteredPosts?.map(p => <Postcard post={p} key={p.postId} />)
         ) : isLoadingPosts ? (
           <SkeletonPost />
         ) : (
@@ -44,7 +42,7 @@ export function Postlist({ type, isFollowingUser }) {
                   ? "Oops, no posts in this list!"
                   : type === "saved"
                   ? "No saved posts yet"
-                  : "Follow user to see their posts."
+                  : (profileId === id ? "Create/like posts to see them here" : "Follow user to see their posts.")
                 : "Follow your friends to check their latest updates here."}
             </Typography>
             <img

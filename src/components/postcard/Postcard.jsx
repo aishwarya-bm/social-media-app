@@ -1,35 +1,9 @@
 import { Link as RouterLink } from "react-router-dom";
-import {
-  BookmarkAdded,
-  BookmarkAddOutlined,
-  ChatBubbleOutline,
-  FavoriteBorderOutlined,
-  ThumbUpAlt,
-} from "@mui/icons-material";
-import {
-  Avatar,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Divider,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { BookmarkAdded, BookmarkAddOutlined, ChatBubbleOutline, FavoriteBorderOutlined, ThumbUpAlt } from "@mui/icons-material";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Link, Stack, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CommentList, CreatePostModal, LikedUsers, PostMenu } from "components";
-import {
-  addPostToLiked,
-  addPostToSaved,
-  getUserFeedPosts,
-  isPostLiked,
-  isPostSaved,
-  removePostFromLiked,
-  removePostFromSaved,
-} from "firebaseUtils/posts";
+import { addPostToLiked, addPostToSaved, getUserFeedPosts, isPostLiked, isPostSaved, removePostFromLiked, removePostFromSaved } from "firebaseUtils/posts";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./postcard.css";

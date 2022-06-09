@@ -11,9 +11,7 @@ export function CommentCard({ comment }) {
     new Date(createdAt?.seconds * 1000).toLocaleDateString();
 
   const { mode } = useSelector(store => store.theme);
-  const {palette:{common :{black, white,icon}}} = appTheme(mode);
-  const bgColor = mode === "light" ? "var(--grey-bg)" : "icon.dark";
-  const fColor = mode === "light" ? black : white;
+  const bgColor = mode === "light" ? "grey.light" : "icon.dark";
 
   return (
     <>

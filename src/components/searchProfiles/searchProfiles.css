@@ -6,7 +6,6 @@
   position: fixed;
   width: 18rem;
   margin-top: 1rem;
-  /* box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px; */
   max-height: 15rem;
   overflow-y: auto;
 }

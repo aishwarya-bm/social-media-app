@@ -110,7 +110,7 @@ export function Header({ isAuthPage }) {
             </Typography>
           </Stack>
           {!isAuthPage && (
-            <Search sx={{ border: "1px solid var(--icon-color)" }}>
+            <Search sx={{ border: 1 , borderColor:"icon.main" }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
