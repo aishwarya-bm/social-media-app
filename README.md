@@ -1,6 +1,6 @@
 # Ssup
 
-Ssip is a social media app to connect with people.
+Ssup is a social media app to connect with people.
 
 [](https://github.com/aishwarya-bm/social-media-app/README.md#technologies-used)Technologies used
 ----------------------------------------------------------------------------------------------
@@ -23,6 +23,7 @@ Ssip is a social media app to connect with people.
 -   Explore posts and sort based on trending, oldest, recent
 -   Like/comment/save a post
 -   Follow/unfollow a user
+-   Search user
 -   Show user suggestions to follow
 -   Dark mode
 -   Responsive
@@ -42,9 +43,24 @@ Ssip is a social media app to connect with people.
 [](https://github.com/aishwarya-bm/social-media-app/README.md#screenshots)Screenshots
 ----------------------------------------------------------------------------------
 
--   Home page
-
-![home](https://user-images.githubusercontent.com/66695068/169647770-dad03f04-2c50-4089-94c1-f7eea6364be0.PNG)
-
 -   Login
+![login](https://user-images.githubusercontent.com/66695068/172707622-a077a3fa-e336-4d26-901e-922eff1d9803.PNG)
+
+-   Home page
+![home](https://user-images.githubusercontent.com/66695068/172708361-d7d31e08-a066-4b83-a801-2ace1955888d.PNG)
+
+-   Explore pge
+![explore](https://user-images.githubusercontent.com/66695068/172708596-0c0d6680-8c76-4aff-afc9-c7dd00b4366d.PNG)
+
+-   Profile pge
+![profile](https://user-images.githubusercontent.com/66695068/172708837-5ebc3e9a-e0de-475a-b692-a10a2e204801.PNG)
+
+-   Dark mode
+![dark](https://user-images.githubusercontent.com/66695068/172709125-43cccb20-8f70-47a1-b2d4-60f6f57559c9.PNG)
+
+-   Responsive
+
+![responsive](https://user-images.githubusercontent.com/66695068/172709374-0ce2928c-340d-4dd4-a02b-98a5486dc466.PNG)
+
+
 
