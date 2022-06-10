@@ -1,7 +1,11 @@
 import { Typography } from "@mui/material";
 import { Postlist } from "components";
+import { useEffect } from "react";
 
 export function Bookmarks({ type }) {
+  useEffect(() => {
+    document.title = `Saved | Ssup`;
+  }, []);
   return (
     <>
       {type !== "profile" && (

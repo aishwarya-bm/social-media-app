@@ -1,15 +1,12 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { theme } from "App";
-import { FilterChips, Postlist } from "components";
-import { useState } from "react";
+import { Postlist } from "components";
+import { useEffect } from "react";
 
 export function Home() {
-  const [showFilter, setShowFilter] = useState(false);
-  // const [filterBy, setFilterBy] = useState("recent");
-  // const handleClick = e => {
-  //   setFilterBy(e.target.innerText);
-  // };
+  useEffect(() => {
+    document.title = `Home | Ssup`;
+  }, []);
 
   return (
     <>
@@ -22,7 +19,6 @@ export function Home() {
           Home
         </Typography>
       </Box>
-      {/* {showFilter && <FilterChips filterBy={filterBy} handleClick={handleClick} />} */}
       <Postlist  />
     </>
   );
