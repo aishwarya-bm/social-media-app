@@ -5,8 +5,13 @@ import { Header } from "components";
 import { Box } from "@mui/system";
 import { Signup } from "components/auth/Signup";
 import { useState } from "react";
+import { useEffect } from "react";
 export function Auth() {
   const [isSignupForm, setIsSignupForm] = useState(false);
+  useEffect(()=>{
+    const title = isSignupForm ? "Signup" : "Login"
+    document.title = `${title} | Ssup`
+  },[])
   return (
     <>
       <Header isAuthPage={true} />

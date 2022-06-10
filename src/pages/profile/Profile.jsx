@@ -23,7 +23,9 @@ export function Profile() {
     dispatch(getUserProfile(profileId));
     setValue("posts");
   }, [profileId, user]);
-
+  useEffect(() => {
+    document.title = `Profile | Ssup`;
+  }, []);
   return (
     <>
       <div className="profile-container">

@@ -63,66 +63,76 @@ export function CreatePostModal({ open, handleClose, editPost }) {
   };
 
   return (
-      <Dialog
-        fullWidth
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title" align="center">
-          <Typography component="span" variant="h5" color="primary">
-            {editPost ? "Edit post" : "Create post"}
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <TextField
-            fullWidth
-            placeholder="what'SSUP with you..."
-            multiline
-            autoFocus
-            rows={3}
-            value={postForm.content}
-            onChange={e => handleChange(e)}
-          />
-          <Box component="div">
-            {/* <IconButton aria-label="add-photo" color="icon">
-              <CameraAlt style={{ cursor: "pointer" }} />
-            </IconButton> */}
-            <IconButton aria-label="add-emoji" color="icon" onClick={() => setShowEmoji(prev => !prev)}>
-              <EmojiEmotions />
-            </IconButton>
-            {/* <label htmlFor="post-image">
-              <input id="post-image" type="file" name="post-image" accept="image/*" />
-            </label> */}
-            {showEmoji && (
-              <div style={{ position: "inherit" }}>
-                <EmojiPicker onEmojiClick={onEmojiClick} />
-              </div>
-            )}
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          {editPost ? (
-            <Button
-              variant="contained"
-              onClick={() => {
-                handlePostSubmit();
-              }}>
-              Update
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              onClick={() => {
-                handlePostSubmit();
-              }}>
-              Post
-            </Button>
+    <Dialog
+      fullWidth
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description">
+      <DialogTitle id="alert-dialog-title" align="center">
+        <Typography component="span" variant="h5" color="primary">
+          {editPost ? "Edit post" : "Create post"}
+        </Typography>
+      </DialogTitle>
+      <DialogContent>
+        <TextField
+          fullWidth
+          placeholder="what'SSUP with you..."
+          multiline
+          autoFocus
+          rows={3}
+          value={postForm.content}
+          onChange={e => handleChange(e)}
+        />
+        <Box component="div">
+          <IconButton aria-label="add-emoji" color="icon" onClick={() => setShowEmoji(prev => !prev)}>
+            <EmojiEmotions />
+          </IconButton>
+          {showEmoji && (
+            <div style={{ position: "inherit" }}>
+              <EmojiPicker onEmojiClick={onEmojiClick} />
+            </div>
           )}
-          <Button variant="outlined" onClick={handleClose} autoFocus>
-            Cancel
+        </Box>
+      </DialogContent>
+      <DialogActions>
+        {editPost ? (
+          <Button
+            variant="contained"
+            onClick={() => {
+              handlePostSubmit();
+            }}>
+            Update
           </Button>
-        </DialogActions>
-      </Dialog>
+        ) : (
+          <Button
+            variant="contained"
+            onClick={() => {
+              handlePostSubmit();
+            }}>
+            Post
+          </Button>
+        )}
+        <Button
+          variant="outlined"
+          onClick={() => {
+            editPost
+              ? setPostForm(editPost)
+              : setPostForm({
+                  content: "",
+                  comments: [],
+                  media: "",
+                  author: {},
+                  createdAt: "",
+                  likes: [],
+                  saved: [],
+                });
+            handleClose();
+          }}
+          autoFocus>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }

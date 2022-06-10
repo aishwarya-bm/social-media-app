@@ -1,9 +1,14 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { Header } from "components";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function Error() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `Error | Ssup`;
+  }, []);
   return (
     <>
       <Header />

@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, Stack, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Container, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { login } from "features/auth/authSlice";
 import { useState } from "react";
@@ -7,10 +7,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { createUser, isValidEmail, isValidPassword } from "firebaseUtils/auth";
 import "./login.css";
 import { profileAvatars } from "constants/profileAvatars";
+import { RemoveRedEyeOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 
 export function Signup({ setIsSignupForm }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = e => {
+    e.preventDefault();
+    setShowPassword(showPassword => !showPassword);
+  };
   const [profileAvatar, setProfileAvatar] = useState("");
   const [formErrors, setFormErrors] = useState({ email: "", password: "" });
   const location = useLocation();
@@ -98,18 +104,29 @@ export function Signup({ setIsSignupForm }) {
               error={formErrors.email ? true : false}
               helperText={formErrors.email ? formErrors.email : ""}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              error={formErrors.password ? true : false}
-              helperText={formErrors.password ? formErrors.password : ""}
-            />
+            <Box position="relative">
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                id="password"
+                autoComplete="current-password"
+                error={formErrors.password ? true : false}
+                helperText={formErrors.password ? formErrors.password : ""}
+              />
+              {showPassword ? (
+                <IconButton onClick={e => toggleShowPassword(e)} className="eye-icon" sx={{ position: "absolute" }}>
+                  <RemoveRedEyeOutlined />
+                </IconButton>
+              ) : (
+                <IconButton className="eye-icon" onClick={e => toggleShowPassword(e)} sx={{ position: "absolute" }}>
+                  <VisibilityOffOutlined />
+                </IconButton>
+              )}
+            </Box>
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign up
             </Button>

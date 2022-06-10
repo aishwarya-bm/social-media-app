@@ -1,7 +1,7 @@
 import { SortOutlined } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { FilterChips, Postlist } from "components";
+import { FilterChips } from "components";
 import { Postcard } from "components/postcard/Postcard";
 import { filterPostsByChip } from "firebaseUtils/filters";
 import { getUserFeedPosts } from "firebaseUtils/posts";
@@ -28,6 +28,9 @@ export function Explore() {
     dispatch(getUserFeedPosts());
   }, []);
 
+  useEffect(() => {
+    document.title = `Explore | Ssup`;
+  }, []);
   return (
     <>
       <Box sx={{ marginTop: 4 }}>

@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Container, IconButton, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import "./login.css";
@@ -6,12 +6,18 @@ import { loginUser } from "firebaseUtils/auth";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { login } from "features/auth/authSlice";
+import { useState } from "react";
+import { ArrowForwardIos, RemoveRedEyeOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 
 export function Login({ setIsSignupForm }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = e => {
+    e.preventDefault();
+    setShowPassword(showPassword => !showPassword);
+  };
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -21,6 +27,7 @@ export function Login({ setIsSignupForm }) {
     };
     loginUser(userData, dispatch, login, navigate, location);
   };
+
   return (
     <>
       <Container component="main" maxWidth="xs">
@@ -42,25 +49,35 @@ export function Login({ setIsSignupForm }) {
               autoComplete="email"
               autoFocus
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-
+            <Box position="relative">
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                id="password"
+                autoComplete="current-password"
+              />
+              {showPassword ? (
+                <IconButton onClick={e => toggleShowPassword(e)} className="eye-icon" sx={{ position:"absolute"}}>
+                  <RemoveRedEyeOutlined />
+                </IconButton>
+              ) : (
+                <IconButton className="eye-icon" onClick={e => toggleShowPassword(e)} sx={{ position:"absolute"}}>
+                  <VisibilityOffOutlined />
+                </IconButton>
+              )}
+            </Box>
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
             <Button size="small" onClick={() => setIsSignupForm(true)}>
-              {"Don't have an account? Sign Up"}
+              {"Don't have an account already? Sign Up"} <ArrowForwardIos />
             </Button>
           </Box>
-          OR
+          OR 
           <Button
             type="submit"
             fullWidth
