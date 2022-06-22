@@ -85,6 +85,11 @@ export function Header({ isAuthPage }) {
   }
   const debouncedText = debounce(text => setSearhText(text));
 
+  const openProfile = userid => {
+    navigate(`/profile/${userid}`);
+    debouncedText("");
+  };
+
   const bgColor = mode === "light" ? "white" : "black";
 
   return (
@@ -110,7 +115,7 @@ export function Header({ isAuthPage }) {
             </Typography>
           </Stack>
           {!isAuthPage && (
-            <Search sx={{ border: 1 , borderColor:"icon.main" }}>
+            <Search sx={{ border: 1, borderColor: "icon.main" }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -140,7 +145,12 @@ export function Header({ isAuthPage }) {
           </Stack>
         </Toolbar>
       </AppBar>
-      <SearchProfiles searchText={searchText} showSearch={showSearch} setShowSearch={setShowSearch} />
+      <SearchProfiles
+        searchText={searchText}
+        showSearch={showSearch}
+        setShowSearch={setShowSearch}
+        openProfile={openProfile}
+      />
     </Box>
   );
 }

@@ -2,17 +2,12 @@ import { Avatar, Box, Card, CssBaseline, Stack, Typography } from "@mui/material
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./searchProfiles.css";
-export function SearchProfiles({ searchText, showSearch, setShowSearch }) {
+export function SearchProfiles({ searchText, showSearch, openProfile }) {
   const navigate = useNavigate();
   const { allUsers } = useSelector(store => store.auth);
   const matchingProfiles = allUsers.filter(user =>
     (user.firstname + " " + user.lastname).toLowerCase().includes(searchText.toLowerCase())
   );
-
-  const openProfile = userid => {
-    navigate(`/profile/${userid}`);
-    setShowSearch(false);
-  };
 
   return (
     <>
@@ -20,8 +15,8 @@ export function SearchProfiles({ searchText, showSearch, setShowSearch }) {
       {showSearch && searchText !== "" && (
         <Box component="div" className="matching-users" textAlign="center" border={1} borderColor="icon.main">
           {matchingProfiles?.length ? (
-            matchingProfiles?.map(({ firstname, lastname, avatar }, idx) => (
-              <div key={"matching" + idx} onClick={() => openProfile(fellowUser.id)}>
+            matchingProfiles?.map(({ id, firstname, lastname, avatar }, idx) => (
+              <div key={"matching" + idx} onClick={() => openProfile(id)}>
                 <Card
                   elevation={0}
                   sx={{
